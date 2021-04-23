@@ -6,4 +6,5 @@ This is work in progress
    :maxdepth: 2
    :caption: Contents:
 
+   docs/introduction.rst
    docs/requirements.rst
