@@ -1,4 +1,5 @@
-## Introduction - tools for scientific workflows
+Introduction
+============
 
 Software-driven scientific workflows are often characterized by a complex interplay
 of various pieces of software executed in a particular order. The software involved
@@ -23,8 +24,6 @@ tools can provide the means to accomplish the above-mentioned challenges, that i
 - packaging of the workflow together with the involved software packages to make it
   shareable with and executable by other researchers
 
-The aim of this repository is to collect, in a community effort, the requirements
+The aim of this document is to collect, in a community effort, the requirements
 of scientific workflows on such tools, and to document user experiences on how to
 set up workflows using existing tools.
-
-For a more detailed overview, see the [documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
