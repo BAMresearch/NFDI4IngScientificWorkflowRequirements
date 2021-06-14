@@ -32,6 +32,19 @@ the automated generation of a documentation based on descriptions of individual
 components and the flow of data between them.
 
 
+.. _uptodateness:
+
+Up-to-dateness
+--------------
+
+It may be required that the tool not only documents all steps of the workflow and
+executes them in sequence, but also that it is capable of checking for up-to-dateness.
+In case of changes somewhere in the *pipeline* it determines and only executes the *tasks*
+which are not up-to-date, without the need to rerun everything from scratch.
+A task is referred to as up-to-date if execution of the task would produce the same result
+as the previous execution.
+
+
 .. _metadata:
 
 Metadata
