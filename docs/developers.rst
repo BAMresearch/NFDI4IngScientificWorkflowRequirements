@@ -1,3 +1,5 @@
+.. _developers:
+
 List of developers
 ==================
 List of developers of relevant workflow tools and how we may get in contact with them.
@@ -17,7 +19,7 @@ AiiDA
 Pyiron
 ------
 * `Pyiron website <https://pyiron.org/>`_
-* Contact form on the `<team website <https://pyiron.org/team/>`_. Find also link to email of e.g.
+* Contact form on the `team website <https://pyiron.org/team/>`_. Find also link to email of e.g.
   lead developer or project lead here.
 
 
