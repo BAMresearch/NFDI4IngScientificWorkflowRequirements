@@ -53,15 +53,6 @@ to automatically export the complete provenance graph including the involved
 software components, their versions, their inputs, outputs and parameters, ..
 . .
 
-.. _transparency:
-Transparency
-------------
-In case a workflow is packaged in order to guarantee machine-independent reusability, it
-is important that the source code that was used to generate the package is referenced
-and/or displayed appropriately. This ensures that the implementation of a computational
-component may be checked and verified for correctness by other researchers, which goes
-beyond the mere reproducibility of the results.
-
 .. _reusability:
 Reusable components
 -------------------
