@@ -67,3 +67,12 @@ Swift
 Kepler
 -------
 * `Kepler website <https://kepler-project.org>`_
+
+Taverna
+-------
+* `Tavernas website <https://www.linuxlinks.com/tavernaworkbench/>`_
+
+
+Gnu guix
+-------
+* `Gnu guix website <https://guixwl.org/>`_
