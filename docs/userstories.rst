@@ -104,4 +104,4 @@ In additon to the requirements for a *developer*, for an user dealing with compu
 In contrast to the developer, the *graphical visualization* of the workflow as a particularly user friendly form of documentation
 and especially the definition of pipelines, without the need to understand the underlying API, through a GUI are important features.
 For the user the definition and automatic installation of the software environment within the workflow tool is highly favorable to
-avoid losing time during the installation process.
+avoid loosing time during the installation process.
