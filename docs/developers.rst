@@ -76,3 +76,8 @@ Taverna
 Gnu guix
 -------
 * `Gnu guix website <https://guixwl.org/>`_
+
+Workflow hub
+-------
+* `Workflow hub website <https://workflowhub.eu/>`_
+
