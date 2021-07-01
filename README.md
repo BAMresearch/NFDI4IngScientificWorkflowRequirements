@@ -42,4 +42,4 @@ to be as FAIR as possible. We want to evaluate if existing workflow tools provid
 reusable solutions and identify the capabilities that are missing to reach our goal:
 reproducible research workflows, by anyone, anywhere and anytime.
 
-For a more detailed overview, see the [documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
+[Go to the documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
