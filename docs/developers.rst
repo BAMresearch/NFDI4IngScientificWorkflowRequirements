@@ -82,4 +82,5 @@ Workflow hub
 * `Workflow hub website <https://workflowhub.eu/>`_
 
 Dlite
+-------
 * `Dlite website <https://github.com/SINTEF/dlite>`_
