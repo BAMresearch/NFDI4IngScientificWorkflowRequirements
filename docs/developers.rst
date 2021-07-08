@@ -84,3 +84,7 @@ Workflow hub
 Dlite
 -------
 * `Dlite website <https://github.com/SINTEF/dlite>`_
+
+
+here is another list
+<https://github.com/tilde-lab/awesome-materials-informatics>`_
