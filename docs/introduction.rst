@@ -27,7 +27,7 @@ libraries and packages that contribute to the computations carried out in a
 processing step.
 
 In order for research workflows to comply with the
-[FAIR principles](https://www.go-fair.org/fair-principles/), they should be:
+`FAIR principles https://www.go-fair.org/fair-principles/`_, they should be:
 
 - published
 - documented
