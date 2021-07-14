@@ -4,7 +4,7 @@ Vision & Challenges
 ====================
 
 As mentioned in the :ref:`introduction`, an overarching goal is to make research
-software `FAIR https://www.go-fair.org/fair-principles/`_. In this section, we
+software `FAIR <https://www.go-fair.org/fair-principles/>`_. In this section, we
 want to discuss possible levels of FAIRness associated with the code and data that
 were used in or produced by scientific inquiry. An overview is given in the image
 below, followed by a more detailed discussion.
