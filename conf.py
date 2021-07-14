@@ -20,7 +20,7 @@ import  sphinx_rtd_theme
 
 project = 'NFDI4IngScientificWorkflowRequirements'
 copyright = '2021, Jörg F. Unger'
-author = 'Jörg F. Unger'
+author = 'Jörg F. Unger, Dennis Gläser, Philipp Diercks'
 
 
 # -- General configuration ---------------------------------------------------
