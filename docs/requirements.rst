@@ -1,14 +1,12 @@
-.. _requirements:
-
 Requirements
-================================
+============
 
 This section discusses potential requirements on workflow tools to reach the
 goals mentioned in the :ref:`introduction`.
 
 .. contents::
 
-.. _portable_data_structures:
+.. _requirements_portable_data_structures:
 
 Relations and dependencies with portable data structures
 --------------------------------------------------------
@@ -17,7 +15,7 @@ experimental data potentially even running on different machines or operating sy
 a common framework. The relations and dependencies between the modules should be defined with a portable data
 structure. The workflow system should handle and document the provenance graph.
 
-.. _machine-independent:
+.. _requirements_machine-independent:
 
 Machine-independent execution
 -----------------------------
@@ -26,7 +24,7 @@ research. Thus, it must be possible to export/share the workflow/modules in such
 it no longer depends on machine-local installations of libraries or source code, for
 instance, by bundling all required components into a container.
 
-.. _doc:
+.. _requirements_doc:
 
 Documentation
 -------------
@@ -36,7 +34,7 @@ how they are interconnected. Thus, a beneficial feature of workflow tools can be
 the automated generation of a documentation based on descriptions of individual
 components and the flow of data between them.
 
-.. _uptodateness:
+.. _requirements_uptodateness:
 
 Up-to-dateness
 --------------
@@ -47,7 +45,7 @@ which are not up-to-date, without the need to rerun everything from scratch.
 A task is referred to as up-to-date if execution of the task would produce the same result
 as the previous execution.
 
-.. _metadata:
+.. _requirements_metadata:
 
 Metadata
 --------
@@ -57,7 +55,7 @@ about the workflow has to be provided. Workflow tools may provide the possibilit
 to automatically export the complete provenance graph including the involved
 software components, their versions, their inputs, outputs and parameters, etc.
 
-.. _reusability:
+.. _requirements_reusability:
 
 Reusable components
 -------------------
@@ -68,7 +66,7 @@ components' inputs and outputs are properly documented (see :ref:`doc`) and
 defined via portable data structures
 (see :ref:`portable_data_structures`).
 
-.. _gui:
+.. _requirements_gui:
 
 Graphical visualization
 -----------------------
@@ -78,7 +76,7 @@ this, a user interface may also provide the means to define a workflow graphical
 in a user-friendly way without having to know the details about the underlying API.
 
 
-.. _monitoring:
+.. _requirements_monitoring:
 
 Execution, scheduling and monitoring
 ------------------------------------
