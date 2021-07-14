@@ -50,7 +50,7 @@ Common Workflow Language
 
 
 Kadi4Mat
-------------------------
+--------
 * `Kadi4Mat website <https://kadi.iam-cms.kit.edu/>`_
 
 
@@ -60,12 +60,12 @@ Pegasus
 
 
 Swift
--------
+-----
 * `Swift website <https://swift-lang.org>`_
 
 
 Kepler
--------
+------
 * `Kepler website <https://kepler-project.org>`_
 
 Taverna
