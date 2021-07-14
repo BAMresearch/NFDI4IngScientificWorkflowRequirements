@@ -2,12 +2,27 @@
 
 User Stories
 ============
+In this section, the :ref:`requirements` defined in the previous section are illustrated
+with examples given below. Each *user story* pursues a different goal to show the 
+diversity in requirements on the workflow tool and at the same time which requirements
+are safe to be assumed common for most use cases.
 
-Reproducible research
----------------------
-In this user story, the final result of the workflow is a paper describing the research results.
-The workflow should be implemented in a fully automated way, such that *reproducibilty* is ensured.
+.. _user_story_1:
 
+Reproducible (computational) research
+-------------------------------------
+In this user story, the output of the workflow is a scientific paper describing the research results.
+But not only the final manuscript should be provided. It is aimed at enabling other scientists to
+comprehend and redo the *processing steps* (numerical analysis, postprocessing, etc.) the workflow consists of.
+
+Reproducibility?:
+* automation 
+.. The workflow should be implemented in a fully automated way, such that *reproducibilty* is ensured.
+* version control
+* archive computer environment (at least software + versions, but: becomes out of date easily) --> container
+
+
+.. _user_story_2:
 
 Research group collaboration
 ----------------------------
@@ -16,6 +31,8 @@ of the scientific workflow itself play an important role.
 Each process in the workflow may require a different expertise and hence modularity and a common
 framework are required for the tool to be used.
 
+
+.. _user_story_3:
 
 High-throughput simulations
 ---------------------------
