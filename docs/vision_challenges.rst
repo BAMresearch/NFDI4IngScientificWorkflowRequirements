@@ -5,7 +5,7 @@ Vision & Challenges
 
 As mentioned in the :ref:`introduction`, an overarching goal is to make research
 software `FAIR <https://www.go-fair.org/fair-principles/>`_. In this section, we
-want to discuss possible levels of FAIRness associated with the code and data that
+want to discuss possible aspects of FAIRness associated with the code and data that
 were used in or produced by scientific inquiry. An overview is given in the image
 below, followed by a more detailed discussion.
 
@@ -17,16 +17,16 @@ below, followed by a more detailed discussion.
 
 .. _paper:
 
-Level 0: scientific paper
+Scientific paper
 -------------------------
 
 Findings from research activities are usually communicated to the community by
 means of publications in scientific journals. At the time of writing this article,
-most scientific publications still stop at this level.
+for most scientific publications this is the only published data.
 
 .. _transparency:
 
-Level 1: transparent research
+Transparent research
 -----------------------------
 
 Publishing the *data* used in or produced by scientific investigations allows peers
@@ -51,14 +51,14 @@ in sustainable software development or the help of research software engineers.
 
 .. _metadata:
 
-Level 2: findable & reusable code & data
+Findable & reusable code & data
 ----------------------------------------
 
 TODO
 
 .. _workflow:
 
-Level 3: published research workflows
+Published research workflows
 -------------------------------------
 
 TODO: this section would be on simply published workflows to see how data flows
@@ -67,7 +67,7 @@ to run the workflow, but is not automatic.
 
 .. _workflow_environment:
 
-Level 4: reproducible research workflows
+Reproducible research workflows
 ----------------------------------------
 
 TODO: this section would be on workflows published with the environment (e.g. container)
@@ -75,7 +75,7 @@ to make it reproducible by anyone.
 
 .. _workflow_web_interface:
 
-Level 5: remotely executable research workflows
+Remotely executable research workflows
 -----------------------------------------------
 
 TODO: this section would be on hosting research workflows on some web platform to
