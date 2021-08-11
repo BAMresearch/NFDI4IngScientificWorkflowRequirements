@@ -13,12 +13,16 @@ Relations and dependencies with portable data structures
 A workflow consist of heterogeneous models (e.g. HPC computational model, calibration model, data preprocessing of
 experimental data potentially even running on different machines or operating systems). They should be embedded into
 a common framework. The relations and dependencies between the modules should be defined with a portable data
-structure. The workflow system should handle and document the provenance graph.
+structure.
+.. The workflow system should handle and document the provenance graph.
 
 .. _requirements_machine-independent:
 
-Machine-independent execution
------------------------------
+.. Machine-independent execution
+.. -----------------------------
+
+Compute environment specification/supply
+----------------------------------------
 Research workflows should be executable by others in order to guarantee reproducible
 research. Thus, it must be possible to export/share the workflow/modules in such a way that
 it no longer depends on machine-local installations of libraries or source code, for
@@ -33,6 +37,7 @@ comprehensive documentation that describes the individual computational steps an
 how they are interconnected. Thus, a beneficial feature of workflow tools can be
 the automated generation of a documentation based on descriptions of individual
 components and the flow of data between them.
+.. pure description of the workflows provenance graph
 
 .. _requirements_uptodateness:
 
@@ -74,6 +79,8 @@ A graphical user interface to visualize the workflow together with the flow of d
 between computational components may be a valuable form of documentation. Besides
 this, a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
+.. 1) generation of provenance graph of the actual present data
+.. 2) GUI to define the workflow
 
 
 .. _requirements_monitoring:
