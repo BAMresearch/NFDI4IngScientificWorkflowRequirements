@@ -3,7 +3,7 @@
 FAIRness of research workflows
 ==============================
 
-.. image:: ./../img/vision.png
+.. image:: ./../img/fairness.png
   :width: 500
   :alt: TODO: caption
 

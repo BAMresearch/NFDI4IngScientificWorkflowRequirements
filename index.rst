@@ -7,5 +7,5 @@ This is work in progress
    :caption: Contents:
 
    docs/introduction.rst
-   docs/vision_challenges.rst
+   docs/fairness.rst
    docs/requirements.rst
