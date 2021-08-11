@@ -28,7 +28,8 @@ numbers of all involved packages are crucial, as the workflow may fail to work w
 newer or older packages, or, may produce different results.
 
 In order for research workflows to comply with the
-`FAIR principles <https://www.go-fair.org/fair-principles/>`_, they should be:
+`FAIR principles <https://www.go-fair.org/fair-principles/>`_ (originally formulated
+for research data), they should be:
 
 - published
 - documented
