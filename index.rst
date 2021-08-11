@@ -10,3 +10,4 @@ This is work in progress
    docs/fairness.rst
    docs/requirements.rst
    docs/userstories.rst
+   docs/developers.rst
