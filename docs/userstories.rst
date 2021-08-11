@@ -12,8 +12,9 @@ are safe to be assumed common for most use cases.
 Reproducible (computational) research
 -------------------------------------
 Names:
-- Sylvester (John Rambo)
-- Jean Reno (Leon der Profi, Mathilda)
+
+* Sylvester (John Rambo)
+* Jean Reno (Leon der Profi, Mathilda)
 
 In this user story, the output of the workflow is a scientific paper describing the research results.
 An essential component of this work is the development of research software in line with the task area `BETTY <https://nfdi4ing.de/archetypes/betty/>`_.
@@ -33,9 +34,10 @@ Ideally, the whole paper can be reproduced by running a single command and the p
 Research group collaboration
 ----------------------------
 Names: 
-- George (John "Hannibal" Smith)
-- Patrick (Jean-Luc Picard)
-- Swetlana Tichanowskaja
+
+* George (John "Hannibal" Smith)
+* Patrick (Jean-Luc Picard)
+* Swetlana Tichanowskaja
 
 Similar to the first user story the output of the workflow could be a scientific paper. 
 However, with this example interdisciplinary workflows are addressed and the reusability of single components/modules is essential. 
@@ -55,8 +57,9 @@ For complex workflows containing computationally expensive processes a check for
 High-throughput simulations
 ---------------------------
 Names:
-- Giuseppe (Verdi)
-- Antonio (Ghislanzoni)
+
+* Giuseppe (Verdi)
+* Antonio (Ghislanzoni)
 
 In cases where screening or parameter sweeps are required, involving thousands of simulations,
 running these one by one is not feasible. Moreover, besides the *automation* of running the 
