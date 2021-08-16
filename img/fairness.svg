@@ -14,10 +14,10 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="vision.svg"
-   inkscape:export-filename="/home/dennis/Work/nfdi_pilotcases/bam/NFDI4IngScientificWorkflowRequirements/img/vision.png"
-   inkscape:export-xdpi="49.988029"
-   inkscape:export-ydpi="49.988029">
+   sodipodi:docname="fairness.svg"
+   inkscape:export-filename="/home/dennis/Work/nfdi_pilotcases/bam/NFDI4IngScientificWorkflowRequirements/img/fairness.png"
+   inkscape:export-xdpi="50"
+   inkscape:export-ydpi="50">
   <defs
      id="defs2">
     <inkscape:path-effect
@@ -1262,7 +1262,7 @@
        xlink:href="#radialGradient3122"
        id="radialGradient5190"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.3952,0,0,0.71673,79.80835,899.09188)"
+       gradientTransform="matrix(1.3952,0,0,0.71673,86.733884,883.30167)"
        cx="14.207"
        cy="222.03999"
        r="8.2518997" />
@@ -1301,7 +1301,7 @@
        xlink:href="#radialGradient3122"
        id="radialGradient5192"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.3952,0,0,0.71673,79.80835,899.09188)"
+       gradientTransform="matrix(1.3952,0,0,0.71673,86.733884,883.30167)"
        cx="14.207"
        cy="222.03999"
        r="8.2518997" />
@@ -1323,7 +1323,7 @@
        xlink:href="#radialGradient3122"
        id="radialGradient5194"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(1.3952,0,0,0.71673,79.80835,899.09188)"
+       gradientTransform="matrix(1.3952,0,0,0.71673,86.733884,883.30167)"
        cx="14.207"
        cy="222.03999"
        r="8.2518997" />
@@ -1913,6 +1913,164 @@
        effect="spiro"
        id="path-effect4954-0-2-0-6-9-5-5"
        is_visible="true" />
+    <linearGradient
+       id="WhiteTransparent">
+      <stop
+         id="stop1736"
+         offset="0"
+         stop-color="#fff" />
+      <stop
+         id="stop1738"
+         offset="1"
+         stop-opacity="0"
+         stop-color="#fff" />
+    </linearGradient>
+    <linearGradient
+       id="BlackTransparent">
+      <stop
+         id="stop1741"
+         offset="0" />
+      <stop
+         id="stop1743"
+         offset="1"
+         stop-opacity="0" />
+    </linearGradient>
+    <linearGradient
+       y2="118.3"
+       x2="638.3"
+       gradientTransform="matrix(0.0631949,0.06311532,-0.13902878,0.12623063,272.2255,807.54066)"
+       y1="69.99"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="637.03"
+       id="lg1999" />
+    <linearGradient
+       y2="254.83"
+       x2="615.59"
+       gradientTransform="matrix(0.05099828,0.04891437,-0.22118215,0.22721514,273.1987,799.7396)"
+       y1="254.36"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="512.7"
+       id="lg02" />
+    <linearGradient
+       y2="286.56"
+       x2="419.88"
+       gradientTransform="matrix(0.06306851,0.06298909,-0.17694572,0.17672289,274.27302,800.42756)"
+       y1="286.56"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#BlackTransparent"
+       x1="543.1"
+       id="lg05" />
+    <linearGradient
+       y2="-1.72"
+       x2="258.96"
+       gradientTransform="matrix(0.20854317,0.20828055,-0.05965598,0.05958086,230.15666,798.34475)"
+       y1="62.74"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="258.96"
+       id="lg09" />
+    <linearGradient
+       y2="368.27"
+       x2="146.15"
+       gradientTransform="matrix(0.1895847,0.18934595,-0.05687541,0.05680379,274.27302,800.42756)"
+       y1="288.57"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="146.15"
+       id="lg12" />
+    <linearGradient
+       y2="124"
+       x2="626.1"
+       gradientTransform="matrix(0.04897605,0.04891437,-0.22750164,0.22721514,274.27302,800.42756)"
+       y1="124"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="577.03"
+       id="lg16" />
+    <linearGradient
+       y2="6037.5261"
+       x2="2375.4978"
+       y1="6145.3078"
+       xlink:href="#BlackTransparent"
+       x1="2482.957"
+       id="lg19"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.63194899,0,0,0.63115317,224.45016,828.70322)" />
+    <linearGradient
+       y2="-186.26"
+       x2="607.66"
+       gradientTransform="matrix(0.1263898,0,0,0.12623063,173.30021,884.43405)"
+       y1="-252.6"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="646.24"
+       id="lg51" />
+    <linearGradient
+       y2="-241.2"
+       x2="655.42"
+       gradientTransform="matrix(0.16430674,0,0,0.16409982,157.10335,892.80945)"
+       y1="-137.5"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#WhiteTransparent"
+       x1="550.96"
+       id="lg55" />
+    <linearGradient
+       y2="86.68"
+       x2="84.3"
+       gradientTransform="matrix(0.63194899,0,0,0.63115317,224.25888,826.68265)"
+       y1="66.2"
+       gradientUnits="userSpaceOnUse"
+       xlink:href="#BlackTransparent"
+       x1="73.88"
+       id="lgdg" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipoutline1">
+      <path
+         d="m22.42 17.2l12.96 12.95-2.5 8.78-8.78 2.5-12.96-12.96-5.86 5.86 14.89 21.46 17.56-3.34 61.63 65.62c9.44 9.51 22.17-4.75 13.34-12.87l-65.85-62.28 4.01-17.76-22.14-14.27-6.3 6.31zm81.06 91.97c1.68-1.68 4.4-1.68 6.08 0s1.68 4.4 0 6.08c-1.68 1.67-4.4 1.67-6.08 0-1.68-1.68-1.68-4.4 0-6.08z"
+         id="outline1" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipoutline2">
+      <path
+         d="m55.8 12l0.76 0.16c8.84-2.94 28.68 8.64 24.26 18.96-1.12 1.62-0.93 4.5 0.42 6.31l-24.81 24.82c-1.39-1.39-4.48-1.36-5.9 0l-41.03 39.38c-3.74 3.59-0.8 6.64 0.78 8.25l7.36 7.36c1.61 1.6 5.86 3.76 8.88 0.56l38.72-40.81c1.35-1.42 1.36-4.47 0-5.87 0 0 0.01-0.02 0-0.02l24.91-24.9c2.63 2.37 5.114 2.575 7.47 1.93 4.55-1.245 7.09 3.207 9.81 6.46l-1.23 1.21c-1.82 1.84-1.65 4.94 0.39 6.98s5.15 2.21 6.97 0.39l8.14-8.13c1.82-1.84 1.65-4.94-0.4-6.97-1.84-1.85-4.51-2.09-6.37-0.77-5.58-6.26-2.65-7.2-10.01-15.35l-13.79-14.09c-9.93-9.74-22.83-9.73-35.33-5.86z"
+         id="outline2" />
+    </clipPath>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter1051-33-5-7">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood1041-8-1-2" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1043-0-7-2" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="3"
+         result="blur"
+         id="feGaussianBlur1045-79-4-6" />
+      <feOffset
+         dx="6"
+         dy="6"
+         result="offset"
+         id="feOffset1047-37-3-1" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1049-3-1-0" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1922,8 +2080,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="-778.73656"
-     inkscape:cy="1183.9364"
+     inkscape:cx="-1113.3944"
+     inkscape:cy="1845.9813"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2209,7 +2367,7 @@
     </g>
     <g
        id="g5210"
-       transform="translate(-156.13993,-1235.4417)"
+       transform="translate(-165.58933,-1213.897)"
        inkscape:export-xdpi="50.012905"
        inkscape:export-ydpi="50.012905">
       <circle
@@ -2294,35 +2452,42 @@
       </g>
     </g>
     <g
-       id="g4675"
-       transform="translate(-708.91851,-868.30304)"
-       inkscape:export-xdpi="50.012905"
-       inkscape:export-ydpi="50.012905">
+       id="g2068"
+       transform="translate(12.85119,13.985118)">
       <g
-         id="g9134">
-        <rect
-           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.29499996;filter:url(#filter1051-33-5)"
-           id="rect1039-2-2"
-           width="112.2532"
-           height="36.348656"
-           x="154.6758"
-           y="627.93903"
-           inkscape:export-xdpi="24.998747"
-           inkscape:export-ydpi="24.998747"
-           transform="matrix(2.1439565,0,0,0.85898737,-169.65351,91.110136)" />
-        <text
-           xml:space="preserve"
-           style="font-style:normal;font-weight:normal;font-size:22.15999985px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.55400097"
-           x="174.36205"
-           y="652.091"
-           id="text1055-4-8"
-           inkscape:export-xdpi="24.998747"
-           inkscape:export-ydpi="24.998747"><tspan
-             sodipodi:role="line"
-             id="tspan1053-3-8"
-             x="174.36205"
-             y="652.091"
-             style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Lato;-inkscape-font-specification:'Lato Light';stroke-width:0.55400097">Compute environment</tspan></text>
+         id="g2096"
+         transform="translate(-29.104166,43.467262)">
+        <g
+           id="g2102">
+          <rect
+             transform="matrix(1.7847471,0,0,1.9141835,-800.64494,-1520.5793)"
+             inkscape:export-ydpi="24.998747"
+             inkscape:export-xdpi="24.998747"
+             y="627.93903"
+             x="154.6758"
+             height="36.348656"
+             width="112.2532"
+             id="rect1039-2-2"
+             style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.950804;filter:url(#filter1051-33-5)" />
+          <text
+             inkscape:export-ydpi="24.998747"
+             inkscape:export-xdpi="24.998747"
+             id="text1055-4-8"
+             y="-292.04034"
+             x="-424.38272"
+             style="font-style:normal;font-weight:normal;font-size:22.15999985px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.55400097"
+             xml:space="preserve"><tspan
+               style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Lato;-inkscape-font-specification:'Lato Light';text-align:center;text-anchor:middle;stroke-width:0.55400097"
+               y="-292.04034"
+               x="-424.38272"
+               id="tspan1053-3-8"
+               sodipodi:role="line">Software/hardware</tspan><tspan
+               style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Lato;-inkscape-font-specification:'Lato Light';text-align:center;text-anchor:middle;stroke-width:0.55400097"
+               y="-263.33795"
+               x="-424.38272"
+               sodipodi:role="line"
+               id="tspan2090">dependencies</tspan></text>
+        </g>
       </g>
     </g>
     <path
@@ -2464,7 +2629,7 @@
        sodipodi:nodetypes="cc" />
     <g
        id="g1176"
-       transform="translate(-641.44963,-62.250597)"
+       transform="translate(-640.12671,-62.439585)"
        inkscape:export-xdpi="50.012905"
        inkscape:export-ydpi="50.012905">
       <rect
@@ -2512,4 +2677,29 @@
            style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:Lato;-inkscape-font-specification:'Lato Light';stroke-width:0.55400097">Metadata</tspan></text>
     </g>
   </g>
+  <style
+     id="style1762"
+     type="text/css">/* Specular Highlighting */
+		.low-specularity	{opacity:0.25;}
+		.specularity		{opacity:0.5;}
+		.high-specularity	{opacity:0.75;}
+		.full-specularity	{opacity:1;}
+	/* Shading */
+		.low-shade	{opacity:0.25;}
+		.shade		{opacity:0.5;}
+		.high-shade	{opacity:0.75;}
+		.full-shade	{opacity:1;}
+	/* Tango palette fill/stroke */
+		.black		{fill:#000;}
+		.aluminium1	{fill:#eeeeec;}
+		.aluminium2	{fill:#d3d7cf;}
+		.aluminium6	{fill:#2e3436;}
+		.chocolate3	{fill:#8f5902;}
+		.chocolate2	{fill:#c17d11;}
+		.aluminium4	{fill:#888a85;}
+	/* Shadows: Back-Shadows &amp; Base Shadows */
+		.base-shadow	{opacity:0.4;}
+		.outline-big	{stroke:black;stroke-width:8;opacity:0.25;stroke-linejoin:round;}
+		.outline-small	{stroke:black;stroke-width:4;opacity:0.5;stroke-linejoin:round;}
+		.stroke-highlight	{fill:none;stroke:white;stroke-opacity:0.2;stroke-width:4;stroke-linejoin:round;}</style>
 </svg>
