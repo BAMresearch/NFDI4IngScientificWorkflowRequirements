@@ -48,14 +48,14 @@ Reusable software
 
 Source code used to process or produce data should be published such
 that other researchers can easily reconstruct how the data was generated or analyzed.
-It is again important to publish metadata alongside the code, which states the
+It is again important to publish metadata alongside the code, which state the
 requirements of the software on the compute environment, that is, compiler or
-interpreter versions, third-party libraries, etc.
+interpreter versions, third-party libraries, hardware requirements etc.
 
 Ideally, this code expresses only project-specific tasks, reusing established
-packages for generic functionality, whenever possible, instead of re-implementing
+packages for generic functionality, whenever possible, instead of reimplementing
 it. This reduces the risk of bugs and makes it easier for other researchers
-to understand the code, which possibly are familiar with the syntax of the used
+to understand the code, who possibly are familiar with the syntax of the used
 packages.
 
 If generic, possibly reusable functionality has to be implemented, we encourage
