@@ -9,14 +9,16 @@ goals mentioned in the :ref:`introduction`.
 .. contents::
 
 .. _portable_data_structures:
+
 Relations and dependencies with portable data structures
------------------------------
+--------------------------------------------------------
 A workflow consist of heterogeneous models (e.g. HPC computational model, calibration model, data preprocessing of
 experimental data potentially even running on different machines or operating systems). They should be embedded into
 a common framework. The relations and dependencies between the modules should be defined with a portable data
 structure. The workflow system should handle and document the provenance graph.
 
 .. _machine-independent:
+
 Machine-independent execution
 -----------------------------
 Research workflows should be executable by others in order to guarantee reproducible
@@ -25,6 +27,7 @@ it no longer depends on machine-local installations of libraries or source code,
 instance, by bundling all required components into a container.
 
 .. _doc:
+
 Documentation
 -------------
 Scientific workflows may be complex, and therefore, it is important to provide a
@@ -34,6 +37,7 @@ the automated generation of a documentation based on descriptions of individual
 components and the flow of data between them.
 
 .. _uptodateness:
+
 Up-to-dateness
 --------------
 It may be required that the tool not only documents all steps of the workflow and
@@ -44,16 +48,17 @@ A task is referred to as up-to-date if execution of the task would produce the s
 as the previous execution.
 
 .. _metadata:
+
 Metadata
 --------
 To make a published workflow compliant with the
 `FAIR principles <https://www.go-fair.org/fair-principles/>`_, appropriate metadata
 about the workflow has to be provided. Workflow tools may provide the possibility
 to automatically export the complete provenance graph including the involved
-software components, their versions, their inputs, outputs and parameters, ..
-. .
+software components, their versions, their inputs, outputs and parameters, etc.
 
 .. _reusability:
+
 Reusable components
 -------------------
 Ideally, individual components of the workflow may be reused independently of others.
@@ -64,6 +69,7 @@ defined via portable data structures
 (see :ref:`portable_data_structures`).
 
 .. _gui:
+
 Graphical visualization
 -----------------------
 A graphical user interface to visualize the workflow together with the flow of data
@@ -73,6 +79,7 @@ in a user-friendly way without having to know the details about the underlying A
 
 
 .. _monitoring:
+
 Execution, scheduling and monitoring
 ------------------------------------
 A complete workflow has to be scheduled and executed (eventually reusing
