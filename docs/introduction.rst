@@ -4,24 +4,22 @@ Introduction
 ============
 
 Software-driven scientific workflows are often characterized by a complex interplay
-of various pieces of software executed in a particular order. The output of a
-computational step may serve as input to a subsequent computation, which requires
-them to be processed sequentially with a proper mapping of outputs to inputs.
+of various pieces of software executed in a particular order. The output of one
+process may serve as input to a subsequent process, which requires
+them to be executed sequentially with a proper mapping of outputs to inputs.
 Other computations are independent of each other and can be executed in parallel.
 Thus, one of the main tasks of workflow handling is the proper and efficient scheduling
-of the individual processing steps.
+of the individual processes.
 
 .. image:: ./../img/workflows.png
   :width: 400
   :alt: TODO: caption
 
-Typically, each process in the workflow, just as the workflow itself, processes some
-input to produce output data. Apart from changing the input data to operate on,
-processes can usually be configured by a set of parameters to change their behavior.
-Moreover, the behavior of a process is determined by its source code
-and/or executable binaries/packages that are called within it. Beyond this, the
-computation environment not only has a significant influence on its behavior, but
-is also crucial in order for the process to work at all. The environment
+Typically, each process in the workflow, just as the workflow itself, takes some
+input to produce output data and the behavior of a process is determined by its
+source code and/or executable binaries/packages that are called within it. Beyond
+this, the computation environment not only has a significant influence on its
+behavior, but is also crucial in order for the process to work at all. The environment
 includes interpreters and/or compilers, as well as third-party libraries and packages
 that contribute to the computations carried out in the process. The exact version
 numbers of all involved packages are crucial, as the workflow may fail to work with
