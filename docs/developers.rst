@@ -8,7 +8,7 @@ List of developers of relevant workflow tools and how we may get in contact with
 
 
 AiiDA/AiiDAlab
------
+--------------
 * `AiiDA Website <https://www.aiida.net/>`_
 * `AiiDALab Website <https://www.aiidalab.materialscloud.org/>`_
 * `Main Paper <https://www.nature.com/articles/s41597-020-00638-4>`_ (AiiDA >= 1.0) with (so it seems) main authors
@@ -45,7 +45,7 @@ Common Workflow Language
 ------------------------
 * `CWL website <https://www.commonwl.org/>`_
 * `Discourse group <https://cwl.discourse.group/>`_ as recommended place to ask questions about CWL.
-* `CWL paper <https://arxiv.org/abs/2105.07028>`_ 
+* `CWL paper <https://arxiv.org/abs/2105.07028>`_
 * Besides the discourse group one could get in contact via `Gitter <https://gitter.im/common-workflow-language/common-workflow-language>`_, `Twitter <https://twitter.com/search?q=%23CommonWL>`_ or `google mailinglist <https://groups.google.com/g/common-workflow-language>`_
 
 
@@ -74,11 +74,11 @@ Taverna
 
 
 Gnu guix
--------
+--------
 * `Gnu guix website <https://guixwl.org/>`_
 
 Workflow hub
--------
+------------
 * `Workflow hub website <https://workflowhub.eu/>`_
 
 Dlite
@@ -91,5 +91,3 @@ Argo
 
 here is another list
 <https://github.com/tilde-lab/awesome-materials-informatics>`_
-
-
