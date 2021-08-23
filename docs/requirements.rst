@@ -1,3 +1,5 @@
+.. _requirements:
+
 Requirements
 ============
 
@@ -67,9 +69,9 @@ Reusable components
 Ideally, individual components of the workflow may be reused independently of others.
 This gives other researchers the possibility to embed a component into a new workflow
 that addresses a different research question. To this end, it is important that the
-components' inputs and outputs are properly documented (see :ref:`doc`) and
+components' inputs and outputs are properly documented (see :ref:`requirements_doc`) and
 defined via portable data structures
-(see :ref:`portable_data_structures`).
+(see :ref:`requirements_portable_data_structures`).
 
 .. _requirements_gui:
 
