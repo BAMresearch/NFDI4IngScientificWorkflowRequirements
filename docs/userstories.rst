@@ -16,14 +16,16 @@ Names:
 * Sylvester (John Rambo)
 * Jean Reno (Leon der Profi, Mathilda)
 
-In this user story, the output of the workflow is a scientific paper describing the research results.
-An essential component of this work is the development of research software in line with the task area `BETTY <https://nfdi4ing.de/archetypes/betty/>`_.
-It is aimed at enabling other scientists to comprehend and rerun each process (numerical analysis, postprocessing, etc.) of the entire workflow.
+In this user story, the output of the workflow are the results described in a scientific publication.
+The main objective of this user is that other scientists are able to comprehend and rerun each process
+involved in the research workflow (numerical analysis, postprocessing, etc.).
 
-In order to meet this goal, i.e. the *reproducibilty* of computational research, the following requirements are defined.
-A basic requirement is to employ version control to keep track of the code history and to be able to refer to the particular version of the code used at the time of publication.
-As research software is also understood as research data, appropriate metadata regarding the code and dependencies on third-party libraries should be provided.  
-This code metadata allows peers to rebuild the compute environment. 
+In order to meet this goal, i.e. the *reproducibilty* and *transparency* of computational research, the following requirements are defined.
+First of all, the code has to published. This can happen in the form of a tarball (e.g. via `Zenodo <https://zenodo.org>`_), or by emplying
+version control on the code base and making the repository publicy accesibly. This makes it possible to refer to a particular version of the
+code used at the time of publication.
+As research software is also understood as research data, appropriate metadata regarding the code and dependencies on third-party libraries should be provided.
+The metadata should contain all information necessary for peers to reinstantiate the compute environment to make the workflow usable.
 However, since software becomes out of date rather quickly this is a minimum requirement and it is preferred to build containers that package up all required pieces of software in a way that is portable, reproducible and ensures machine-independent execution.
 Finally, the fully automated implementation of the entire workflow is required to avoid any manual steps.
 Ideally, the whole paper can be reproduced by running a single command and the progress of the execution is monitored by the workflow tool.
