@@ -21,8 +21,8 @@ The main objective of this user is that other scientists are able to comprehend 
 involved in the research workflow (numerical analysis, postprocessing, etc.).
 
 In order to meet this goal, i.e. the *reproducibilty* and *transparency* of computational research, the following requirements are defined.
-First of all, the code has to published. This can happen in the form of a tarball (e.g. via `Zenodo <https://zenodo.org>`_), or by emplying
-version control on the code base and making the repository publicy accesibly. This makes it possible to refer to a particular version of the
+First of all, the code has to be published. This can happen in the form of a tarball (e.g. via `Zenodo <https://zenodo.org>`_), or by employing
+version control on the code base and making the repository publicly accessible. This makes it possible to refer to a particular version of the
 code used at the time of publication.
 As research software is also understood as research data, appropriate metadata regarding the code and dependencies on third-party libraries should be provided.
 The metadata should contain all information necessary for peers to reinstantiate the compute environment to make the workflow usable.
