@@ -40,6 +40,7 @@ this, data should be published in standard formats that are widely used in the
 community to guarantee their seamless integration into other projects. Moreover,
 rich metadata should be provided, which explains the contents of the data in
 detail and in a machine-readable format.
+.. TODO i.e. the data used in the project should be FAIR
 
 .. _reusable software:
 
