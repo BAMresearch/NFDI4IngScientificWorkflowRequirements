@@ -50,22 +50,23 @@ Common Workflow Language
 
 
 Kadi4Mat
-------------------------
+--------
 * `Kadi4Mat website <https://kadi.iam-cms.kit.edu/>`_
+* `Email Michael Selzer <michael.selzer@kit.edu>`_
 
 
 Pegasus
 -------
 * `Pegasus website <https://pegasus.isi.edu>`_
-
+* `Pegasus Contact <https://pegasus.isi.edu/contact/>`_ via Slack or mailing lists
 
 Swift
--------
+-----
 * `Swift website <https://swift-lang.org>`_
 
 
 Kepler
--------
+------
 * `Kepler website <https://kepler-project.org>`_
 
 Taverna
@@ -76,6 +77,7 @@ Taverna
 Gnu guix
 --------
 * `Gnu guix website <https://guixwl.org/>`_
+* `guix mailing list <gwl-devel@gnu.org>`_
 
 Workflow hub
 ------------

@@ -9,3 +9,5 @@ This is work in progress
    docs/introduction.rst
    docs/fairness.rst
    docs/requirements.rst
+   docs/userstories.rst
+   docs/developers.rst
