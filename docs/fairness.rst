@@ -29,7 +29,7 @@ transparency of their research and besides this, it allows others to reuse the d
 and software in proceeding investigations.
 
 
-.. _reusable data:
+.. _reusable_data:
 
 Reusable data
 -------------
@@ -42,7 +42,7 @@ rich metadata should be provided, which explains the contents of the data in
 detail and in a machine-readable format.
 .. TODO i.e. the data used in the project should be FAIR
 
-.. _reusable software:
+.. _reusable_software:
 
 Reusable software
 -----------------
