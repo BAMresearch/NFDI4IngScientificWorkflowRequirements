@@ -75,9 +75,11 @@ a particular order while exchanging data. With increasing number of processes,
 retracing the workflow logic can become rather cumbersome. Using workflow tools
 or languages to describe the logic and the flow of data provides the means to
 communicate this in a more comprehensible way. Moreover, some tools provide
-the possibility to visualize the workflow graphically, depicting which inputs and
-outputs the processes expect and how they are interconnected. Besides this, other
-researchers may easily extend or change the workflow by adding or exchanging processes.
+the possibility to visualize the workflow in a directed acyclic graph (DAG), 
+depicting inputs, outputs and metadata of the processes and how they are interconnected.
+In addition to the graphical visualization of the provenance graph, the workflow tool
+may also automatically track and record the full data provenance in a database.
+Besides this, other researchers may easily extend or change the workflow by adding or exchanging processes.
 
 In order for the workflow to be reproducible, metadata must be provided that state
 the requirements on the compute environment and all of its dependencies, such that
