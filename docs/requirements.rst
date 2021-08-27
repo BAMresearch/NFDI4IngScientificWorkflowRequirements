@@ -1,10 +1,11 @@
 .. _requirements:
 
-Requirements
-============
+Requirements on workflow tools
+==============================
 
-This section discusses potential requirements on workflow tools to reach the
-goals mentioned in the :ref:`introduction`.
+This section discusses potential requirements that workflow tools should fulfill
+in order to be able to design and publish FAIR research workflows as outlined in
+:ref:`fairness`.
 
 .. contents::
 
