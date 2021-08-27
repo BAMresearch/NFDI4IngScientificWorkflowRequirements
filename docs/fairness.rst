@@ -1,4 +1,4 @@
-.. _vision_challenges:
+.. _fairness:
 
 FAIRness of research workflows
 ==============================
