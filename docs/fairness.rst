@@ -83,12 +83,3 @@ the requirements on the compute environment and all of its dependencies, such th
 users can prepare their system for the workflow execution. Ideally, workflow tools
 automatically track the involved dependencies and/or provide the means to encapsulate
 the environment (e.g. using container solutions) such that it can be distributed.
-
-.. _workflow_web_interface:
-
-Remotely executable research workflows
------------------------------------------------
-
-TODO: this section would be on hosting research workflows on some web platform to
-ensure easy access for interested peers.
-TODO: Remove this?
