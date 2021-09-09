@@ -85,6 +85,11 @@ Dlite
 -------
 * `Dlite website <https://github.com/SINTEF/dlite>`_
 
+Argo
+-------
+* `Argo website <https://argoproj.github.io/workflows/>`_
 
 here is another list
 <https://github.com/tilde-lab/awesome-materials-informatics>`_
+
+
