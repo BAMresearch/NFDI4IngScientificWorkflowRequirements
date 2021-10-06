@@ -62,16 +62,6 @@ A task is referred to as up-to-date if execution of the task would produce the s
 as the previous execution.
 
 
-.. _requirements_reusability:
-
-Reusable components
--------------------
-Ideally, individual components of the workflow may be reused independently of others.
-This gives other researchers the possibility to embed a component into a new workflow
-that addresses a different research question. To this end, it is important that the
-components' inputs and outputs are properly documented (see :ref:`requirements_doc`).
-
-
 .. _requirements_visualization:
 
 Graphical visualization
