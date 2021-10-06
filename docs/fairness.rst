@@ -1,4 +1,4 @@
-.. _vision_challenges:
+.. _fairness:
 
 FAIRness of research workflows
 ==============================
@@ -7,7 +7,7 @@ FAIRness of research workflows
   :width: 500
   :alt: TODO: caption
 
-As mentioned in the :ref:`introduction`, an overarching goal is to make research
+As mentioned in the introduction, an overarching goal is to make research
 software `FAIR <https://www.go-fair.org/fair-principles/>`_. In this section, we
 therefore want to discuss possible aspects of FAIRness associated with the code
 and data that are used in or produced by scientific inquiry. A scientific workflow
