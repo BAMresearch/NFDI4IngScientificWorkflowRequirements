@@ -41,8 +41,8 @@ widely-used data formats such as JSON.
 
 .. _requirements_compute_environment:
 
-Compute environment specification/supply
-----------------------------------------
+Compute environment
+-------------------
 Research workflows should be executable by others in order to guarantee reproducible
 research. Thus, it must be possible to export/share the workflow/modules in such a way that
 it no longer depends on machine-local installations of libraries or source code, for
