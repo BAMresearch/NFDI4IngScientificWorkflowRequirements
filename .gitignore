@@ -2,3 +2,8 @@ tags
 .doit.db.*
 __pycache__
 website
+
+# SimpleUseCase: generated files
+*.xdmf
+*.h5
+*.msh
