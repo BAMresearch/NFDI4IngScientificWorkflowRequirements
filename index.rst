@@ -50,6 +50,6 @@ reproducible research workflows, by anyone, anywhere and anytime.
    :caption: Contents:
 
    docs/fairness.rst
-   docs/requirements.rst
    docs/userstories.rst
+   docs/requirements.rst
    docs/developers.rst
