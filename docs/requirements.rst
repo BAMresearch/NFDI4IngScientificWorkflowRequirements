@@ -79,3 +79,13 @@ a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
 This GUI may also be capable of plugging together components defined in other workflows,
 which may address the capability described in :ref:`requirements_reusability`.
+
+.. _requirement_platform
+
+Platform for publishing and sharing workflows
+---------------------------------------------
+Ideally, workflows are continuously developed, reused independently by others and shared on a platform.
+Other researchers should have the possibility to search for existing workflows, embed a component into
+their own workflow that addresses a different research question, and publish these modified or extended
+workflows with appropriate metadata and permissions. To this end, it is important that the components'
+inputs and outputs are standardized, portable across compute environments and versioned.
