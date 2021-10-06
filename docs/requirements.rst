@@ -40,17 +40,6 @@ the chosen parameters, etc. This metadata should be exportable into widely-used
 data formats such as JSON.
 
 
-.. _requirements_doc:
-
-Documentation
--------------
-Scientific workflows may be complex, and therefore, it is important to provide a
-comprehensive documentation that describes the individual computational steps and
-how they are interconnected. Thus, a beneficial feature of workflow tools can be
-the automated generation of a documentation based on descriptions of individual
-components and the flow of data between them.
-
-
 .. _requirements_compute_environment:
 
 Compute environment specification/supply
