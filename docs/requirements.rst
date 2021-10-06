@@ -66,8 +66,10 @@ as the previous execution.
 
 Graphical visualization
 -----------------------
-A graphical user interface to visualize the workflow together with the flow of data
-between computational components may be a valuable form of documentation.
+A workflow tool may be able to export the workflow graph into a format that can
+be visualized, or provide visualization capabilities itself. A visual representation
+of the flow of data between computational components can be a valuable form of
+documentation, making it easier for users to understand the underlying logic.
 
 
 .. _requirements_gui:
