@@ -1,30 +1,38 @@
 .. _requirements:
 
-Requirements
-================================
+Requirements on workflow tools
+==============================
 
-This section discusses potential requirements on workflow tools to reach the
-goals mentioned in the :ref:`introduction`.
+In this section, we want to translate the aspects discussed in :ref:`fairness`
+into possible capabilities that workflow tools should provide in order to
+fulfill these aspects.
 
 .. contents::
 
-.. _portable_data_structures:
-Relations and dependencies with portable data structures
------------------------------
-A workflow consist of heterogeneous models (e.g. HPC computational model, calibration model, data preprocessing of
-experimental data potentially even running on different machines or operating systems). They should be embedded into
-a common framework. The relations and dependencies between the modules should be defined with a portable data
-structure. The workflow system should handle and document the provenance graph.
+.. _provenance:
 
-.. _machine-independent:
-Machine-independent execution
------------------------------
-Research workflows should be executable by others in order to guarantee reproducible
-research. Thus, it must be possible to export/share the workflow/modules in such a way that
-it no longer depends on machine-local installations of libraries or source code, for
-instance, by bundling all required components into a container.
+Data provenance graph
+---------------------
+One of the main tasks of a workflow system is to schedule the processes while
+appropriately mapping inputs and outputs between processes. For the sake of
+transparency, the provenance graph should be extractable from a workflow.
 
-.. _doc:
+
+.. _requirements_metadata:
+
+Metadata
+--------
+To make a published workflow compliant with the
+`FAIR principles <https://www.go-fair.org/fair-principles/>`_, appropriate metadata
+about the workflow has to be provided. As mentioned in the previous point, workflow
+tools may provide the possibility to automatically export the complete provenance
+graph including the involved software components, their versions, their inputs,
+outputs and parameters, etc. This medatada should be exportable into widely-used
+data formats such as JSON.
+
+
+.. _requirements_doc:
+
 Documentation
 -------------
 Scientific workflows may be complex, and therefore, it is important to provide a
@@ -33,7 +41,19 @@ how they are interconnected. Thus, a beneficial feature of workflow tools can be
 the automated generation of a documentation based on descriptions of individual
 components and the flow of data between them.
 
-.. _uptodateness:
+
+.. _requirements_compute_environment:
+
+Compute environment specification/supply
+----------------------------------------
+Research workflows should be executable by others in order to guarantee reproducible
+research. Thus, it must be possible to export/share the workflow/modules in such a way that
+it no longer depends on machine-local installations of libraries or source code, for
+instance, by bundling all required components into a container.
+
+
+.. _requirements_uptodateness:
+
 Up-to-dateness
 --------------
 It may be required that the tool not only documents all steps of the workflow and
@@ -43,40 +63,41 @@ which are not up-to-date, without the need to rerun everything from scratch.
 A task is referred to as up-to-date if execution of the task would produce the same result
 as the previous execution.
 
-.. _metadata:
-Metadata
---------
-To make a published workflow compliant with the
-`FAIR principles <https://www.go-fair.org/fair-principles/>`_, appropriate metadata
-about the workflow has to be provided. Workflow tools may provide the possibility
-to automatically export the complete provenance graph including the involved
-software components, their versions, their inputs, outputs and parameters, ..
-. .
 
-.. _reusability:
+.. _requirements_reusability:
+
 Reusable components
 -------------------
 Ideally, individual components of the workflow may be reused independently of others.
 This gives other researchers the possibility to embed a component into a new workflow
 that addresses a different research question. To this end, it is important that the
-components' inputs and outputs are properly documented (see :ref:`doc`) and
-defined via portable data structures
-(see :ref:`portable_data_structures`).
+components' inputs and outputs are properly documented (see :ref:`requirements_doc`).
 
-.. _gui:
+
+.. _requirements_visualization:
+
 Graphical visualization
 -----------------------
 A graphical user interface to visualize the workflow together with the flow of data
-between computational components may be a valuable form of documentation. Besides
-this, a user interface may also provide the means to define a workflow graphically
+between computational components may be a valuable form of documentation.
+
+
+.. _requirements_gui:
+
+Graphical user interface
+------------------------
+In addition to simply visualizing the workflow (see :ref:`requirements_visualization`),
+a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
+This GUI may also be capable of plugging together components defined in other workflows,
+which may address the capability described in :ref:`requirements_reusability`.
 
 
-.. _monitoring:
+.. _requirements_monitoring:
+
 Execution, scheduling and monitoring
 ------------------------------------
 A complete workflow has to be scheduled and executed (eventually reusing
-up-to-date results) by the workflow system and in particular monitor and
-document the progress of the execution. This is in particular relevant for
-compute intensive computations that might fail or where manual interaction (e
-.g. adding experimental data) is required.
+up-to-date results), monitored and documented by the workflow system. This is in
+particular relevant for compute intensive computations that might fail or where
+manual interaction (e.g. adding experimental data) is required.
