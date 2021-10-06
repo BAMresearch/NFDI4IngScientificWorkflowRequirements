@@ -9,6 +9,16 @@ fulfill these aspects.
 
 .. contents::
 
+.. _requirements_monitoring:
+
+Execution, scheduling and monitoring
+------------------------------------
+The complete workflow has to be scheduled and executed, maybe reusing
+up-to-date results (see :ref:`_requirements_uptodateness`). The workload may
+be distributed among different machines, and it may be necessary to use an HPC
+system for intensive computations. The workflow system should provide the means
+to monitor the progress of the workflow execution at any time.
+
 .. _provenance:
 
 Data provenance graph
@@ -91,13 +101,3 @@ a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
 This GUI may also be capable of plugging together components defined in other workflows,
 which may address the capability described in :ref:`requirements_reusability`.
-
-
-.. _requirements_monitoring:
-
-Execution, scheduling and monitoring
-------------------------------------
-A complete workflow has to be scheduled and executed (eventually reusing
-up-to-date results), monitored and documented by the workflow system. This is in
-particular relevant for compute intensive computations that might fail or where
-manual interaction (e.g. adding experimental data) is required.
