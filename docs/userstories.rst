@@ -2,19 +2,16 @@
 
 User Stories
 ============
-In this section, the :ref:`requirements` defined in the previous section are illustrated
-with examples given below. Each *user story* pursues a different goal to show the 
-diversity in requirements on the workflow tool and at the same time which requirements
-are safe to be assumed common for most use cases.
+        "A user story is an informal, general explanation of a software feature written from the perspective of the end user.
+        Its purpose is to articulate how a software feature will provide value to the customer." (Source: `Atlassian <https://www.atlassian.com/agile/project-management/user-stories>`_)
+
+Based on the concept of user stories as a component of agile software development, we aim to deduce :ref:`requirements` from challenges posed in the respective user stories below.
 
 .. _user_story_1:
 
-Reproducible (computational) research
--------------------------------------
-Names:
-
-* Sylvester (John Rambo)
-* Jean Reno (Leon der Profi, Mathilda)
+Reproducible paper
+------------------
+        As a researcher, I want to share my paper, such that others are able to reproduce the results.
 
 In this user story, the output of the workflow are the results described in a scientific publication.
 The main objective of this user is that other scientists are able to comprehend and rerun each process
@@ -35,11 +32,7 @@ Ideally, the whole paper can be reproduced by running a single command and the p
 
 Research group collaboration
 ----------------------------
-Names: 
-
-* George (John "Hannibal" Smith)
-* Patrick (Jean-Luc Picard)
-* Swetlana Tichanowskaja
+        As part of a research group, I want to be able to interconnect and reuse components of several different workflows so that everyone may benefit from their colleagues' work.
 
 Similar to the first user story the output of the workflow could be a scientific paper. 
 However, with this example interdisciplinary workflows are addressed and the reusability of single components/modules is essential. 
@@ -58,10 +51,7 @@ For complex workflows containing computationally expensive processes a check for
 
 High-throughput simulations
 ---------------------------
-Names:
-
-* Giuseppe (Verdi)
-* Antonio (Ghislanzoni)
+        As a materials scientist, I want to be able to automate and manage complex workflows so I can keep track of all associated data.
 
 In cases where screening or parameter sweeps are required, involving thousands of simulations,
 running these one by one is not feasible. Moreover, besides the *automation* of running the 
