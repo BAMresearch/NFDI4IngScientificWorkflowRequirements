@@ -14,7 +14,7 @@ fulfill these aspects.
 Execution, scheduling and monitoring
 ------------------------------------
 The complete workflow has to be scheduled and executed, maybe reusing
-up-to-date results (see :ref:`_requirements_uptodateness`). The workload may
+up-to-date results (see :ref:`requirements_uptodateness`). The workload may
 be distributed among different machines, and it may be necessary to use an HPC
 system for intensive computations. The workflow system should provide the means
 to monitor the progress of the workflow execution at any time.
@@ -80,10 +80,10 @@ In addition to simply visualizing the workflow (see :ref:`requirements_visualiza
 a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
 This GUI may also be capable of plugging together components defined in other workflows,
-which may address the capability described in :ref:`_requirement_platform`.
+which may address the capability described in :ref:`requirement_platform`.
 
 
-.. _requirement_platform
+.. _requirement_platform:
 
 Platform for publishing and sharing workflows
 ---------------------------------------------
