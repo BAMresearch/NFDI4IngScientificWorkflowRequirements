@@ -13,14 +13,13 @@ Reproducible paper
 ------------------
         As a researcher, I want to share my paper, such that others are able to reproduce the results.
 
-In this user story, the output of the workflow are the results described in a scientific publication.
-The main objective of this user is that other scientists are able to comprehend and rerun each process
-involved in the research workflow (numerical analysis, postprocessing, etc.).
+In this user story, the main objective is to guarantee reproducibility of the results described in a scientific publication.
+To do so, other scientists need to be able to comprehend and rerun each process involved in the research workflow (numerical analysis, postprocessing, etc.).
 
-In order to meet this goal, i.e. the *reproducibilty* and *transparency* of computational research, the following requirements are defined.
-First of all, the code has to be published. This can happen in the form of a tarball (e.g. via `Zenodo <https://zenodo.org>`_), or by employing
-version control on the code base and making the repository publicly accessible. This makes it possible to refer to a particular version of the
-code used at the time of publication.
+There are several challenges in meeting the goal above.
+First of all, the code has to be published.
+This can happen in the form of a tarball (e.g. via `Zenodo <https://zenodo.org>`_), or by employing version control on the code base and making the repository publicly accessible (e.g. via `GitHub <https://github.com>`_).
+This makes it possible to refer to a particular version of the code used at the time of publication.
 As research software is also understood as research data, appropriate metadata regarding the code and dependencies on third-party libraries should be provided.
 The metadata should contain all information necessary for peers to reinstantiate the compute environment to make the workflow usable.
 However, since software becomes out of date rather quickly this is a minimum requirement and it is preferred to build containers that package up all required pieces of software in a way that is portable, reproducible and ensures machine-independent execution.
