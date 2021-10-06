@@ -80,7 +80,8 @@ In addition to simply visualizing the workflow (see :ref:`requirements_visualiza
 a user interface may also provide the means to define a workflow graphically
 in a user-friendly way without having to know the details about the underlying API.
 This GUI may also be capable of plugging together components defined in other workflows,
-which may address the capability described in :ref:`requirements_reusability`.
+which may address the capability described in :ref:`_requirement_platform`.
+
 
 .. _requirement_platform
 
