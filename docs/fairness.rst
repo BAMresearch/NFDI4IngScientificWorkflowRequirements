@@ -35,12 +35,11 @@ Reusable data
 -------------
 
 Integration of externally published research data in a research project may be
-cumbersome, if the data is not well-documented or self-explanatory. To mitigate
+cumbersome if the data is not well-documented or self-explanatory. To mitigate
 this, data should be published in standard formats that are widely used in the
 community to guarantee their seamless integration into other projects. Moreover,
 rich metadata should be provided, which explains the contents of the data in
 detail and in a machine-readable format.
-.. TODO i.e. the data used in the project should be FAIR
 
 .. _reusable_software:
 
@@ -54,17 +53,15 @@ to publish metadata alongside the code, which state the requirements of the soft
 on the compute environment, that is, compiler or interpreter versions, third-party libraries,
 hardware requirements etc.
 
-Ideally, this code expresses only project-specific tasks, reusing established
+*Ideally, this code expresses only project-specific tasks, reusing established
 packages for generic functionality, whenever possible, instead of reimplementing
 it. This reduces the risk of bugs and makes it easier for other researchers
 to understand the code, who possibly are familiar with the syntax of the used
-packages.
-
-If generic, possibly reusable functionality has to be implemented, we encourage
+packages. If generic, possibly reusable functionality has to be implemented, we encourage
 researchers to publish these parts separately in the form of a code repository
 and/or software package for others to use independently of the project-specific
 code. This, of course, requires competence in sustainable software development
-or the help of research software engineers.
+or the help of research software engineers.*
 
 .. _reproducible workflows:
 
@@ -76,7 +73,7 @@ a particular order while exchanging data. With increasing number of processes,
 retracing the workflow logic can become rather cumbersome. Using workflow tools
 or languages to describe the logic and the flow of data provides the means to
 communicate this in a more comprehensible way. Moreover, some tools provide
-the possibility to visualize the workflow in a directed acyclic graph (DAG), 
+the possibility to visualize the workflow in a directed acyclic graph (DAG),
 depicting inputs, outputs and metadata of the processes and how they are interconnected.
 In addition to the graphical visualization of the provenance graph, the workflow tool
 may also automatically track and record the full data provenance in a database.
