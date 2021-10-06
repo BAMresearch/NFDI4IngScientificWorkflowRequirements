@@ -23,9 +23,8 @@ to monitor the progress of the workflow execution at any time.
 
 Data provenance graph
 ---------------------
-One of the main tasks of a workflow system is to schedule the processes while
-appropriately mapping inputs and outputs between processes. For the sake of
-transparency, the provenance graph should be extractable from a workflow.
+After the successful execution of a workflow, it should be possible to obtain
+the provenance graph for all produced or modified data within the workflow.
 
 
 .. _requirements_metadata:
