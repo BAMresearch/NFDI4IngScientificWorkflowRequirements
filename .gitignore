@@ -7,3 +7,4 @@ website
 *.xdmf
 *.h5
 *.msh
+*.csv
