@@ -65,6 +65,8 @@ def solve_poisson(meshfile, degree):
 def main(args):
     args = parse_args(args)
     u = solve_poisson(args["MESH"], args["DEG"])
+    # rename function to 'u'
+    u.rename("u", u.name())
     if args["--output"] is not None and args["--output"].suffix == ".xdmf":
         resultfile = df.XDMFFile(args["--output"].as_posix())
         resultfile.write(u, 0)
