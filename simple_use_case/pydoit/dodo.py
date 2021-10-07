@@ -60,3 +60,14 @@ def task_contourplot():
         "targets": [contour, trimmed],
         "clean": True,
     }
+
+
+def task_paper():
+    """compile pdf from latex source"""
+    latexcode = ROOT / "paper.tex"
+    return {
+        "file_dep": [ROOT / "contourplot_trimmed.png"],
+        "actions": [f"latexmk -pdf -cd {latexcode}"],
+        "targets": [ROOT / "paper.pdf"],
+        "clean": True,
+    }
