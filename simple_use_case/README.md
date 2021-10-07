@@ -7,6 +7,7 @@ The workflow consists of the following processes:
 * conversion of the file format (into one readable by `dolfin`) using `meshio` (version 4.3.1),
 * solution of the poisson equation using `fenics` (version 2019.1.0),
 * postprocessing using `ParaView` (version 5.9.1),
+* trimming of the resulting PNG file with `ImageMagick` (version 6.9.10-23),
 * and finally generation of a PDF using `Latex` (version 3.141592653-2.6-1.40.23 (TeX Live 2021)).
 
 Compute environment
