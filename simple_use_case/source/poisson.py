@@ -62,8 +62,8 @@ def solve_and_write_output(mesh: str, degree: int, outputfile: str):
     """
     discrete_solution = solve_poisson(mesh, degree)
     discrete_solution.rename("u", discrete_solution.name())
-    resultfile = df.XDMFFile(outputfile)
-    resultfile.write(discrete_solution, 0)
+    resultFile = df.File(outputfile)
+    resultFile << discrete_solution
 
 
 if __name__ == "__main__":
