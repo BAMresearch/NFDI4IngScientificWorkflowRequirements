@@ -12,7 +12,6 @@ installPythonPackages () {
     runAndCheck "python3 -m pip install numpy"
     runAndCheck "python3 -m pip install meshio[all]"
     runAndCheck "python3 -m pip install fenics-ffc --upgrade"
-    runAndCheck "python3 -m pip install docopt"
 }
 
 getDolfin () {

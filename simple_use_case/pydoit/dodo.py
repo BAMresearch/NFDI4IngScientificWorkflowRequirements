@@ -37,7 +37,7 @@ def task_poisson():
     target = ROOT / "poisson.xdmf"
     return {
         "file_dep": [mesh, mesh.with_suffix(".h5"), poisson],
-        "actions": [f"python {poisson} {mesh} {degree} --output={target}"],
+        "actions": [f"python {poisson} --mesh {mesh} --degree {degree} --output={target}"],
         "targets": [target, target.with_suffix(".h5")],
         "clean": True,
     }

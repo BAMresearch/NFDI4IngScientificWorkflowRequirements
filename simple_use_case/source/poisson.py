@@ -14,17 +14,8 @@ Options:
 """
 
 import sys
-from pathlib import Path
-from docopt import docopt
+from argparse import ArgumentParser
 import dolfin as df
-
-
-def parse_args(args):
-    args = docopt(__doc__, args)
-    args["MESH"] = Path(args["MESH"])
-    args["DEG"] = int(args["DEG"])
-    args["--output"] = Path(args["--output"]) if args["--output"] is not None else None
-    return args
 
 
 def solve_poisson(meshfile, degree):
@@ -42,7 +33,7 @@ def solve_poisson(meshfile, degree):
     solution : df.Function
     """
     mesh = df.Mesh()
-    with df.XDMFFile(meshfile.as_posix()) as instream:
+    with df.XDMFFile(meshfile) as instream:
         instream.read(mesh)
     V = df.FunctionSpace(mesh, "CG", degree)
     boundary_data = df.Expression("1.0 + x[0] * x[0] + 2.0 * x[1] * x[1]", degree=2)
@@ -62,15 +53,25 @@ def solve_poisson(meshfile, degree):
     return solution
 
 
-def main(args):
-    args = parse_args(args)
-    u = solve_poisson(args["MESH"], args["DEG"])
-    # rename function to 'u'
+def solve_and_write_output(mesh, degree, outputfile):
+    u = solve_poisson(mesh, degree)
     u.rename("u", u.name())
-    if args["--output"] is not None and args["--output"].suffix == ".xdmf":
-        resultfile = df.XDMFFile(args["--output"].as_posix())
-        resultfile.write(u, 0)
+    resultfile = df.XDMFFile(outputfile)
+    resultfile.write(u, 0)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    PARSER = ArgumentParser(description="run script for the poisson problem")
+    PARSER.add_argument("-m", "--mesh",
+                        required=True, help="mesh file to be used")
+    PARSER.add_argument("-d", "--degree",
+                        required=True,
+                        help="polynomial order to be used")
+    PARSER.add_argument("-o", "--outputfile",
+                        required=True,
+                        help="file name for the output to be written")
+    ARGS = vars(PARSER.parse_args())
+
+    solve_and_write_output(
+        ARGS["mesh"], int(ARGS["degree"]), ARGS["outputfile"]
+    )

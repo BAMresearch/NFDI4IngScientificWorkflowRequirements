@@ -41,7 +41,7 @@ RESULT_FILE_NAME="result"
 RESULT_XDMF_FILE="${RESULT_FILE_NAME}.xdmf"
 RESULT_HDF5_FILE="${RESULT_FILE_NAME}.h5"
 FEM_ORDER=1
-runAndCheck "python3 ${RUN_SCRIPT} ${XDMF_GRID} $FEM_ORDER --output ${RESULT_XDMF_FILE}"
+runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --output ${RESULT_XDMF_FILE}"
 
 echo "producing images"
 POST_PRO_SCRIPT="${SOURCE_DIR}/postprocessing.py"
