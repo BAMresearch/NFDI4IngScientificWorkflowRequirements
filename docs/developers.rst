@@ -84,12 +84,17 @@ Workflow hub
 * `Workflow hub website <https://workflowhub.eu/>`_
 
 Dlite
--------
+-----
 * `Dlite website <https://github.com/SINTEF/dlite>`_
 
 Argo
--------
+----
 * `Argo website <https://argoproj.github.io/workflows/>`_
+
+Nextflow
+--------
+* `Nextflow website <https://www.nextflow.io/>`_
+* `Nextflow docs <https://www.nextflow.io/docs/latest/index.html>`_
 
 here is another list
 <https://github.com/tilde-lab/awesome-materials-informatics>`_
