@@ -40,7 +40,7 @@ RUN_SCRIPT="${SOURCE_DIR}/poisson.py"
 RESULT_FILE_NAME="result"
 RESULT_XDMF_FILE="${RESULT_FILE_NAME}.xdmf"
 RESULT_HDF5_FILE="${RESULT_FILE_NAME}.h5"
-FEM_ORDER=1
+FEM_ORDER=2
 runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --output ${RESULT_XDMF_FILE}"
 
 echo "producing images"
@@ -49,7 +49,7 @@ PNG_FILE="result.png"
 runAndCheck "pvbatch ${POST_PRO_SCRIPT} ${RESULT_XDMF_FILE} ${PNG_FILE}"
 
 echo ""
-echo "Worflow has finished successfully!"
+echo "Workflow has finished successfully!"
 echo "The following files were produced in the current folder:"
 echo " - ${MSH_FILE}"
 echo " - ${XDMF_GRID}"
