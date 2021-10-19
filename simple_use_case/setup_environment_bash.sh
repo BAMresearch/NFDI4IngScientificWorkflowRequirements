@@ -15,16 +15,19 @@ installPythonPackages () {
 }
 
 getDolfin () {
+    PATCH_REL_PATH=$1
     if ! [[ -d dolfin ]]; then
         FENICS_VERSION=$(python3 -c"import ffc; print(ffc.__version__)")
 
         echo " -- cloning dolfin $FENICS_VERSION"
         runAndCheck "git clone --branch=$FENICS_VERSION --depth=1 https://bitbucket.org/fenics-project/dolfin"
 
-        echo " -- patching dolfin"
-        runAndCheck "cd dolfin"
-        runAndCheck "git apply ../dolfin.patch"
-        runAndCheck "cd .."
+        if [[ -n "$PATCH_REL_PATH" ]]; then
+            echo " -- patching dolfin"
+            runAndCheck "cd dolfin"
+            runAndCheck "git apply ../$PATCH_REL_PATH"
+            runAndCheck "cd .."
+        fi
     else
         echo "Skip cloning dolfin because folder already exists"
     fi
@@ -86,6 +89,9 @@ checkInstalledProgram pvbatch
 checkInstalledProgram pip3
 checkInstalledLibrary libhdf5
 
+THIS_DIRECTORY=$(dirname $0)
+DOLFIN_PATCH="${THIS_DIRECTORY}/dolfin.patch"
+
 # parse user input
 CM_PREFIX_PATH=$1
 BOOST_HOME=$2
@@ -102,6 +108,6 @@ echo "Installing basic dependencies"
 installPythonPackages
 
 echo "Installing Dolfin"
-getDolfin
+getDolfin $DOLFIN_PATCH
 buildDolfin "$CMAKE_OPTS"
 installDolfinPythonBindings "$BOOST_HOME"
