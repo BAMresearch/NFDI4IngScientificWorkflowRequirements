@@ -8,8 +8,7 @@ runAndCheck () {
     fi
 }
 
-SCRIPT_PATH=$(realpath $0)
-SCRIPT_DIR=$(dirname "$SCRIPT_PATH")
+SCRIPT_DIR=$(dirname $(realpath $0))
 CASE_DIR=$(dirname "$SCRIPT_DIR")
 BASE_DIR=$(dirname "$CASE_DIR")
 
@@ -24,6 +23,13 @@ else
     runAndCheck "source $DOLFIN_CONF"
 fi
 
+# check if source dir exists
+if ! [[ -d "$SOURCE_DIR" ]]; then
+    echo "Source directory could not be found at ${SOURCE_DIR}"
+    exit 1
+fi
+
+# actual workflow execution
 echo "Creating mesh file with gmsh"
 GEO_FILE="${SOURCE_DIR}/unit_square.geo"
 MESH_FILE_NAME="unit_square"
@@ -37,7 +43,8 @@ runAndCheck "meshio convert ${MSH_FILE} ${XDMF_GRID}"
 
 echo "Running simulation with dolfin"
 RUN_SCRIPT="${SOURCE_DIR}/poisson.py"
-RESULT_VTK_FILE="result.pvd"
+RESULT_FILE="result"
+RESULT_VTK_FILE="${RESULT_FILE}.pvd"
 FEM_ORDER=2
 runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --output ${RESULT_VTK_FILE}"
 
@@ -53,4 +60,5 @@ echo " - ${MSH_FILE}"
 echo " - ${XDMF_GRID}"
 echo " - ${HDF5_GRID}"
 echo " - ${RESULT_VTK_FILE}"
+echo " - ${RESULT_FILE}000000.vtu"
 echo " - ${PNG_FILE}"
