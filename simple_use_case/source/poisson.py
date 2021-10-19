@@ -1,29 +1,24 @@
 """
 solution of the poisson equation on the unit square
-
-Usage:
-    poisson.py [options] MESH DEG
-
-Arguments:
-    MESH         The partition of the unit square.
-    DEG          The degree of the finite element space.
-
-Options:
-    -h, --help               Show this message and exit.
-    -o FILE, --output=FILE   Write solution to FILE.
 """
 
-import sys
 from argparse import ArgumentParser
 import dolfin as df
 
 
-def solve_poisson(meshfile, degree):
+def boundary_expression():
+    """Defines the function to be used for the boundary conditions"""
+    return "1.0 + x[0] * x[0] + 2.0 * x[1] * x[1]"
+
+
+def solve_poisson(meshfile: str,
+                  degree: int,
+                  bc_expression: str = boundary_expression()):
     """solves the poisson equation
 
     Parameters
     ----------
-    meshfile : str, Path
+    meshfile : str
         FilePath to the mesh in xdmf format.
     degree : int
         Degree of the finite element space.
@@ -35,29 +30,40 @@ def solve_poisson(meshfile, degree):
     mesh = df.Mesh()
     with df.XDMFFile(meshfile) as instream:
         instream.read(mesh)
-    V = df.FunctionSpace(mesh, "CG", degree)
-    boundary_data = df.Expression("1.0 + x[0] * x[0] + 2.0 * x[1] * x[1]", degree=2)
+    func_space = df.FunctionSpace(mesh, "CG", degree)
+    boundary_data = df.Expression(bc_expression, degree=2)
 
-    def boundary(x, on_boundary):
+    def boundary(_, on_boundary):
         return on_boundary
 
-    bc = df.DirichletBC(V, boundary_data, boundary)
-    u = df.TrialFunction(V)
-    v = df.TestFunction(V)
-    f = df.Constant(-6.0)
-    a = df.dot(df.grad(u), df.grad(v)) * df.dx
-    L = f * v * df.dx
+    boundary_conditions = df.DirichletBC(func_space, boundary_data, boundary)
+    trial_function = df.TrialFunction(func_space)
+    test_function = df.TestFunction(func_space)
+    source = df.Constant(-6.0)
+    lhs = df.dot(df.grad(trial_function), df.grad(test_function)) * df.dx
+    rhs = source * test_function * df.dx
 
-    solution = df.Function(V)
-    df.solve(a == L, solution, bc)
+    solution = df.Function(func_space)
+    df.solve(lhs == rhs, solution, boundary_conditions)
     return solution
 
 
-def solve_and_write_output(mesh, degree, outputfile):
-    u = solve_poisson(mesh, degree)
-    u.rename("u", u.name())
+def solve_and_write_output(mesh: str, degree: int, outputfile: str):
+    """solves the poisson equation and writes the solution to the given file
+
+    Parameters
+    ----------
+    meshfile : str
+        FilePath to the mesh in xdmf format.
+    degree : int
+        Degree of the finite element space.
+    outputfile : str
+        FilePath to the output file into which the solution is written.
+    """
+    discrete_solution = solve_poisson(mesh, degree)
+    discrete_solution.rename("u", discrete_solution.name())
     resultfile = df.XDMFFile(outputfile)
-    resultfile.write(u, 0)
+    resultfile.write(discrete_solution, 0)
 
 
 if __name__ == "__main__":
