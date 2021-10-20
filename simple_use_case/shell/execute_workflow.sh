@@ -50,8 +50,14 @@ runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --out
 
 echo "producing images"
 POST_PRO_SCRIPT="${SOURCE_DIR}/postprocessing.py"
-PNG_FILE="result.png"
+PNG_FILE="contourplot.png"
 runAndCheck "pvbatch ${POST_PRO_SCRIPT} ${RESULT_VTK_FILE} ${PNG_FILE}"
+
+echo "compiling paper"
+TEX_FILE_NAME="paper"
+TEX_FILE="${TEX_FILE_NAME}.tex"
+runAndCheck "cp ${SOURCE_DIR}/${TEX_FILE} ."
+runAndCheck "latexmk -pdf -cd ${TEX_FILE}"
 
 echo ""
 echo "Workflow has finished successfully!"
@@ -62,3 +68,5 @@ echo " - ${HDF5_GRID}"
 echo " - ${RESULT_VTK_FILE}"
 echo " - ${RESULT_FILE}000000.vtu"
 echo " - ${PNG_FILE}"
+echo " - ${TEX_FILE}"
+echo " - ${TEX_FILE_NAME}.pdf"
