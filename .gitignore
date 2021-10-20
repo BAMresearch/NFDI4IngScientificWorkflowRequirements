@@ -9,6 +9,8 @@ website
 *.msh
 *.csv
 *.png
+*.pvd
+*.vtu
 # latex: generated files
 *.aux
 *.fdb_latexmk
