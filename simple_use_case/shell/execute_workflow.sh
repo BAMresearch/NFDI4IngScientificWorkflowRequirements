@@ -46,7 +46,7 @@ RUN_SCRIPT="${SOURCE_DIR}/poisson.py"
 RESULT_FILE="result"
 RESULT_VTK_FILE="${RESULT_FILE}.pvd"
 FEM_ORDER=2
-runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --output ${RESULT_VTK_FILE}"
+runAndCheck "python3 ${RUN_SCRIPT} --mesh ${XDMF_GRID} --degree $FEM_ORDER --outputfile ${RESULT_VTK_FILE}"
 
 echo "producing images"
 POST_PRO_SCRIPT="${SOURCE_DIR}/postprocessing.py"

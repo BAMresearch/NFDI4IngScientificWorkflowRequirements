@@ -1,4 +1,3 @@
-import os
 import pathlib
 
 ROOT = pathlib.Path(__file__).parent
@@ -34,30 +33,39 @@ def task_poisson():
     poisson = SOURCE / "poisson.py"
     mesh = ROOT / "unit_square.xdmf"
     degree = 2
-    target = ROOT / "poisson.xdmf"
+    pvdfile = ROOT / "poisson.pvd"
+    vtufile = ROOT / (pvdfile.stem + "000000.vtu")
     return {
         "file_dep": [mesh, mesh.with_suffix(".h5"), poisson],
-        "actions": [f"python {poisson} --mesh {mesh} --degree {degree} --output={target}"],
-        "targets": [target, target.with_suffix(".h5")],
+        "actions": [
+            f"python {poisson} --mesh {mesh} --degree {degree} --outputfile {pvdfile}"
+        ],
+        "targets": [pvdfile, vtufile],
         "clean": True,
     }
-
-
-def trim_it(targets):
-    args = ["convert", "-trim", targets[0], targets[1]]
-    os.system(" ".join(args))
 
 
 def task_contourplot():
     """make a contourplot using Paraview"""
     postproc = SOURCE / "postprocessing.py"
-    dep = ROOT / "poisson.xdmf"
+    pvdfile = ROOT / "poisson.pvd"
+    vtufile = ROOT / (pvdfile.stem + "000000.vtu")
     contour = ROOT / "contourplot.png"
-    trimmed = ROOT / "contourplot_trimmed.png"
     return {
-        "file_dep": [dep, dep.with_suffix(".h5"), postproc],
-        "actions": [f"pvbatch {postproc} {dep} {contour}", (trim_it, [])],
-        "targets": [contour, trimmed],
+        "file_dep": [pvdfile, vtufile, postproc],
+        "actions": [f"pvbatch {postproc} {pvdfile} {contour}"],
+        "targets": [contour],
+        "clean": True,
+    }
+
+
+def task_copy_paper():
+    """copy paper.tex from source directory"""
+    source_code = SOURCE / "paper.tex"
+    root_code = ROOT / "paper.tex"
+    return {
+        "actions": [f"cp {source_code} {root_code}"],
+        "targets": [root_code],
         "clean": True,
     }
 
@@ -66,7 +74,7 @@ def task_paper():
     """compile pdf from latex source"""
     latexcode = ROOT / "paper.tex"
     return {
-        "file_dep": [ROOT / "contourplot_trimmed.png"],
+        "file_dep": [latexcode, ROOT / "contourplot.png"],
         "actions": [f"latexmk -pdf -cd {latexcode}"],
         "targets": [ROOT / "paper.pdf"],
         "clean": True,
