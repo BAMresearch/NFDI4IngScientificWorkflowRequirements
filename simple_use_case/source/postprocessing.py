@@ -11,14 +11,14 @@ from paraview.simple import (
     GetScalarBar,
     Show,
     SaveScreenshot,
-    Xdmf3ReaderS,
+    PVDReader,
 )
 from numpy import linspace
 
 
 def main(args):
     xdmf_file = args.xdmf
-    source = Xdmf3ReaderS(registrationName="xdmfreader", FileName=[xdmf_file])
+    source = PVDReader(registrationName="xdmfreader", FileName=[xdmf_file])
     array_info = source.PointData[args.field]
     data_range = array_info.GetRange(-1)
 
@@ -33,7 +33,6 @@ def main(args):
 
     color_bar = GetScalarBar(fun, view)
     color_bar.AutoOrient = 0
-    color_bar.WindowLocation = "LowerCenter"
     color_bar.Orientation = "Horizontal"
     color_bar.ComponentTitle = ""
     color_bar.TitleFontFamily = "Times"
