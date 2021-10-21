@@ -96,5 +96,7 @@ Nextflow
 * `Nextflow website <https://www.nextflow.io/>`_
 * `Nextflow docs <https://www.nextflow.io/docs/latest/index.html>`_
 
-here is another list
-<https://github.com/tilde-lab/awesome-materials-informatics>`_
+Related lists
+-------------
+* `Awesome materials informatics <https://github.com/tilde-lab/awesome-materials-informatics>`_
+* `Awesome pipeline <https://github.com/pditommaso/awesome-pipeline>`_
