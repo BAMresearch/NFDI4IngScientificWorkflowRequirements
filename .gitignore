@@ -2,18 +2,3 @@ tags
 .doit.db.*
 __pycache__
 website
-
-# SimpleUseCase: generated files
-*.xdmf
-*.h5
-*.msh
-*.csv
-*.png
-*.pvd
-*.vtu
-# latex: generated files
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.synctex.gz

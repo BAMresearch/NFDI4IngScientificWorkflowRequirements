@@ -1,0 +1,17 @@
+# SimpleUseCase: generated files
+*.xdmf
+*.h5
+*.msh
+*.csv
+*.png
+*.pvd
+*.vtu
+
+# latex
+*.tex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.pdf
