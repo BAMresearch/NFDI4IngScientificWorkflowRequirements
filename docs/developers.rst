@@ -107,6 +107,6 @@ Workflow hub
 
 
 Related lists
-=============
+-------------
 * `Awesome materials informatics <https://github.com/tilde-lab/awesome-materials-informatics>`_
 * `Awesome pipeline <https://github.com/pditommaso/awesome-pipeline>`_
