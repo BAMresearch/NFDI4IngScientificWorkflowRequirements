@@ -1,9 +1,7 @@
-Snakemake
-=========
+# Snakemake
 Some notes on my user/learning experience with snakemake.
 
-Paper
------
+## Paper
 * improved readability due to domain specific language (DSL) (+) (*transparency*, *adaptability*); assumption: for user with no prior knowledge it is easier to learn/understand DSL instead of programming language
 * DSL obviates superfluous operators or boilerplate code (+, example?)
 * includes deployment of software stack (conda env that is automatically installed; singularity or docker containers) (++) (*portability*)
@@ -18,8 +16,7 @@ Paper
 * arbitrary python code can be used to define task metadata, but for certain use cases (presumably typical processes in data analysis) Snakemake explicitly defines directives to be used (see section 3.2 scatter/gather processes)
 
 
-Tutorial
---------
+## Tutorial
 * Snakemake wants to re-run the job after changes to the file modification date (-):
 ```
 touch data/samples/A.fastq
@@ -43,8 +40,7 @@ Isn't this contradictory to section 2.5.2 "Caching between workflows" in the sna
 * only input files (not output!) can be specified as functions
 
 
-Wildcards
----------
+### Wildcards
 ```
 snakemake -np mapped_reads/B.bam
 ```
@@ -52,3 +48,18 @@ defines the output file `mapped_reads/B.bam` for a job generated from rule `bwa_
 The wildcard `{sample}` is filled in with the value `B` given in the command.
 This value is then propagated to find and check for appropriate input files (and not the other way around, like a file pattern matching ...).
 * What is the point of using an input function if in the output file definition a wildcard is used?
+
+
+## Test case implementation
+In contrast to the `pydoit` implementation, the single conda environment is split in several environments since with `snakemake` it is possible to specify a conda environment for each rule. 
+This has the benefit of modularization and later on the option to automatically write a Dockerfile (`--containerize`).
+At the time of writing there is however a bug which is fixed but the PR not included in the latest version (6.10.0) of snakemake.
+
+### Execution
+```
+snakemake --cores 1 --use-conda postprocessing/paper.pdf
+```
+The number of cores always needs to be specified. `--use-conda` is False by default.
+Other useful options are `--dryrun, -n` for a dry-run and `--prindshellcmds, -p` to print out shell commands that will be executed.
+For more help `snakemake --help` of course.
+The current Snakefile implementation requires the user to explicitly define the target `postprocessing/paper.pdf` such that an appropriate job can be generated from the rule `compile`.
