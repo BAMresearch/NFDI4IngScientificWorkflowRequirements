@@ -53,7 +53,7 @@ This value is then propagated to find and check for appropriate input files (and
 ## Test case implementation
 In contrast to the `pydoit` implementation, the single conda environment is split in several environments since with `snakemake` it is possible to specify a conda environment for each rule. 
 This has the benefit of modularization and later on the option to automatically write a Dockerfile (`--containerize`).
-At the time of writing there is however a bug which is fixed but the PR not included in the latest version (6.10.0) of snakemake.
+At the time of writing there is however a [bug](https://github.com/snakemake/snakemake/issues/1210) which is fixed but the PR not included in the latest version (6.10.0) of snakemake.
 
 ### Execution
 ```
