@@ -11,4 +11,4 @@ Documentation
 Test case implementation
 ------------------------
 * knowledge of the python programming language (o)
-* no direct integration of software packages; software deployment and execution environment are not controlled (-)
+* no direct integration of software packages; software deployment and execution environment are not controlled (-); However, doit is very flexible and tasks like checking whether conda is installed (and installing it if this is not the case) or building a docker container for the current (conda) environment could be implemented
