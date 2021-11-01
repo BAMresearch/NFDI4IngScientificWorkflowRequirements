@@ -70,9 +70,26 @@ snakemake --dag postprocessing/paper.pdf | dot -Tsvg > dag.svg
 ```
 
 ## Problems
-* running the workflow at home, I got the following error when trying to run `poisson.py`
+
+### Processing Env
+Running the workflow at home, I got the following error when trying to run `poisson.py`
 ```
 ImportError: libsuperlu_dist.so.6: cannot open shared object file: No such file or directory
 ```
 Somehow, building the conda env from `envs/processing.yaml` does not find superlu? although it seems to be there when inspecting
 `.snakemake/conda/<some-hash>` where conda envs are installed. Additionally specifying `python=3.7` solves the problem (`python=3.7.12`, `superlu=5.2.2` and `superlu_dist=6.2.0` are installed in contrast to `python=3.9.7`,`superlu=5.2.2` and `superlu_dist=7.1.1` whithout python specification).
+
+### Debugging
+From the snakemake help:
+```
+  --debug-dag           Print candidate and selected jobs (including their
+                        wildcards) while inferring DAG. This can help to debug
+                        unexpected DAG topology or errors. (default: False)
+  --verbose             Print debugging output. (default: False)
+  --overwrite-shellcmd OVERWRITE_SHELLCMD
+                        Provide a shell command that shall be executed instead
+                        of those given in the workflow. This is for debugging
+                        purposes only. (default: None)
+  --debug		Allow to debug rules with e.g. PDB. This flag allows
+			to set breakpoints in run blocks. (default: False)
+```
