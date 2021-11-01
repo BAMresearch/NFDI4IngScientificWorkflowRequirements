@@ -64,6 +64,15 @@ Other useful options are `--dryrun, -n` for a dry-run and `--printshellcmds, -p`
 The current Snakefile implementation requires the user to explicitly define the target `postprocessing/paper.pdf` such that an appropriate job can be generated from the rule `compile`.
 
 ### Provenance graph
+Exporting the DAG requires `graphviz` to be installed.
 ```
 snakemake --dag postprocessing/paper.pdf | dot -Tsvg > dag.svg
 ```
+
+## Problems
+* running the workflow at home, I got the following error when trying to run `poisson.py`
+```
+ImportError: libsuperlu_dist.so.6: cannot open shared object file: No such file or directory
+```
+Somehow, building the conda env from `envs/processing.yaml` does not find superlu? although it seems to be there when inspecting
+`.snakemake/conda/<some-hash>` where conda envs are installed. Additionally specifying `python=3.7` solves the problem (`python=3.7.12`, `superlu=5.2.2` and `superlu_dist=6.2.0` are installed in contrast to `python=3.9.7`,`superlu=5.2.2` and `superlu_dist=7.1.1` whithout python specification).
