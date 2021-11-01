@@ -62,3 +62,8 @@ snakemake --cores 1 --use-conda postprocessing/paper.pdf
 The number of cores always needs to be specified. `--use-conda` is False by default.
 Other useful options are `--dryrun, -n` for a dry-run and `--printshellcmds, -p` to print out shell commands that will be executed.  For more help `snakemake --help` of course.
 The current Snakefile implementation requires the user to explicitly define the target `postprocessing/paper.pdf` such that an appropriate job can be generated from the rule `compile`.
+
+### Provenance graph
+```
+snakemake --dag postprocessing/paper.pdf | dot -Tsvg > dag.svg
+```
