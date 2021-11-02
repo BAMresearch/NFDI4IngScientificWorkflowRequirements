@@ -56,6 +56,7 @@ This has the benefit of modularization and later on the option to automatically 
 At the time of writing there is however a [bug](https://github.com/snakemake/snakemake/issues/1210) which is fixed but the PR not included in the latest version (6.10.0) of snakemake.
 
 ### Execution
+Only requirement is the [installation](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html) of `snakemake=6.10.0`. The workflow can be executed with
 ```
 snakemake --cores 1 --use-conda postprocessing/paper.pdf
 ```
