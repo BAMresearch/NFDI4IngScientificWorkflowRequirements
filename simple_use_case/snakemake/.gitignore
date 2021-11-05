@@ -1,0 +1,4 @@
+.snakemake
+preprocessing/
+processing/
+postprocessing/
