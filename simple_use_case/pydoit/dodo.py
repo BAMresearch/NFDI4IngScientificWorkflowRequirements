@@ -75,7 +75,7 @@ def task_paper():
     latexcode = ROOT / "paper.tex"
     return {
         "file_dep": [latexcode, ROOT / "contourplot.png"],
-        "actions": [f"latexmk -pdf -cd {latexcode}"],
+        "actions": [f"tectonic {latexcode}"],
         "targets": [ROOT / "paper.pdf"],
         "clean": True,
     }
