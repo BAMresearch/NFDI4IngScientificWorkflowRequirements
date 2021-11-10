@@ -30,3 +30,8 @@ Di Tommaso et Al.
 * outputs are not limited to files but can also include in-memory values and data objects
 * example genomic analysis: differences in "native" workflow execution and containerization as solution; what is the truth? docker image is also based on some operating system ...
 * table 1 is not up to date (by now Snakemake supports Docker)
+
+Simple use case
+---------------
+* pipeline results are cached by default in the directory `$PWD/work`. Each process is executed again unless one adds the option `-resume`. In this case the results are retrieved from the cache. [Modify and resume](https://www.nextflow.io/docs/latest/getstarted.html#modify-and-resume)
+* for each process a directory named after the process ID will be created. Here the input and output files are stored (using symlinks to avoid duplication). There are also hidden files which give information about the process execution (`.command.<name>` were `<name>` is one of the following `begin`, `err`, `log`, `out`, `run`, `sh`)
