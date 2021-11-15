@@ -11,8 +11,8 @@ tex_ch = Channel.fromPath("$PWD/../source/paper.tex")
 process generateMesh {
     // generate mesh using Gmsh
 
-    // use conda directive to specify existing environment
-    conda "$HOME/miniconda3/envs/multi"
+    // use conda directive to specify environment file
+    conda "./envs/preprocessing.yaml"
 
     input:
     file geo from geo_ch
@@ -29,7 +29,7 @@ process generateMesh {
 process convertToXDMF {
     // convert any msh file to xdmf
 
-    conda "$HOME/miniconda3/envs/multi"
+    conda "./envs/preprocessing.yaml"
 
     input:
     file msh from msh_ch
@@ -47,7 +47,7 @@ process convertToXDMF {
 process solvePoisson {
     // solve poisson equation using fenics code
 
-    conda "$HOME/miniconda3/envs/multi"
+    conda "./envs/processing.yaml"
 
     // multiple inputs from different channels
     input:
@@ -66,6 +66,9 @@ process solvePoisson {
 
 
 process makeContourplot {
+
+    conda "./envs/postprocessing.yaml"
+
     input:
     file postproc from pv_ch
     file vtu from vtu_ch
@@ -82,7 +85,7 @@ process makeContourplot {
 
 process compile {
 
-    conda "$HOME/miniconda3/envs/tectonic"
+    conda "./envs/postprocessing.yaml"
 
     input:
     file tex_code from tex_ch
