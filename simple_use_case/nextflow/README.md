@@ -33,5 +33,8 @@ Di Tommaso et Al.
 
 Simple use case
 ---------------
+```
+nextflow run simplecase.nf
+```
 * pipeline results are cached by default in the directory `$PWD/work`. Each process is executed again unless one adds the option `-resume`. In this case the results are retrieved from the cache. [Modify and resume](https://www.nextflow.io/docs/latest/getstarted.html#modify-and-resume)
 * for each process a directory named after the process ID will be created. Here the input and output files are stored (using symlinks to avoid duplication). There are also hidden files which give information about the process execution (`.command.<name>` were `<name>` is one of the following `begin`, `err`, `log`, `out`, `run`, `sh`)
