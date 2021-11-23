@@ -12,10 +12,13 @@ arguments: ["-$(inputs.dimension)", "$(inputs.geofile.path)", "-o", "$(inputs.ou
 inputs:
   geofile:
     type: File
+    doc: "Geometry file in a gmsh-readable format"
   outfilename:
     type: string
+    doc: "The name of the mesh file to be written, including the desired extension"
   dimension:
     type: int
+    doc: "The desired dimension of the mesh"
 outputs:
   mesh:
     type: File
