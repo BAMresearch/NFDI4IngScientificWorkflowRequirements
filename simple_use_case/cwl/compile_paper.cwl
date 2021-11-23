@@ -6,7 +6,7 @@ doc: |
   Create the paper as pdf, given the correct images
 hints:
   DockerRequirement:
-    dockerPull: simpleusecase
+    dockerPull: wftools-simpleusecase
 baseCommand: ["tectonic"]
 arguments: ["$(inputs.texfile)"]
 requirements:

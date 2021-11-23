@@ -6,7 +6,7 @@ doc: |
   mesh generation with gmsh
 hints:
   DockerRequirement:
-    dockerPull: simpleusecase
+    dockerPull: wftools-simpleusecase
 baseCommand: ["gmsh"]
 arguments: ["-$(inputs.dimension)", "$(inputs.geofile.path)", "-o", "$(inputs.outfilename)"]
 inputs:

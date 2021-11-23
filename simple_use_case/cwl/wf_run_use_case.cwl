@@ -2,6 +2,7 @@
 
 cwlVersion: v1.0
 class: Workflow
+
 outputs:
   mesh:
     type: File
@@ -18,11 +19,13 @@ outputs:
   paperpdf:
     type: File
     outputSource: compile_paper/pdf
+
 inputs:
   geometryfile: File
   dolfinscript: File
   pvbatchscript: File
   papersource: File
+
 steps:
 
   make_mesh:

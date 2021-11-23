@@ -6,7 +6,7 @@ doc: |
   Create rendering from vtk file using pvbatch
 hints:
   DockerRequirement:
-    dockerPull: simpleusecase
+    dockerPull: wftools-simpleusecase
 baseCommand: ["pvbatch"]
 arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "$(inputs.outputfile)"]
 requirements:

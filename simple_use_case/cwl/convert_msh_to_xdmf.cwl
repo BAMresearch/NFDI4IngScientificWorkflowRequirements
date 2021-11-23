@@ -7,7 +7,7 @@ doc: |
 baseCommand: ["meshio-convert"]
 hints:
   DockerRequirement:
-    dockerPull: simpleusecase
+    dockerPull: wftools-simpleusecase
 arguments: ["$(inputs.inputmesh.path)", "$(inputs.outfilename).xdmf"]
 inputs:
   inputmesh:
