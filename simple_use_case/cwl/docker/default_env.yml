@@ -9,4 +9,4 @@ dependencies:
   - tectonic=0.8.0
   # transitive dependencies unfortunately required to be stated explicitly
   - importlib-metadata=4.8.1
-  - superlu_dist=6.2.0
+  - superlu_dist=7.1.1
