@@ -5,6 +5,7 @@ class: Workflow
 
 inputs:
   dockerfile-url: string
+  envfile-url: string
 
 outputs:
   dockerid:
@@ -22,4 +23,5 @@ steps:
     run: build_docker_image.cwl
     in:
       file: fetch_dockerfile/dockerfile
+      envfile-url: envfile-url
     out: [dockerid]
