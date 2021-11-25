@@ -21,10 +21,26 @@ outputs:
     outputSource: compile_paper/pdf
 
 inputs:
-  geometryfile: File
-  dolfinscript: File
-  pvbatchscript: File
-  papersource: File
+  geometryfile:
+    type: File
+    default:
+      class: File
+      location: ../source/unit_square.geo
+  dolfinscript:
+    type: File
+    default:
+      class: File
+      location: ../source/poisson.py
+  pvbatchscript:
+    type: File
+    default:
+      class: File
+      location: ../source/postprocessing.py
+  papersource:
+    type: File
+    default:
+      class: File
+      location: ../source/paper.tex
 
 steps:
 

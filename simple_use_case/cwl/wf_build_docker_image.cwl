@@ -4,8 +4,12 @@ cwlVersion: v1.0
 class: Workflow
 
 inputs:
-  dockerfile-url: string
-  envfile-url: string
+  dockerfile-url:
+    type: string
+    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/Dockerfile
+  envfile-url:
+    type: string
+    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml
 
 outputs:
   dockerid:
