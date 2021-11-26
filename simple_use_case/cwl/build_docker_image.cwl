@@ -17,7 +17,7 @@ inputs:
     doc: "Define the tag to be given to the image"
   envfile-url:
     type: string
-    default: "https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml"
+    default: "https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/main/simple_use_case/cwl/docker/default_env.yml"
     doc: "The url of the conda file to use for building the environment inside the container"
 outputs:
   dockerid:

@@ -25,7 +25,7 @@ WORKDIR /environments
 
 # create environment with conda and substitute ParaView by version without x-server
 # - TODO: change link to the .yml file after branch has been merged
-ARG ENVFILEURL=https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml
+ARG ENVFILEURL=https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/main/simple_use_case/cwl/docker/default_env.yml
 RUN wget $ENVFILEURL -O my_env.yml && \
     conda env create --file my_env.yml --prefix ./myenv && \
     conda clean --all -y && \
