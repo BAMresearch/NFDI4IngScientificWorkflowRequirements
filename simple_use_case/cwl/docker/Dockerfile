@@ -28,7 +28,6 @@ WORKDIR /environments
 ARG ENVFILEURL=https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml
 RUN wget $ENVFILEURL -O my_env.yml && \
     conda env create --file my_env.yml --prefix ./myenv && \
-    conda remove --prefix ./myenv paraview && \
     conda clean --all -y && \
     wget --no-check-certificate "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.9&type=binary&os=Linux&downloadFile=ParaView-5.9.1-osmesa-MPI-Linux-Python3.8-64bit.tar.gz" \
          --output-document=/environments/paraview.tar.gz && \
