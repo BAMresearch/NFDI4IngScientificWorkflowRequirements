@@ -27,5 +27,5 @@ steps:
     run: build_docker_image.cwl
     in:
       file: fetch_dockerfile/dockerfile
-      envfile-url: envfile-url
+      envfileurl: envfile-url
     out: [dockerid]
