@@ -1,3 +1,4 @@
+import sys
 import pathlib
 import subprocess
 import voluptuous as vol
@@ -7,6 +8,16 @@ from aiida.orm import Dict
 from aiida.plugins import DataFactory
 
 SinglefileData = DataFactory("singlefile")
+
+# set filepaths
+# unfortunately this seems necessary
+# I haven't figured out how to specify the absolute path
+# from the SinglefileData object yet (if possible)
+CWD = pathlib.Path(__file__).parent.absolute()
+SOURCE = CWD.parent / "source"
+
+# add SOURCE to path for fenics imports
+sys.path.append(SOURCE.absolute().as_posix())
 
 
 """Outline
@@ -69,9 +80,8 @@ def gmsh_subprocess(cmdline_parameters, geofile):
     # build subprocess call
     executable = get_executable_path("aiida_simplecase_dev", "gmsh")
     args = [executable]
-    # FIXME it seems geofile has to be in $PWD
-    # for a CalcJob normally the input is copied to the sandbox folder
-    args += [geofile.filename]
+    # FIXME how to return absolute path of geofile?
+    args += [SOURCE / geofile.filename]
     for key, value in parameters.items():
         if isinstance(value, bool) and value:
             args.append(key)
@@ -81,7 +91,9 @@ def gmsh_subprocess(cmdline_parameters, geofile):
 
     # default output
     if "-o" not in args:
-        outputfile = pathlib.Path(geofile.filename).with_suffix(".msh")
+        outputfile = (CWD / geofile.filename).with_suffix(".msh")
+        args.append("-o")
+        args.append(outputfile.absolute())
     else:
         outputfile = pathlib.Path(args[args.index("-o") + 1])
 
@@ -104,9 +116,8 @@ def meshio_convert_subprocess(cmdline_parameters, infile):
 
     Returns
     -------
-    output: aiida.orm.nodes.data.singlefile.SinglefileData, or list of
-            aiida.orm.nodes.data.singlefile.SinglefileData
-        The meshfile(s) that was(were) written to.
+    output: aiida.orm.nodes.data.singlefile.SinglefileData
+        The meshfile that was written to.
 
     """
     input_formats = [
@@ -195,11 +206,49 @@ def meshio_convert_subprocess(cmdline_parameters, infile):
             args.append(key)
             args.append(value)
 
-    args.append(infile.filename)
-    args.append("outfile")
+    args.append(CWD / infile.filename)
+    outputfilename = CWD / "outfile"
+    args.append(outputfilename)
 
     subprocess.call(args)
-    output = SinglefileData(file=pathlib.Path("outfile").absolute())
+    output = SinglefileData(file=pathlib.Path(outputfilename).absolute())
+    return output
+
+
+@calcfunction
+def fenics_subprocess(cmdline_parameters, meshfile):
+    """Run a fenics problem as a subprocess
+
+    Parameters
+    ----------
+    cmdline_parameters : aiida.orm.nodes.data.dict.Dict
+        A AiiDA data Node of type Dict defining meshio cmdline parameters.
+    meshfile : aiida.orm.nodes.data.singlefile.SinglefileData
+        The meshfile to be read from.
+
+    Returns
+    -------
+    output: aiida.orm.nodes.data.singlefile.SinglefileData
+        The solution of the fenics problem.
+
+    """
+    from poisson import solve_and_write_output
+
+    cmdline_options = {
+        vol.Required("--degree"): vol.All(int, vol.Range(min=1, max=3)),
+        vol.Required("--outputfile"): str,
+    }
+    schema = vol.Schema(cmdline_options)
+    parameters = schema(cmdline_parameters.get_dict())
+
+    mesh = CWD / meshfile.filename
+    solve_and_write_output(
+        mesh.as_posix(), int(parameters["--degree"]), str(parameters["--outputfile"])
+    )
+
+    output = SinglefileData(
+        file=pathlib.Path(str(parameters["--outputfile"])).absolute()
+    )
     return output
 
 
@@ -217,40 +266,25 @@ class SimpleUseCaseWorkChain(WorkChain):
         # spec.input("latex_code", valid_type=SinglefileData)
         spec.outline(
             cls.generate_mesh,
-            # cls.convert_mesh,
-            # cls.solve_poisson,
-            # cls.make_contourplot,
-            # cls.compile
+            cls.convert_mesh,
+            cls.fenics_solve,
         )
-        spec.output("mesh", valid_type=SinglefileData)
-        # spec.output("paper", valid_type=SinglefileData)
+        spec.output("solution", valid_type=SinglefileData)
 
     def generate_mesh(self):
         """generate the mesh using Gmsh"""
-        cmdline_parameters = Dict(dict={"-2": True})
-        # self.ctx.mshfile = gmsh_subprocess(cmdline_parameters, self.inputs.geofile)
-        mshfile = gmsh_subprocess(cmdline_parameters, self.inputs.geofile)
-        self.out("mesh", mshfile)
+        cmdline_parameters = Dict(dict={"-2": True, "-format": "msh2"})
+        self.ctx.mshfile = gmsh_subprocess(cmdline_parameters, self.inputs.geofile)
 
-    # def convert_mesh(self):
-    #     """convert the mesh to dolfin format using meshio-convert"""
-    #     cmdline_parameters = Dict(dict={"--output-format": "abaqus"})
-    #     converted_mesh = meshio_convert_subprocess(cmdline_parameters, self.ctx.mshfile)
-    #     self.out("mesh", converted_mesh)
+    def convert_mesh(self):
+        """convert the mesh to dolfin format using meshio-convert"""
+        cmdline_parameters = Dict(dict={"--output-format": "xdmf"})
+        self.ctx.converted_mesh = meshio_convert_subprocess(
+            cmdline_parameters, self.ctx.mshfile
+        )
 
-    # def solve_poisson(self):
-    #     """solve the poisson equation using fenics"""
-    #     pass
-
-    # def make_contourplot(self):
-    #     """make a plot of the solution using pvbatch"""
-    #     pass
-
-    # def compile(self):
-    #     """compilation of the latex code"""
-
-    #     # FIXME
-    #     # pdf = calcfunction_compile(self.inputs.latex_code)
-
-    #     # Declaring the output
-    #     self.out("paper", pdf)
+    def fenics_solve(self):
+        """solve the poisson equation using fenics"""
+        cmdline_parameters = Dict(dict={"--degree": 2, "--outputfile": "poisson.pvd"})
+        solution = fenics_subprocess(cmdline_parameters, self.ctx.converted_mesh)
+        self.out("solution", solution)
