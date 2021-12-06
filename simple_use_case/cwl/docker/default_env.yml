@@ -5,7 +5,6 @@ dependencies:
   - fenics=2019.1.0
   - gmsh=4.6.0
   - meshio=4.3.1
-  - paraview=5.9.1
   - tectonic=0.8.0
   # transitive dependencies unfortunately required to be stated explicitly
   - importlib-metadata=4.8.1

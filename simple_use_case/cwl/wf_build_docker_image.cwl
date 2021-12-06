@@ -6,10 +6,10 @@ class: Workflow
 inputs:
   dockerfile-url:
     type: string
-    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/Dockerfile
+    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/main/simple_use_case/cwl/docker/Dockerfile
   envfile-url:
     type: string
-    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml
+    default: https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/main/simple_use_case/cwl/docker/default_env.yml
 
 outputs:
   dockerid:
@@ -27,5 +27,5 @@ steps:
     run: build_docker_image.cwl
     in:
       file: fetch_dockerfile/dockerfile
-      envfile-url: envfile-url
+      envfileurl: envfile-url
     out: [dockerid]

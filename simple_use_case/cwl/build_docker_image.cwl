@@ -5,7 +5,7 @@ class: CommandLineTool
 doc: |
   build the docker image from the given file
 baseCommand: ["docker", "build",]
-arguments: ["-f", "$(inputs.file)", "-t", "$(inputs.tag)", "--iidfile", "docker_id.txt", "."]
+arguments: ["-f", "$(inputs.file)", "-t", "$(inputs.tag)", "--iidfile", "docker_id.txt", "--build-arg", "ENVFILEURL=$(inputs.envfileurl)", "."]
 inputs:
   file:
     type: File
@@ -15,9 +15,9 @@ inputs:
     type: string
     default: "wftools-simpleusecase"
     doc: "Define the tag to be given to the image"
-  envfile-url:
+  envfileurl:
     type: string
-    default: "https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/feature/simpleusecase-cwl/simple_use_case/cwl/docker/default_env.yml"
+    default: "https://raw.githubusercontent.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/main/simple_use_case/cwl/docker/default_env.yml"
     doc: "The url of the conda file to use for building the environment inside the container"
 outputs:
   dockerid:
