@@ -22,7 +22,7 @@ def task_convert():
     msh = ROOT / "unit_square.msh"
     return {
         "file_dep": [msh],
-        "actions": [f"meshio-convert {msh} {msh.with_suffix('.xdmf')}"],
+        "actions": [f"meshio convert {msh} {msh.with_suffix('.xdmf')}"],
         "targets": [msh.with_suffix(".xdmf"), msh.with_suffix(".h5")],
         "clean": True,
     }
