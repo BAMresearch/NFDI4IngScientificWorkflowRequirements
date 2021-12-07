@@ -1,9 +1,0 @@
-channels:
-  - conda-forge
-dependencies:
-  - doit
-  - paraview=5.9.1
-  - tectonic
-  - gmsh
-  - fenics=2019.1.0
-  - meshio
