@@ -1,5 +1,0 @@
-channels:
-        - conda-forge
-dependencies:
-        - paraview=5.9.1
-        - tectonic=0.8.0
