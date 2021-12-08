@@ -4,7 +4,7 @@ rule generate_mesh:
 	output:
 		"preprocessing/unit_square.msh"
 	conda:
-		"envs/preprocessing.yaml"
+		"../source/envs/preprocessing.yaml"
 	shell:
 		"gmsh -2 -order 1 -format msh2 {input} -o {output}"
 
@@ -15,9 +15,9 @@ rule convert_to_xdmf:
 	output:
 		"preprocessing/{domain}.xdmf"
 	conda:
-		"envs/preprocessing.yaml"
+		"../source/envs/preprocessing.yaml"
 	shell:
-		"meshio-convert {input} {output}"
+		"meshio convert {input} {output}"
 
 
 rule poisson:
@@ -27,7 +27,7 @@ rule poisson:
 	output:
 		"processing/poisson.pvd"
 	conda:
-		"envs/processing.yaml"
+		"../source/envs/processing.yaml"
 	shell:
 		"python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output}"
 
@@ -39,7 +39,7 @@ rule plot_solution:
 	output:
 		"postprocessing/contourplot.png"
 	conda:
-		"envs/postprocessing.yaml"
+		"../source/envs/postprocessing.yaml"
 	shell:
 		"pvbatch {input.py} {input.pvd} {output}"
 
@@ -60,6 +60,6 @@ rule compile:
 	output:
 		"postprocessing/{document}.pdf"
 	conda:
-		"envs/postprocessing.yaml"
+		"../source/envs/postprocessing.yaml"
 	shell:
 		"tectonic {input.tex}"
