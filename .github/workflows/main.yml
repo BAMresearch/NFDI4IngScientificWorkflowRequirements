@@ -1,0 +1,35 @@
+name: run-simple-use-case
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-cwl:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
+
+      - name: install-miniconda
+        run: |
+          apt-get update && apt-get install --no-install-recommends --yes wget
+          wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh
+          bash Miniconda3-py38_4.10.3-Linux-x86_64.sh
+
+      - name: prepare-environment
+        run: |
+          cd $GITHUB_WORKSPACE
+          conda env create --file simple_use_case/cwl/default_env.yml --prefix ./env_simple_use_case
+
+      - name: run-cwl
+        run: |
+          conda activate $GITHUB_WORKSPACE/env_simple_use_case
+          cd $GITHUB_WORKSPACE/simple_use_case/cwl
+          cwltool wf_run_use_case.cwl
