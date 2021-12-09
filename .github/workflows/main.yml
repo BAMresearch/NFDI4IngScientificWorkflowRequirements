@@ -17,9 +17,16 @@ jobs:
       # Checks-out the repository under $GITHUB_WORKSPACE
       - uses: actions/checkout@v2
 
+      - name: install-basic-dependencies
+        run: |
+          apt-get update && apt-get install --no-install-recommends --yes \
+               libgomp1 \
+               libgl1-mesa-glx \
+               libglu1-mesa \
+               wget
+
       - name: install-miniconda
         run: |
-          apt-get update && apt-get install --no-install-recommends --yes wget
           wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.10.3-Linux-x86_64.sh -O ~/miniconda.sh
           bash ~/miniconda.sh -b -p ~/miniconda
           export PATH=$PATH:~/miniconda/bin/
