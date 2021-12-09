@@ -4,10 +4,7 @@ cwlVersion: v1.0
 class: CommandLineTool
 doc: |
   Convert gmsh mesh file format to xdmf
-baseCommand: ["meshio-convert"]
-hints:
-  DockerRequirement:
-    dockerPull: wftools-simpleusecase
+baseCommand: ["meshio", "convert"]
 arguments: ["$(inputs.inputmesh.path)", "$(inputs.outfilename).xdmf"]
 inputs:
   inputmesh:

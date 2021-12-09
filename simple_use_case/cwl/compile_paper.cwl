@@ -4,9 +4,6 @@ cwlVersion: v1.0
 class: CommandLineTool
 doc: |
   Create the paper as pdf, given the correct images
-hints:
-  DockerRequirement:
-    dockerPull: wftools-simpleusecase
 baseCommand: ["tectonic"]
 arguments: ["$(inputs.texfile)"]
 requirements:
