@@ -4,9 +4,6 @@ cwlVersion: v1.0
 class: CommandLineTool
 doc: |
   Create rendering from vtk file using pvbatch
-hints:
-  DockerRequirement:
-    dockerPull: wftools-simpleusecase
 baseCommand: ["pvbatch"]
 arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "$(inputs.outputfile)"]
 requirements:

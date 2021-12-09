@@ -4,9 +4,6 @@ cwlVersion: v1.0
 class: CommandLineTool
 doc: |
   mesh generation with gmsh
-hints:
-  DockerRequirement:
-    dockerPull: wftools-simpleusecase
 baseCommand: ["gmsh"]
 arguments: ["-$(inputs.dimension)", "$(inputs.geofile.path)", "-o", "$(inputs.outfilename)"]
 inputs:
