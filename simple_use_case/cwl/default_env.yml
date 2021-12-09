@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+dependencies:
+  - fenics=2019.1.0=py39hf3d152e_26
+  - gmsh=4.6.0=hd134328_0
+  - meshio=5.0.5=pyhd8ed1ab_0
+  - paraview=5.9.1=h1081a63_103_qt
+  - tectonic=0.8.0=ha1fef3e_1
+  - cwltool
+  # transitive dependencies unfortunately required to be stated explicitly
+  - importlib-metadata=4.8.1
+  - superlu_dist=7.1.1
