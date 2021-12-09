@@ -34,7 +34,10 @@ jobs:
       - name: prepare-environment
         run: |
           cd $GITHUB_WORKSPACE
-          conda env create --file simple_use_case/cwl/default_env.yml --prefix ./env_simple_use_case
+          conda init bash
+          source ~/.bashrc
+          conda env create --file simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
+          conda activate ~/env_simple_use_case
 
       - name: run-cwl
         run: |
