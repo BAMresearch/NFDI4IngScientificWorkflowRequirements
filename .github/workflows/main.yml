@@ -32,3 +32,10 @@ jobs:
           conda activate ~/env_simple_use_case
           cd $GITHUB_WORKSPACE/simple_use_case/cwl
           cwltool wf_run_use_case.cwl
+
+        - name: upload-paper-artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: paper
+            path: $GITHUB_WORKSPACE/simple_use_case/cwl/paper.pdf
+            retention-days: 1
