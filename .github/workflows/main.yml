@@ -1,0 +1,32 @@
+name: run-simple-use-case
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-cwl:
+    runs-on: ubuntu-latest
+    container:
+      image: continuumio/miniconda3
+
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v2
+
+      - name: prepare-environment
+        run: |
+          cd $GITHUB_WORKSPACE
+          conda env create --file simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
+          conda activate ~/env_simple_use_case
+
+      - name: run-cwl
+        run: |
+          conda activate $GITHUB_WORKSPACE/env_simple_use_case
+          cd $GITHUB_WORKSPACE/simple_use_case/cwl
+          cwltool wf_run_use_case.cwl
