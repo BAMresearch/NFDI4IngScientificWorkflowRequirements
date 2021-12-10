@@ -12,7 +12,7 @@ process generateMesh {
     // generate mesh using Gmsh
 
     // use conda directive to specify environment file
-    conda "./envs/preprocessing.yaml"
+    conda "../source/envs/preprocessing.yaml"
 
     input:
     file geo from geo_ch
@@ -29,7 +29,7 @@ process generateMesh {
 process convertToXDMF {
     // convert any msh file to xdmf
 
-    conda "./envs/preprocessing.yaml"
+    conda "../source/envs/preprocessing.yaml"
 
     input:
     file msh from msh_ch
@@ -39,7 +39,7 @@ process convertToXDMF {
     file 'unit_square.xdmf' into xdmf_ch
 
     """
-    meshio-convert $msh unit_square.xdmf
+    meshio convert $msh unit_square.xdmf
     """
 }
 
@@ -47,7 +47,7 @@ process convertToXDMF {
 process solvePoisson {
     // solve poisson equation using fenics code
 
-    conda "./envs/processing.yaml"
+    conda "../source/envs/processing.yaml"
 
     // multiple inputs from different channels
     input:
@@ -67,7 +67,7 @@ process solvePoisson {
 
 process makeContourplot {
 
-    conda "./envs/postprocessing.yaml"
+    conda "../source/envs/postprocessing.yaml"
 
     input:
     file postproc from pv_ch
@@ -85,7 +85,7 @@ process makeContourplot {
 
 process compile {
 
-    conda "./envs/postprocessing.yaml"
+    conda "../source/envs/postprocessing.yaml"
 
     input:
     file tex_code from tex_ch

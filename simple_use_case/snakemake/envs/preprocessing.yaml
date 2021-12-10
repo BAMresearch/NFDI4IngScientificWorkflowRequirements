@@ -1,5 +1,0 @@
-channels:
-        - conda-forge
-dependencies:
-        - gmsh=4.6.0
-        - meshio=4.3.1
