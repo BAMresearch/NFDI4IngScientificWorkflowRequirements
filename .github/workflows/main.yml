@@ -22,7 +22,7 @@ jobs:
       - name: prepare-environment
         shell: bash
         run: |
-          conda env create --file simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
+          conda env create --file $GITHUB_WORKSPACE/simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
           conda init bash
           exec  bash
           conda activate ~/env_simple_use_case
