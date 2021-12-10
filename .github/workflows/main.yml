@@ -12,7 +12,8 @@ on:
 jobs:
   run-cwl:
     runs-on: ubuntu-latest
-    image: continuumio/miniconda3
+    container:
+      image: continuumio/miniconda3
 
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE
