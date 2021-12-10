@@ -20,14 +20,15 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: prepare-environment
+        shell: bash
         run: |
-          cd $GITHUB_WORKSPACE
           conda env create --file simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
           conda init bash
+          exec  bash
+          conda activate ~/env_simple_use_case
 
       - name: run-cwl
+        shell: bash
         run: |
-          exec bash
-          conda activate ~/env_simple_use_case
           cd $GITHUB_WORKSPACE/simple_use_case/cwl
           cwltool wf_run_use_case.cwl
