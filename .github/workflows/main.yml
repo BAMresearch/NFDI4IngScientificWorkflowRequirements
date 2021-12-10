@@ -23,10 +23,11 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           conda env create --file simple_use_case/cwl/default_env.yml --prefix ~/env_simple_use_case
+          conda init bash
+          source ~/.bashrc
           conda activate ~/env_simple_use_case
 
       - name: run-cwl
         run: |
-          conda activate $GITHUB_WORKSPACE/env_simple_use_case
           cd $GITHUB_WORKSPACE/simple_use_case/cwl
           cwltool wf_run_use_case.cwl
