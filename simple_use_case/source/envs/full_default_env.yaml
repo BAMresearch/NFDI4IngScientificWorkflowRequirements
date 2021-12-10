@@ -1,11 +1,9 @@
-name: sucase
 channels:
   - conda-forge
   - defaults
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=1_gnu
-  - alsa-lib=1.2.3=h516909a_0
   - appdirs=1.4.4=pyh9f0ad1d_0
   - attrs=21.2.0=pyhd8ed1ab_0
   - automat=20.2.0=py_0
@@ -25,14 +23,11 @@ dependencies:
   - cffi=1.15.0=py39h4bc2ebd_0
   - cftime=1.5.1.1=py39hce5d2b2_1
   - cgns=4.2.0=h3c40bf4_2
-  - cloudpickle=2.0.0=pyhd8ed1ab_0
   - cmake=3.21.3=h8897547_0
   - constantly=15.1.0=py_0
   - cryptography=36.0.0=py39h95dcef6_0
   - curl=7.80.0=h2574ce0_0
   - cycler=0.11.0=pyhd8ed1ab_0
-  - dbus=1.13.6=h48d8840_2
-  - doit=0.33.1=py39hf3d152e_2
   - double-conversion=3.1.6=h9c3ff4c_0
   - eigen=3.4.0=h4bd325d_0
   - expat=2.4.1=h9c3ff4c_0
@@ -57,15 +52,10 @@ dependencies:
   - gcc_linux-64=9.4.0=h391b98a_2
   - gettext=0.19.8.1=h73d1719_1008
   - gl2ps=1.4.2=h0708190_0
-  - glew=2.1.0=h9c3ff4c_2
-  - glib=2.70.2=h780b84a_0
-  - glib-tools=2.70.2=h780b84a_0
   - gmp=6.2.1=h58526e2_0
   - gmpy2=2.1.0rc1=py39h78fa15d_0
   - gmsh=4.6.0=hd134328_0
   - graphite2=1.3.13=h58526e2_1001
-  - gst-plugins-base=1.18.5=hf529b03_2
-  - gstreamer=1.18.5=h9f60fe5_2
   - gxx_impl_linux-64=9.4.0=h03d3576_11
   - gxx_linux-64=9.4.0=h0316aca_2
   - h5py=3.3.0=nompi_py39h98ba4bc_100
@@ -93,12 +83,10 @@ dependencies:
   - libbrotlidec=1.0.9=h7f98852_6
   - libbrotlienc=1.0.9=h7f98852_6
   - libcblas=3.9.0=12_linux64_openblas
-  - libclang=11.1.0=default_ha53f305_1
   - libcurl=7.80.0=h2574ce0_0
   - libdeflate=1.8=h7f98852_0
   - libedit=3.1.20191231=he28a2e2_2
   - libev=4.33=h516909a_1
-  - libevent=2.1.10=h9b69904_4
   - libffi=3.4.2=h7f98852_5
   - libgcc-devel_linux-64=9.4.0=hd854feb_11
   - libgcc-ng=11.2.0=h1d223b6_11
@@ -109,14 +97,11 @@ dependencies:
   - libgomp=11.2.0=h1d223b6_11
   - libiconv=1.16=h516909a_0
   - liblapack=3.9.0=12_linux64_openblas
-  - libllvm11=11.1.0=hf817b99_2
   - libnetcdf=4.8.1=mpi_mpich_h044de9c_0
   - libnghttp2=1.43.0=h812cca2_1
   - libogg=1.3.4=h7f98852_1
   - libopenblas=0.3.18=pthreads_h8fe5266_0
-  - libopus=1.3.1=h7f98852_1
   - libpng=1.6.37=h21135ba_2
-  - libpq=13.5=hd57d9b9_0
   - libprotobuf=3.18.1=h780b84a_0
   - libsanitizer=9.4.0=h79bfe98_11
   - libssh2=1.10.0=ha56f1ee_2
@@ -129,7 +114,6 @@ dependencies:
   - libvorbis=1.3.7=h9c3ff4c_0
   - libwebp-base=1.2.1=h7f98852_0
   - libxcb=1.13=h7f98852_1004
-  - libxkbcommon=1.0.3=he3ba5ed_0
   - libxml2=2.9.12=h72842e0_0
   - libzip=1.8.0=h4de3113_1
   - libzlib=1.2.11=h36c2ea0_1013
@@ -146,20 +130,16 @@ dependencies:
   - mumps-include=5.2.1=ha770c72_10
   - mumps-mpi=5.2.1=hd6b9cac_10
   - munkres=1.1.4=pyh9f0ad1d_0
-  - mysql-common=8.0.27=ha770c72_1
-  - mysql-libs=8.0.27=hfa10184_1
   - ncurses=6.2=h58526e2_4
   - netcdf4=1.5.7=nompi_py39hd2e3950_101
   - npx=0.0.24=pyhd8ed1ab_0
-  - nspr=4.32=h9c3ff4c_1
-  - nss=3.73=hb5efdd6_0
   - numpy=1.21.4=py39hdbf815f_0
   - occt=7.4.0=h9121d39_3
   - olefile=0.46=pyh9f0ad1d_1
   - openjpeg=2.4.0=hb52868f_1
   - openssl=1.1.1l=h7f98852_0
   - packaging=21.3=pyhd8ed1ab_0
-  - paraview=5.9.1=h1081a63_103_qt
+  - paraview=5.9.1=hfc1cbd4_3_egl
   - parmetis=4.0.3=h2a9763c_1005
   - pcre=8.45=h9c3ff4c_0
   - petsc=3.16.1=real_hd85e4a6_101
@@ -177,13 +157,11 @@ dependencies:
   - pybind11=2.8.1=py39h1a9c180_1
   - pybind11-global=2.8.1=py39h1a9c180_1
   - pycparser=2.21=pyhd8ed1ab_0
-  - pyinotify=0.9.6=py39hf3d152e_1004
   - pyopenssl=21.0.0=pyhd8ed1ab_0
   - pyparsing=3.0.6=pyhd8ed1ab_0
   - python=3.9.7=hb7a2778_3_cpython
   - python-dateutil=2.8.2=pyhd8ed1ab_0
   - python_abi=3.9=2_cp39
-  - qt=5.12.9=hda022c4_4
   - readline=8.1=h46c0cb4_0
   - rhash=1.4.1=h7f98852_0
   - scalapack=2.0.2=hf659fdc_1009
@@ -228,4 +206,3 @@ dependencies:
   - zlib=1.2.11=h36c2ea0_1013
   - zope.interface=5.4.0=py39h3811e60_1
   - zstd=1.5.0=ha95c52a_0
-prefix: /home/pdiercks/miniconda3/envs/sucase
