@@ -1,0 +1,113 @@
+ADDR2LINE: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-addr2line
+ALACRITTY_LOG: /tmp/Alacritty-3813.log
+AR: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ar
+AS: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-as
+BUILD: x86_64-conda-linux-gnu
+CC: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-cc
+CC_FOR_BUILD: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-cc
+CFLAGS: -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong
+  -fno-plt -O2 -ffunction-sections -pipe -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+CMAKE_ARGS: -DCMAKE_AR=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ar
+  -DCMAKE_CXX_COMPILER_AR=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ar
+  -DCMAKE_C_COMPILER_AR=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ar
+  -DCMAKE_RANLIB=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ranlib
+  -DCMAKE_CXX_COMPILER_RANLIB=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ranlib
+  -DCMAKE_C_COMPILER_RANLIB=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ranlib
+  -DCMAKE_LINKER=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ld
+  -DCMAKE_STRIP=/home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-strip
+CMAKE_PREFIX_PATH: /home/pdiercks/miniconda3/envs/maestrowf:/home/pdiercks/miniconda3/envs/maestrowf/x86_64-conda-linux-gnu/sysroot/usr
+COLORTERM: truecolor
+CONDA_BACKUP_HOST: xubuntu
+CONDA_BUILD_SYSROOT: /home/pdiercks/miniconda3/envs/maestrowf/x86_64-conda-linux-gnu/sysroot
+CONDA_DEFAULT_ENV: maestrowf
+CONDA_EXE: /home/pdiercks/miniconda3/bin/conda
+CONDA_PREFIX: /home/pdiercks/miniconda3/envs/maestrowf
+CONDA_PREFIX_1: /home/pdiercks/miniconda3
+CONDA_PREFIX_2: /home/pdiercks/miniconda3/envs/suc
+CONDA_PROMPT_MODIFIER: ''
+CONDA_PYTHON_EXE: /home/pdiercks/miniconda3/bin/python
+CONDA_SHLVL: '3'
+CONDA_TOOLCHAIN_BUILD: x86_64-conda-linux-gnu
+CONDA_TOOLCHAIN_HOST: x86_64-conda-linux-gnu
+CPP: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-cpp
+CPPFLAGS: -DNDEBUG -D_FORTIFY_SOURCE=2 -O2 -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+CXX: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-c++
+CXXFILT: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-c++filt
+CXXFLAGS: -fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona
+  -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -ffunction-sections
+  -pipe -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+CXX_FOR_BUILD: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-c++
+DBUS_SESSION_BUS_ADDRESS: unix:path=/run/user/1000/bus
+DEBUG_CFLAGS: -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all
+  -fno-plt -Og -g -Wall -Wextra -fvar-tracking-assignments -ffunction-sections -pipe
+  -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+DEBUG_CPPFLAGS: -D_DEBUG -D_FORTIFY_SOURCE=2 -Og -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+DEBUG_CXXFLAGS: -fvisibility-inlines-hidden -std=c++17 -fmessage-length=0 -march=nocona
+  -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-all -fno-plt -Og -g -Wall
+  -Wextra -fvar-tracking-assignments -ffunction-sections -pipe -isystem /home/pdiercks/miniconda3/envs/maestrowf/include
+DESKTOP_SESSION: i3
+DISPLAY: :0
+ELFEDIT: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-elfedit
+GCC: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc
+GCC_AR: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ar
+GCC_NM: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-nm
+GCC_RANLIB: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gcc-ranlib
+GDMSESSION: i3
+GDM_LANG: de_DE
+GPG_AGENT_INFO: /run/user/1000/gnupg/S.gpg-agent:0:1
+GPROF: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-gprof
+GXX: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-g++
+HOME: /home/pdiercks
+HOST: x86_64-conda-linux-gnu
+I3SOCK: /run/user/1000/i3/ipc-socket.2766
+LANG: de_DE.UTF-8
+LANGUAGE: de_DE
+LD: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ld
+LDFLAGS: -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags
+  -Wl,--gc-sections -Wl,-rpath,/home/pdiercks/miniconda3/envs/maestrowf/lib -Wl,-rpath-link,/home/pdiercks/miniconda3/envs/maestrowf/lib
+  -L/home/pdiercks/miniconda3/envs/maestrowf/lib
+LD_GOLD: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ld.gold
+LOGNAME: pdiercks
+NM: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-nm
+OBJCOPY: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-objcopy
+OBJDUMP: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-objdump
+OLDPWD: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output
+PATH: /home/pdiercks/miniconda3/envs/maestrowf/bin:/home/pdiercks/miniconda3/condabin:/home/pdiercks/texlive/2021/bin/x86_64-linux:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/pdiercks/.config/nvim/plugged/fzf/bin
+PWD: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf
+QT_ACCESSIBILITY: '1'
+RANLIB: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-ranlib
+READELF: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-readelf
+SHELL: /usr/bin/zsh
+SHLVL: '1'
+SIZE: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-size
+SPACESHIP_ROOT: /home/pdiercks/Repos/spaceship-prompt
+SPACESHIP_VERSION: 3.16.1
+SSH_AGENT_PID: '2841'
+SSH_AUTH_SOCK: /tmp/ssh-kJHw5frrsxDM/agent.2766
+STRINGS: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-strings
+STRIP: /home/pdiercks/miniconda3/envs/maestrowf/bin/x86_64-conda-linux-gnu-strip
+TERM: alacritty
+TEXINPUTS: '/home/pdiercks/Repos/bam/bam-tex-beamer:'
+USER: pdiercks
+VISUAL: nvim
+WINDOWID: '33554434'
+XAUTHORITY: /home/pdiercks/.Xauthority
+XDG_CONFIG_DIRS: /etc/xdg/xdg-i3:/etc/xdg
+XDG_CURRENT_DESKTOP: i3
+XDG_DATA_DIRS: /usr/share/i3:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+XDG_GREETER_DATA_DIR: /var/lib/lightdm-data/pdiercks
+XDG_RUNTIME_DIR: /run/user/1000
+XDG_SEAT: seat0
+XDG_SEAT_PATH: /org/freedesktop/DisplayManager/Seat0
+XDG_SESSION_CLASS: user
+XDG_SESSION_DESKTOP: i3
+XDG_SESSION_ID: c2
+XDG_SESSION_PATH: /org/freedesktop/DisplayManager/Session0
+XDG_SESSION_TYPE: x11
+XDG_VTNR: '7'
+_: /home/pdiercks/miniconda3/envs/maestrowf/bin/maestro
+_CE_CONDA: ''
+_CE_M: ''
+_CONDA_PYTHON_SYSCONFIGDATA_NAME: _sysconfigdata_x86_64_conda_cos6_linux_gnu
+build_alias: x86_64-conda-linux-gnu
+host_alias: x86_64-conda-linux-gnu

@@ -1,0 +1,72 @@
+description:
+  name: simple_use_case
+  description: A simple workflow which solves the poisson equation and shows the result in a PDF
+
+
+env:
+  variables:
+    INPUT_PATH: ./../../../source
+    OUTPUT_PATH: ./output
+    # Note on dependencies taken from https://github.com/LLNL/maestrowf/blob/develop/samples/documentation/lulesh_sample1_unix_commented.yaml
+    #-------------------------------
+    # Dependencies
+    #-------------------------------
+    # Dependencies represent external artifacts that should be present before a
+    # workflow can run. These are things like acquirable inputs from a directory
+    # or a repository such as input files for programs, code, data, etc..
+
+    # NOTE: Currently there are only two types of dependencies:
+    # path - verifies the existence of the specified path before execution.
+    # git  - clones the specified repository before execution of the study.
+    #-------------------------------
+    #
+    # pdiercks: I am not sure how to use path. Would that mean that local inputs are
+    # copied to the remote automatically?
+    # dependencies:
+      # git:
+      #   - name: WORKFLOWS
+      #     path: $(OUTPUT_PATH)
+      #     url: https://github.com/BAMResearch/NFDI4IngScientificWorkflowRequirements.git
+
+
+study:
+  - name: generate-mesh
+    description: Generate a partition of the unit square.
+    run:
+      cmd: |
+        gmsh -2 -order 1 -format msh2 $(INPUT_PATH)/unit_square.geo -o $(OUTPUT_PATH)/unit_square.msh
+      depends: []
+
+  - name: convert-mesh
+    description: Convert the mesh to XDMF format.
+    run:
+      cmd: |
+        meshio convert $(OUTPUT_PATH)/unit_square.msh $(OUTPUT_PATH)/unit_square.xdmf
+      depends: [generate-mesh]
+
+  - name: solve-poisson
+    description: Solve the poisson equation.
+    run:
+      cmd: |
+        python $(INPUT_PATH)/poisson.py --mesh $(OUTPUT_PATH)/unit_square.xdmf --degree 2 --outputfile $(OUTPUT_PATH)/poisson.pvd
+      depends: [convert-mesh]
+
+  - name: paraview-rendering
+    description: Plot the solution with ParaView.
+    run:
+      cmd: |
+        pvbatch $(INPUT_PATH)/postprocessing.py $(OUTPUT_PATH)/poisson.pvd $(OUTPUT_PATH)/contourplot.png
+      depends: [solve-poisson]
+
+  - name: copy
+    description: Copy the latex source code.
+    run:
+      cmd: |
+        cp $(INPUT_PATH)/paper.tex $(OUTPUT_PATH)/paper.tex
+
+  - name: compile
+    description: Generate the PDF from latex code.
+    run:
+      cmd: |
+        tectonic $(OUTPUT_PATH)/paper.tex
+      depends: [copy, paraview-rendering]

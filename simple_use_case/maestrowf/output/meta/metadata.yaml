@@ -1,0 +1,51 @@
+dependencies:
+  _source: !!set {}
+  compile: !!set
+    copy: null
+    paraview-rendering: null
+  convert-mesh: !!set
+    generate-mesh: null
+  copy: !!set {}
+  generate-mesh: !!set {}
+  paraview-rendering: !!set
+    solve-poisson: null
+  solve-poisson: !!set
+    convert-mesh: null
+hub_dependencies:
+  _source: !!set {}
+  compile: !!set {}
+  convert-mesh: !!set {}
+  copy: !!set {}
+  generate-mesh: !!set {}
+  paraview-rendering: !!set {}
+  solve-poisson: !!set {}
+step_combinations:
+  _source: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output
+  compile:
+    compile: compile
+  convert-mesh:
+    convert-mesh: convert-mesh
+  copy:
+    copy: copy
+  generate-mesh:
+    generate-mesh: generate-mesh
+  paraview-rendering:
+    paraview-rendering: paraview-rendering
+  solve-poisson:
+    solve-poisson: solve-poisson
+used_parameters:
+  _source: !!set {}
+  compile: !!set {}
+  convert-mesh: !!set {}
+  copy: !!set {}
+  generate-mesh: !!set {}
+  paraview-rendering: !!set {}
+  solve-poisson: !!set {}
+workspaces:
+  _source: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output
+  compile: compile
+  convert-mesh: convert-mesh
+  copy: copy
+  generate-mesh: generate-mesh
+  paraview-rendering: paraview-rendering
+  solve-poisson: solve-poisson

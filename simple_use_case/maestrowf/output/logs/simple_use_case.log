@@ -1,0 +1,185 @@
+[2021-12-15 13:47:26,791: INFO] INFO Logging Level -- Enabled
+[2021-12-15 13:47:26,791: WARNING] WARNING Logging Level -- Enabled
+[2021-12-15 13:47:26,791: CRITICAL] CRITICAL Logging Level -- Enabled
+[2021-12-15 13:47:26,792: INFO] 
+------------------------------------------
+Submission attempts =       1
+Submission throttle limit = 0
+Use temporary directory =   False
+Tmp Dir = 
+------------------------------------------
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+name: simple_use_case
+description: A simple workflow which solves the poisson equation and shows the result in a PDF
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Constructing parameter study 'simple_use_case'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step '_source'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] Encountered '_source'. Adding and continuing.
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step 'copy'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+-------------------------------------------------
+Adding step 'copy' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,792: INFO] Searching for workspaces...
+cmd = cp ./../../../source/paper.tex /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/paper.tex
+
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step 'generate-mesh'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+-------------------------------------------------
+Adding step 'generate-mesh' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,792: INFO] Searching for workspaces...
+cmd = gmsh -2 -order 1 -format msh2 ./../../../source/unit_square.geo -o /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/unit_square.msh
+
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step 'convert-mesh'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+-------------------------------------------------
+Adding step 'convert-mesh' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,792: INFO] Searching for workspaces...
+cmd = meshio convert /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/unit_square.msh /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/unit_square.xdmf
+
+[2021-12-15 13:47:26,792: INFO] Adding edge (generate-mesh, convert-mesh)...
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step 'solve-poisson'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+-------------------------------------------------
+Adding step 'solve-poisson' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,792: INFO] Searching for workspaces...
+cmd = python ./../../../source/poisson.py --mesh /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/unit_square.xdmf --degree 2 --outputfile /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/poisson.pvd
+
+[2021-12-15 13:47:26,792: INFO] Adding edge (convert-mesh, solve-poisson)...
+[2021-12-15 13:47:26,792: INFO] 
+==================================================
+Processing step 'paraview-rendering'
+==================================================
+
+[2021-12-15 13:47:26,792: INFO] 
+-------------------------------------------------
+Adding step 'paraview-rendering' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,793: INFO] Searching for workspaces...
+cmd = pvbatch ./../../../source/postprocessing.py /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/poisson.pvd /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/contourplot.png
+
+[2021-12-15 13:47:26,793: INFO] Adding edge (solve-poisson, paraview-rendering)...
+[2021-12-15 13:47:26,793: INFO] 
+==================================================
+Processing step 'compile'
+==================================================
+
+[2021-12-15 13:47:26,793: INFO] 
+-------------------------------------------------
+Adding step 'compile' (No parameters used)
+-------------------------------------------------
+
+[2021-12-15 13:47:26,793: INFO] Searching for workspaces...
+cmd = tectonic /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/paper.tex
+
+[2021-12-15 13:47:26,793: INFO] Adding edge (copy, compile)...
+[2021-12-15 13:47:26,793: INFO] Adding edge (paraview-rendering, compile)...
+[2021-12-15 13:47:26,793: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/meta
+[2021-12-15 13:47:26,793: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/meta/study
+[2021-12-15 13:47:26,801: INFO] Checking DAG status at 2021-12-15 13:47:26.801258
+[2021-12-15 13:47:26,801: INFO] No jobs found.
+[2021-12-15 13:47:26,801: INFO] Launching all ready steps...
+[2021-12-15 13:47:26,801: INFO] Calling execute for StepRecord 'copy'
+[2021-12-15 13:47:26,801: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/copy
+[2021-12-15 13:47:26,801: INFO] Generating script for copy into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/copy
+[2021-12-15 13:47:26,801: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/copy/copy.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:47:26,801: INFO] Attempting submission of 'copy' (attempt 1 of 1)...
+[2021-12-15 13:47:26,813: INFO] Execution returned status OK.
+[2021-12-15 13:47:26,813: INFO] Local step copy executed with status OK. Complete.
+[2021-12-15 13:47:26,814: INFO] Calling execute for StepRecord 'generate-mesh'
+[2021-12-15 13:47:26,814: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/generate-mesh
+[2021-12-15 13:47:26,814: INFO] Generating script for generate-mesh into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/generate-mesh
+[2021-12-15 13:47:26,814: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/generate-mesh/generate-mesh.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:47:26,814: INFO] Attempting submission of 'generate-mesh' (attempt 1 of 1)...
+[2021-12-15 13:47:26,867: INFO] Execution returned status OK.
+[2021-12-15 13:47:26,867: INFO] Local step generate-mesh executed with status OK. Complete.
+[2021-12-15 13:48:26,904: INFO] Checking DAG status at 2021-12-15 13:48:26.904114
+[2021-12-15 13:48:26,904: INFO] No jobs found.
+[2021-12-15 13:48:26,904: INFO] Launching all ready steps...
+[2021-12-15 13:48:26,904: INFO] Calling execute for StepRecord 'convert-mesh'
+[2021-12-15 13:48:26,905: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/convert-mesh
+[2021-12-15 13:48:26,905: INFO] Generating script for convert-mesh into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/convert-mesh
+[2021-12-15 13:48:26,905: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/convert-mesh/convert-mesh.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:48:26,906: INFO] Attempting submission of 'convert-mesh' (attempt 1 of 1)...
+[2021-12-15 13:48:27,067: INFO] Execution returned status OK.
+[2021-12-15 13:48:27,067: INFO] Local step convert-mesh executed with status OK. Complete.
+[2021-12-15 13:49:27,129: INFO] Checking DAG status at 2021-12-15 13:49:27.129389
+[2021-12-15 13:49:27,129: INFO] No jobs found.
+[2021-12-15 13:49:27,130: INFO] Launching all ready steps...
+[2021-12-15 13:49:27,130: INFO] Calling execute for StepRecord 'solve-poisson'
+[2021-12-15 13:49:27,130: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/solve-poisson
+[2021-12-15 13:49:27,130: INFO] Generating script for solve-poisson into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/solve-poisson
+[2021-12-15 13:49:27,131: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/solve-poisson/solve-poisson.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:49:27,131: INFO] Attempting submission of 'solve-poisson' (attempt 1 of 1)...
+[2021-12-15 13:49:39,001: INFO] Execution returned status OK.
+[2021-12-15 13:49:39,002: INFO] Local step solve-poisson executed with status OK. Complete.
+[2021-12-15 13:50:39,014: INFO] Checking DAG status at 2021-12-15 13:50:39.014862
+[2021-12-15 13:50:39,015: INFO] No jobs found.
+[2021-12-15 13:50:39,015: INFO] Launching all ready steps...
+[2021-12-15 13:50:39,015: INFO] Calling execute for StepRecord 'paraview-rendering'
+[2021-12-15 13:50:39,015: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/paraview-rendering
+[2021-12-15 13:50:39,016: INFO] Generating script for paraview-rendering into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/paraview-rendering
+[2021-12-15 13:50:39,016: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/paraview-rendering/paraview-rendering.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:50:39,016: INFO] Attempting submission of 'paraview-rendering' (attempt 1 of 1)...
+[2021-12-15 13:50:47,440: INFO] Execution returned status OK.
+[2021-12-15 13:50:47,440: INFO] Local step paraview-rendering executed with status OK. Complete.
+[2021-12-15 13:51:47,505: INFO] Checking DAG status at 2021-12-15 13:51:47.505025
+[2021-12-15 13:51:47,505: INFO] No jobs found.
+[2021-12-15 13:51:47,505: INFO] Launching all ready steps...
+[2021-12-15 13:51:47,505: INFO] Calling execute for StepRecord 'compile'
+[2021-12-15 13:51:47,506: INFO] Directory does not exist. Creating directories to /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/compile
+[2021-12-15 13:51:47,506: INFO] Generating script for compile into /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/compile
+[2021-12-15 13:51:47,506: INFO] Script: /home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/compile/compile.sh
+Restart: None
+Scheduled?: False
+[2021-12-15 13:51:47,506: INFO] Attempting submission of 'compile' (attempt 1 of 1)...
+[2021-12-15 13:51:49,810: INFO] Execution returned status OK.
+[2021-12-15 13:51:49,810: INFO] Local step compile executed with status OK. Complete.
+[2021-12-15 13:51:49,810: INFO] 'simple_use_case' is complete. Returning.
+[2021-12-15 13:51:49,811: INFO] Study completed with state 'StudyStatus.FINISHED'.
+[2021-12-15 13:51:49,812: INFO] Study exiting, cleaning up...
+[2021-12-15 13:51:49,812: INFO] Squeaky clean!
