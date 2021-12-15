@@ -12,6 +12,5 @@ pip install maestrowf
 
 ## Running the simple use case
 ```sh
-maestro run simpleusecase.yaml -o ./output
+maestro run simpleusecase.yaml
 ```
-It is recommended to specify the workspace with the `-o` option.
