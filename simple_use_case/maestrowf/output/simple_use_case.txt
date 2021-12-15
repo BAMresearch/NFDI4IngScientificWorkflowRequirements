@@ -1,2 +1,0 @@
-nohup: Eingabe wird ignoriert
-['/home/pdiercks/Repos/bam/NFDI4IngScientificWorkflowRequirements/simple_use_case/maestrowf/output/simple_use_case.study.pkl']
