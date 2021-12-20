@@ -15,7 +15,7 @@ outputs:
     outputSource: run_simulation/resultpvd
   resultimage:
     type: File
-    outputSource: render_image/resultimage
+    outputSource: plot_over_line/resultcsv
   paperpdf:
     type: File
     outputSource: compile_paper/pdf

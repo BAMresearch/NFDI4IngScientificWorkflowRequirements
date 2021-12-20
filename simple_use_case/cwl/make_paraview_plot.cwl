@@ -24,7 +24,7 @@ inputs:
   outputfile:
     type: string
 outputs:
-  resultimage:
+  resultcsv:
     type: File
     outputBinding:
       glob: $(inputs.outputfile)
