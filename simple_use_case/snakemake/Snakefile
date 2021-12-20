@@ -37,7 +37,7 @@ rule plot_solution:
 		py="../source/postprocessing.py",
 		pvd="processing/poisson.pvd"
 	output:
-		"postprocessing/contourplot.png"
+		"postprocessing/plotoverline.csv"
 	conda:
 		"../source/envs/postprocessing.yaml"
 	shell:
@@ -56,7 +56,7 @@ rule copy_source:
 rule compile:
 	input:
 		tex="postprocessing/{document}.tex",
-		png="postprocessing/contourplot.png"
+		png="postprocessing/plotoverline.csv"
 	output:
 		"postprocessing/{document}.pdf"
 	conda:
