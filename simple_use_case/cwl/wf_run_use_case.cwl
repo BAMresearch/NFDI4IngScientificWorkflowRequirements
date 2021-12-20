@@ -70,19 +70,19 @@ steps:
       h5meshfile: convert_mesh/outputmeshdata
     out: [resultvtu, resultpvd]
 
-  render_image:
-    run: make_paraview_rendering.cwl
+  plot_over_line:
+    run: make_paraview_plot.cwl
     in:
       script: pvbatchscript
       vtkfile: run_simulation/resultvtu
       pvdfile: run_simulation/resultpvd
       outputfile:
-        default: "contourplot.png"
-    out: [resultimage]
+        default: "plotoverline.csv"
+    out: [resultcsv]
 
   compile_paper:
     run: compile_paper.cwl
     in:
-      pngfile: render_image/resultimage
+      csvfile: plot_over_line/resultcsv
       texfile: papersource
     out: [pdf]

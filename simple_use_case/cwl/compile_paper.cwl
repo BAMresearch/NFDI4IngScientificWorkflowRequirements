@@ -12,10 +12,10 @@ arguments: ["$(inputs.texfile)"]
 requirements:
   InitialWorkDirRequirement:
       listing:
-        - $(inputs.pngfile)
+        - $(inputs.csvfile)
         - $(inputs.texfile)
 inputs:
-  pngfile:
+  csvfile:
     type: File
   texfile:
     type: File
