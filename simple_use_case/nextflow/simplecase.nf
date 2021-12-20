@@ -75,10 +75,10 @@ process makeContourplot {
     file pvd from pvd_ch
 
     output: 
-    file 'contourplot.png' into png_ch
+    file 'plotoverline.csv' into csv_ch
 
     """
-    pvbatch $postproc $pvd contourplot.png
+    pvbatch $postproc $pvd plotoverline.csv
     """
 }
 
@@ -89,7 +89,7 @@ process compile {
 
     input:
     file tex_code from tex_ch
-    file png from png_ch
+    file csv from csv_ch
 
     output:
     file 'paper.pdf' 
