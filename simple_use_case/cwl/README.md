@@ -7,7 +7,7 @@ installed, you can simply create a respective environment by typing
 
 ```sh
 conda env create --file default_env.yml --prefix ./simpleusecase
-conda activate simpleusecase
+conda activate ./simpleusecase
 ```
 
 Note that by specifying the `--prefix` option you can simply remove all downloaded packages afterwards
