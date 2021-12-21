@@ -10,6 +10,40 @@ on:
   workflow_dispatch:
 
 jobs:
+  run-pydoit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v2
+
+      - name: install-basic-deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends --yes libgomp1 libgl1-mesa-glx libglu1-mesa libegl1-mesa
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: simple_use_case/source/envs/default_env.yaml
+          miniforge-version: latest
+          activate-environment: simple_use_case
+
+      - name: run-workflow
+        shell: bash -l {0}
+        run: |
+          conda install --channel conda-forge doit=0.33.1
+          cd $GITHUB_WORKSPACE/simple_use_case/pydoit
+          doit
+
+      - name: upload-paper-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: paper
+          path: ./simple_use_case/pydoit/paper.pdf
+          retention-days: 1
+          if-no-files-found: error
+          
   run-cwl:
     runs-on: ubuntu-latest
 
