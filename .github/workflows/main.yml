@@ -42,3 +42,4 @@ jobs:
           name: paper
           path: ./simple_use_case/cwl/paper.pdf
           retention-days: 1
+          if-no-files-found: error
