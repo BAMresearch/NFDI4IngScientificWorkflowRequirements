@@ -1,8 +1,10 @@
 .. _developers:
 
-List of developers
-==================
-List of developers of relevant workflow tools and how we may get in contact with them.
+List of tools
+=============
+This is a list of preselected tools based on possible requirements at the start of
+the project. Examples of these requirements are, the seamless integration of
+HPC systems or the execution of containerized applications.
 
 .. contents::
 

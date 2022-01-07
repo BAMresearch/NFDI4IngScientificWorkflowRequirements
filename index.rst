@@ -53,4 +53,4 @@ reproducible research workflows, by anyone, anywhere and anytime.
    docs/userstories.rst
    docs/requirements.rst
    docs/simpleusecase.rst
-   docs/developers.rst
+   docs/tools.rst
