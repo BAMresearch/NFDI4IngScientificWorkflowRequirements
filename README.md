@@ -1,4 +1,4 @@
-## Introduction - tools for scientific workflows
+# Introduction - tools for scientific workflows
 
 Software-driven scientific workflows are often characterized by a complex interplay
 of various pieces of software executed in a particular order. The output of a
@@ -43,3 +43,17 @@ reusable solutions and identify the capabilities that are missing to reach our g
 reproducible research workflows, by anyone, anywhere and anytime.
 
 [Go to the documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
+
+## How to contribute
+We greatly appreciate and encourage contributions by any users or developers of 
+workflow tools. 
+A list of preselected tools can be found in the [documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
+If you would like to add an implementation of the [simple use case](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/docs/simpleusecase.html) for a tool
+(not limited to the given list), or if you suggest changes to one of the
+existing implementations, please raise an issue and submit a pull request.
+We also encourage to start a new [discussion](https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/discussions)
+for general comments, questions and ideas you would like to share.
+
+## Acknowledgements
+We would like to thank the following people for their contribution to this repository:
+* Who wants to be first?
