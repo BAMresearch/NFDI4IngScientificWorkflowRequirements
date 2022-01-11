@@ -73,3 +73,35 @@ jobs:
           path: ./simple_use_case/cwl/paper.pdf
           retention-days: 1
           if-no-files-found: error
+
+
+  run-nextflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v2
+
+      - name: install-basic-deps
+        uses: ./.github/actions/install-basic-deps
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-version: latest
+          activate-environment: simple_use_case
+
+      - name: run-workflow
+        shell: bash -l {0}
+        run: |
+          conda install --channel bioconda nextflow=21.04.0
+          cd $GITHUB_WORKSPACE/simple_use_case/nextflow
+          nextflow run simplecase.nf
+
+      - name: upload-paper-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: paper
+          path: ./simple_use_case/nextflow/paper.pdf
+          retention-days: 1
+          if-no-files-found: error
