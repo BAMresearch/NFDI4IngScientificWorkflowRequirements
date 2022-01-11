@@ -18,9 +18,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: install-basic-deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends --yes libgomp1 libgl1-mesa-glx libglu1-mesa libegl1-mesa
+        uses: ./.github/actions/install-basic-deps
 
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
@@ -43,7 +41,7 @@ jobs:
           path: ./simple_use_case/pydoit/paper.pdf
           retention-days: 1
           if-no-files-found: error
-          
+
   run-cwl:
     runs-on: ubuntu-latest
 
@@ -52,9 +50,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: install-basic-deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends --yes libgomp1 libgl1-mesa-glx libglu1-mesa libegl1-mesa
+        uses: ./.github/actions/install-basic-deps
 
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
