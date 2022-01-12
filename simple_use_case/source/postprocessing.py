@@ -44,6 +44,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("pvd", type=str, help="The source pvd filepath.")
     parser.add_argument("csv", type=str, help="The target csv filepath.")
+    parser.add_argument("--vtu", type=str, help="The additional vtu filepath.")
     parser.add_argument(
         "--field",
         type=str,
