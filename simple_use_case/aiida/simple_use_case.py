@@ -74,7 +74,10 @@ def workflow(geometry, poisson_script, post_processing_script):
     # With the .pvd and corresponding .vtu file, the same issue as with the .xdmf and .h5 files occurs.
     arguments = List(["{script}", "{pvd}", "plotoverline.csv", "--vtu", "{vtu}"])
     results_pvbatch = pvbatch(
-        arguments=arguments, script=post_processing_script, pvd=results_poisson["poisson_pvd"], vtu=results_poisson["poisson000000_vtu"]
+        arguments=arguments,
+        script=post_processing_script,
+        pvd=results_poisson["poisson_pvd"],
+        vtu=results_poisson["poisson000000_vtu"],
     )
 
     return results_pvbatch
@@ -86,6 +89,8 @@ if __name__ == "__main__":
     post_processing_script = SinglefileData(
         Path("../source/postprocessing.py").resolve()
     )
-    results, node = workflow.run_get_node(geometry, poisson_script, post_processing_script)
+    results, node = workflow.run_get_node(
+        geometry, poisson_script, post_processing_script
+    )
     print(f"Workflow {node} finished.")
     print(f"Results: {results}")
