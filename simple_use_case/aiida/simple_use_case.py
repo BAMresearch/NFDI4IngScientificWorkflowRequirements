@@ -25,7 +25,7 @@ def pvbatch(**kwargs):
 
 
 @workfunction
-def workflow(geometry, poisson_script):
+def workflow(geometry, poisson_script, post_processing_script):
     """Simple workflow to solve Poisson equation for a geometry."""
 
     # Generate the mesh from the geometry.
@@ -47,7 +47,9 @@ def workflow(geometry, poisson_script):
     arguments = List(["convert", "--input-format", "gmsh", "{mesh}", "mesh.xdmf"])
     results_meshio = meshio(arguments=arguments, mesh=results_gmsh["mesh"])
 
-    # Solve Poisson
+    # Solve poisson equation
+    # The additional argument '--h5' is necessary to specify the .h5 file as input,
+    # such that it is copied to the temporary directory as well.
     arguments = List(
         [
             "{script}",
@@ -69,27 +71,21 @@ def workflow(geometry, poisson_script):
     )
 
     # Postprocessing: plot over line
-    # arguments = List(["{script}", "{pvd}"])
-    # results_pvbatch = pvbatch(
-    #     script=post_processing_script, pvd=results_poisson["output"]
-    # )
+    # With the .pvd and corresponding .vtu file, the same issue as with the .xdmf and .h5 files occurs.
+    arguments = List(["{script}", "{pvd}", "plotoverline.csv", "--vtu", "{vtu}"])
+    results_pvbatch = pvbatch(
+        arguments=arguments, script=post_processing_script, pvd=results_poisson["poisson_pvd"], vtu=results_poisson["poisson000000_vtu"]
+    )
 
-    # return results_pvbatch["output"]
-    return results_poisson
+    return results_pvbatch
 
 
 if __name__ == "__main__":
     geometry = SinglefileData(Path("../source/unit_square.geo").resolve())
     poisson_script = SinglefileData(Path("../source/poisson.py").resolve())
-    # post_processing_script = SinglefileData(
-    #     Path("../source/postprocessing.py").resolve()
-    # )
-    # results, node = workflow.run_get_node(
-    #     geometry, poisson_script, post_processing_script
-    # )
-    results, node = workflow.run_get_node(geometry, poisson_script)
-    from IPython import embed
-
-    embed()
+    post_processing_script = SinglefileData(
+        Path("../source/postprocessing.py").resolve()
+    )
+    results, node = workflow.run_get_node(geometry, poisson_script, post_processing_script)
     print(f"Workflow {node} finished.")
     print(f"Results: {results}")
