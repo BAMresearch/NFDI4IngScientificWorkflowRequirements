@@ -48,17 +48,17 @@ rule copy_source:
 	input:
 		"../source/{document}.tex"
 	output:
-		"postprocessing/{document}.tex"
+		"{document}.tex"
 	shell:
 		"cp {input} {output}"
 
 
 rule compile:
 	input:
-		tex="postprocessing/{document}.tex",
+		tex="{document}.tex",
 		png="postprocessing/plotoverline.csv"
 	output:
-		"postprocessing/{document}.pdf"
+		"{document}.pdf"
 	conda:
 		"../source/envs/postprocessing.yaml"
 	shell:
