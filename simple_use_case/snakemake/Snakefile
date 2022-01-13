@@ -48,18 +48,18 @@ rule copy_source:
 	input:
 		"../source/{document}.tex"
 	output:
-		"{document}.tex"
+		"postprocessing/{document}.tex"
 	shell:
 		"cp {input} {output}"
 
 
 rule compile:
 	input:
-		tex="{document}.tex",
+		tex="postprocessing/{document}.tex",
 		png="postprocessing/plotoverline.csv"
 	output:
 		"{document}.pdf"
 	conda:
 		"../source/envs/postprocessing.yaml"
 	shell:
-		"tectonic {input.tex}"
+		"tectonic {input.tex} --outdir ."
