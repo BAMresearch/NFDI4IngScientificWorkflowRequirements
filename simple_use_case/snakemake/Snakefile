@@ -58,8 +58,8 @@ rule compile:
 		tex="postprocessing/{document}.tex",
 		png="postprocessing/plotoverline.csv"
 	output:
-		"postprocessing/{document}.pdf"
+		"{document}.pdf"
 	conda:
 		"../source/envs/postprocessing.yaml"
 	shell:
-		"tectonic {input.tex}"
+		"tectonic {input.tex} --outdir ."
