@@ -1,4 +1,4 @@
-def generate_rectangle_mesh():
+def generate_rectangle_mesh(p1, p3, nx=5, ny=5):
     """
     Partition of a rectangle Ω = [a, b] x [a, b]
     into (nx - 1) * (ny - 1) triangles
@@ -13,12 +13,12 @@ def generate_rectangle_mesh():
     """
     import gmsh
 
+    assert len(p1) == 2
+    assert len(p3) == 2
+
     # Parameters
-    nx = 5
-    ny = 5
-    x1, y1 = 0.0, 0.0
-    x3 = 2.0
-    y3 = 3.0
+    x1, y1 = p1
+    x3, y3 = p3
     a = x3 - x1
     b = y3 - y1
 
@@ -42,11 +42,18 @@ def generate_rectangle_mesh():
     gmsh.model.geo.addCurveLoop([1, 2, 3, 4], 1)
     gmsh.model.geo.addPlaneSurface([1], 1)
 
-    gmsh.model.geo.synchronize()
-
     # add physical group
     ps = gmsh.model.addPhysicalGroup(2, [1])
     gmsh.model.setPhysicalName(2, ps, "surface")
+
+    # set number of nodes per line
+    gmsh.model.geo.mesh.setTransfiniteCurve(1, nx)
+    gmsh.model.geo.mesh.setTransfiniteCurve(2, ny)
+    gmsh.model.geo.mesh.setTransfiniteCurve(3, nx)
+    gmsh.model.geo.mesh.setTransfiniteCurve(4, ny)
+    gmsh.model.geo.mesh.setTransfiniteSurface(1, "Left")
+
+    gmsh.model.geo.synchronize()
 
     # generate 2d mesh
     gmsh.model.mesh.generate(2)
@@ -56,3 +63,9 @@ def generate_rectangle_mesh():
     gmsh.finalize()
 
     return (a, b)
+
+
+if __name__ == "__main__":
+    a, b = generate_rectangle_mesh([0.0, 0.0], (2.0, 4.0), nx=5, ny=10)
+    print(a)
+    print(b)
