@@ -4,18 +4,6 @@ cwlVersion: v1.0
 class: Workflow
 
 outputs:
-  mesh:
-    type: File
-    outputSource: make_mesh/mesh
-  resultvtu:
-    type: File
-    outputSource: run_simulation/resultvtu
-  resultpvd:
-    type: File
-    outputSource: run_simulation/resultpvd
-  resultimage:
-    type: File
-    outputSource: plot_over_line/resultcsv
   paperpdf:
     type: File
     outputSource: compile_paper/pdf
