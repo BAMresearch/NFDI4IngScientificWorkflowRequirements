@@ -16,6 +16,9 @@ inputs:
     type: File
   texfile:
     type: File
+    default:
+      class: File
+      location: ../source/paper.tex
 outputs:
   pdf:
     type: File

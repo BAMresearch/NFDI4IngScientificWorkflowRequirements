@@ -36,11 +36,6 @@ inputs:
     default:
       class: File
       location: ../source/postprocessing.py
-  papersource:
-    type: File
-    default:
-      class: File
-      location: ../source/paper.tex
 
 steps:
 
@@ -84,5 +79,4 @@ steps:
     run: compile_paper.cwl
     in:
       csvfile: plot_over_line/resultcsv
-      texfile: papersource
     out: [pdf]
