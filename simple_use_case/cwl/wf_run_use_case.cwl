@@ -21,7 +21,7 @@ steps:
     run: make_gmsh_mesh.cwl
     in:
       geofile: geometryfile
-    out: [mesh]
+    out: [mesh, domain_size]
 
   convert_mesh:
     run: convert_msh_to_xdmf.cwl
@@ -34,6 +34,7 @@ steps:
     in:
       xdmfmeshfile: convert_mesh/outputmesh
       h5meshfile: convert_mesh/outputmeshdata
+      domainsize: make_mesh/domain_size
     out: [resultvtu, resultpvd]
 
   plot_over_line:
