@@ -43,8 +43,6 @@ steps:
     run: make_gmsh_mesh.cwl
     in:
       geofile: geometryfile
-      outfilename:
-        default: "unit_square.msh"
     out: [mesh]
 
   convert_mesh:
