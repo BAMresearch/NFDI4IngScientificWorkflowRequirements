@@ -41,8 +41,6 @@ steps:
     in:
       vtkfile: run_simulation/resultvtu
       pvdfile: run_simulation/resultpvd
-      outputfile:
-        default: "plotoverline.csv"
     out: [resultcsv]
 
   compile_paper:

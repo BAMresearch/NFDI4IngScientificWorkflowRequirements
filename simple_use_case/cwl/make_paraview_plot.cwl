@@ -5,7 +5,7 @@ class: CommandLineTool
 doc: |
   Create rendering from vtk file using pvbatch
 baseCommand: ["pvbatch"]
-arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "$(inputs.outputfile)"]
+arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "plotoverline.csv"]
 requirements:
   InitialWorkDirRequirement:
       listing:
@@ -21,10 +21,8 @@ inputs:
     type: File
   pvdfile:
     type: File
-  outputfile:
-    type: string
 outputs:
   resultcsv:
     type: File
     outputBinding:
-      glob: $(inputs.outputfile)
+      glob: "plotoverline.csv"
