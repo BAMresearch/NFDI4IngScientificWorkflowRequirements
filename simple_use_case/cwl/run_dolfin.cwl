@@ -3,7 +3,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  poisson solver with dolfin
+  Run the poisson solver in dolfin
 baseCommand: ["python3"]
 arguments: ["$(inputs.script)", "--mesh", "$(inputs.xdmfmeshfile.path)",
                                 "--degree", "2",

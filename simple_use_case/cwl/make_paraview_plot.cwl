@@ -3,7 +3,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  Create rendering from vtk file using pvbatch
+  Create plot-over-line data with paraview`s pvbatch
 baseCommand: ["pvbatch"]
 arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "plotoverline.csv"]
 requirements:

@@ -3,7 +3,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  mesh generation with gmsh
+  Generate the computational mesh with gmsh
 baseCommand: ["gmsh"]
 arguments: ["-2", "$(inputs.geofile.path)", "-o", "mesh.msh"]
 inputs:

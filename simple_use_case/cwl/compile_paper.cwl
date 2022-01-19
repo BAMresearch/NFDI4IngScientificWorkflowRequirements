@@ -3,7 +3,7 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  Create the paper as pdf, given the correct images
+  Create the paper as pdf, given the produced csv file
 baseCommand: ["tectonic"]
 arguments: ["$(inputs.texfile)"]
 requirements:
