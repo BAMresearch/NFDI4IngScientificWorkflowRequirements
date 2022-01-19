@@ -26,11 +26,6 @@ inputs:
     default:
       class: File
       location: ../source/unit_square.geo
-  dolfinscript:
-    type: File
-    default:
-      class: File
-      location: ../source/poisson.py
   pvbatchscript:
     type: File
     default:
@@ -54,7 +49,6 @@ steps:
   run_simulation:
     run: run_dolfin.cwl
     in:
-      script: dolfinscript
       xdmfmeshfile: convert_mesh/outputmesh
       h5meshfile: convert_mesh/outputmeshdata
     out: [resultvtu, resultpvd]

@@ -16,6 +16,9 @@ requirements:
 inputs:
   script:
     type: File
+    default:
+      class: File
+      location: ../source/poisson.py
   xdmfmeshfile:
     type: File
   h5meshfile:
