@@ -49,8 +49,6 @@ steps:
     run: convert_msh_to_xdmf.cwl
     in:
       inputmesh: make_mesh/mesh
-      outfilename:
-        default: "unit_square"
     out: [outputmesh, outputmeshdata]
 
   run_simulation:
