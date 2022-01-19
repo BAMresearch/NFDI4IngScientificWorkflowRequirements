@@ -5,7 +5,7 @@ class: CommandLineTool
 doc: |
   mesh generation with gmsh
 baseCommand: ["gmsh"]
-arguments: ["-$(inputs.dimension)", "$(inputs.geofile.path)", "-o", "$(inputs.outfilename)"]
+arguments: ["-2", "$(inputs.geofile.path)", "-o", "$(inputs.outfilename)"]
 inputs:
   geofile:
     type: File
@@ -13,9 +13,6 @@ inputs:
   outfilename:
     type: string
     doc: "The name of the mesh file to be written, including the desired extension"
-  dimension:
-    type: int
-    doc: "The desired dimension of the mesh"
 outputs:
   mesh:
     type: File

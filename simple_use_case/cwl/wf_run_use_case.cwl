@@ -42,8 +42,6 @@ steps:
   make_mesh:
     run: make_gmsh_mesh.cwl
     in:
-      dimension:
-        default: 2
       geofile: geometryfile
       outfilename:
         default: "unit_square.msh"
