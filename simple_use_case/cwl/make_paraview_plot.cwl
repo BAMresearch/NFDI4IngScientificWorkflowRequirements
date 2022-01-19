@@ -14,6 +14,9 @@ requirements:
 inputs:
   script:
     type: File
+    default:
+      class: File
+      location: ../source/postprocessing.py
   vtkfile:
     type: File
   pvdfile:

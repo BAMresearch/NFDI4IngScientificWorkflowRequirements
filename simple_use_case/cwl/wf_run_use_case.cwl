@@ -26,11 +26,6 @@ inputs:
     default:
       class: File
       location: ../source/unit_square.geo
-  pvbatchscript:
-    type: File
-    default:
-      class: File
-      location: ../source/postprocessing.py
 
 steps:
 
@@ -56,7 +51,6 @@ steps:
   plot_over_line:
     run: make_paraview_plot.cwl
     in:
-      script: pvbatchscript
       vtkfile: run_simulation/resultvtu
       pvdfile: run_simulation/resultpvd
       outputfile:
