@@ -18,7 +18,7 @@ process generateMesh {
     file geo from geo_ch
 
     output:
-    file 'unit_square.msh' into msh_ch
+    file "unit_square.msh" into msh_ch
 
     """
     gmsh -2 -order 1 -format msh2 $geo -o unit_square.msh
@@ -35,8 +35,8 @@ process convertToXDMF {
     file msh from msh_ch
 
     output:
-    file 'unit_square.h5' into h5_ch
-    file 'unit_square.xdmf' into xdmf_ch
+    file "unit_square.h5" into h5_ch
+    file "unit_square.xdmf" into xdmf_ch
 
     """
     meshio convert $msh unit_square.xdmf
@@ -56,8 +56,8 @@ process solvePoisson {
     file mesh from xdmf_ch
 
     output:
-    file 'poisson.pvd' into pvd_ch
-    file 'poisson*.vtu' into vtu_ch
+    file "poisson.pvd" into pvd_ch
+    file "poisson*.vtu" into vtu_ch
 
     """
     python $fenics_code --mesh $mesh --degree ${params.degree} --outputfile poisson.pvd
@@ -65,7 +65,7 @@ process solvePoisson {
 }
 
 
-process makeContourplot {
+process makePlotOverLine {
 
     conda "../source/envs/postprocessing.yaml"
 
@@ -75,7 +75,7 @@ process makeContourplot {
     file pvd from pvd_ch
 
     output: 
-    file 'plotoverline.csv' into csv_ch
+    file "plotoverline.csv" into csv_ch
 
     """
     pvbatch $postproc $pvd plotoverline.csv
@@ -86,13 +86,14 @@ process makeContourplot {
 process compile {
 
     conda "../source/envs/postprocessing.yaml"
+    publishDir "$PWD"
 
     input:
     file tex_code from tex_ch
     file csv from csv_ch
 
     output:
-    file 'paper.pdf' 
+    file "paper.pdf" 
 
     """
     tectonic $tex_code
