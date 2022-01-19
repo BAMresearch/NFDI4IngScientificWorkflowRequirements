@@ -70,6 +70,9 @@ if __name__ == "__main__":
     PARSER = ArgumentParser(description="run script for the poisson problem")
     PARSER.add_argument("-m", "--mesh",
                         required=True, help="mesh file to be used")
+    PARSER.add_argument("-s", "--domain-size",
+                        required=False, type=float, default=1.0,
+                        help="The size of the domain described by the mesh")
     PARSER.add_argument("-d", "--degree",
                         required=True,
                         help="polynomial order to be used")
