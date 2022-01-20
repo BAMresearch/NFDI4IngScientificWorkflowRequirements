@@ -4,9 +4,6 @@ cwlVersion: v1.0
 class: CommandLineTool
 doc: |
   poisson solver with dolfin
-hints:
-  DockerRequirement:
-    dockerPull: wftools-simpleusecase
 baseCommand: ["python3"]
 arguments: ["$(inputs.script)", "--mesh", "$(inputs.xdmfmeshfile.path)",
                                 "--degree", "2",
