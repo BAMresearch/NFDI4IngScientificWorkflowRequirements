@@ -3,20 +3,18 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  Convert gmsh mesh file format to xdmf
+  Convert the produced gmsh mesh to xdmf
 baseCommand: ["meshio", "convert"]
-arguments: ["$(inputs.inputmesh.path)", "$(inputs.outfilename).xdmf"]
+arguments: ["$(inputs.inputmesh.path)", "mesh_converted.xdmf"]
 inputs:
   inputmesh:
     type: File
-  outfilename:
-    type: string
 outputs:
   outputmesh:
     type: File
     outputBinding:
-      glob: $(inputs.outfilename).xdmf
+      glob: "mesh_converted.xdmf"
   outputmeshdata:
     type: File
     outputBinding:
-       glob: $(inputs.outfilename).h5
+       glob: "mesh_converted.h5"

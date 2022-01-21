@@ -3,9 +3,9 @@
 cwlVersion: v1.0
 class: CommandLineTool
 doc: |
-  Create rendering from vtk file using pvbatch
+  Create plot-over-line data with paraview`s pvbatch
 baseCommand: ["pvbatch"]
-arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "$(inputs.outputfile)"]
+arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "plotoverline.csv"]
 requirements:
   InitialWorkDirRequirement:
       listing:
@@ -14,14 +14,15 @@ requirements:
 inputs:
   script:
     type: File
+    default:
+      class: File
+      location: ../source/postprocessing.py
   vtkfile:
     type: File
   pvdfile:
     type: File
-  outputfile:
-    type: string
 outputs:
   resultcsv:
     type: File
     outputBinding:
-      glob: $(inputs.outputfile)
+      glob: "plotoverline.csv"

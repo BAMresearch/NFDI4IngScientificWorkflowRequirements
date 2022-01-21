@@ -19,3 +19,8 @@ cwltool wf_run_use_case.cwl
 ```
 
 into your terminal.
+
+Note that there exist tools to visualize, edit or create cwl workflows. For instance, you can
+visualize workflows contained in git repositories with [view.commonwl.org](https://view.commonwl.org/),
+or you can use the [Rabix Composer](https://github.com/rabix/composer) to compose workflows locally
+on your machine.
