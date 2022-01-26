@@ -1,0 +1,10 @@
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[]
+            \addplot[color=red,smooth,thick] table[col sep=comma,header=true,x index=2,y index=0] {\DATA};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Solution of the poisson equation over the line $L = \{(x, y)\in\Omega = {(0, \SIZE{})}^2 | x = y\}$ using \NUMDOFS{} DoFs in the finite element model.}%
+    \label{fig:u}
+\end{figure}
