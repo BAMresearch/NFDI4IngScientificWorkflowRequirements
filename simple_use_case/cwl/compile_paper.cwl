@@ -11,7 +11,10 @@ requirements:
       listing:
         - $(inputs.csvfile)
         - $(inputs.texfile)
+        - $(inputs.macros)
 inputs:
+  macros:
+    type: File
   csvfile:
     type: File
   texfile:
