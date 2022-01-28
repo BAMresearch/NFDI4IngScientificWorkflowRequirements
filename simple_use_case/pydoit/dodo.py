@@ -66,40 +66,28 @@ def task_write_paper_source():
 
     def write_source(gmsh_stdout, dependencies, targets):
         # file names in correct order
-        fnames = ["lineplot.tex", "plotoverline.csv", "numdofs.txt"]
+        fnames = ["paper.tex", "lineplot.tex", "plotoverline.csv", "numdofs.txt"]
         deps = fix_deps(dependencies, fnames)
-        preamble = """\\documentclass[12pt]{article}
-\\usepackage{pgfplots}
-\\usepackage{graphicx}
 
-\\title{A simple use case}
+        with open(deps[0], "r") as infile:
+            paper = infile.read()
 
-\\newcommand\\inputplot[4]{%
-    \\def\\DATA{#2}%
-    \\def\\SIZE{#3}%
-    \\def\\NUMDOFS{#4}%
-    \\input{#1}%
-}
-        
-\\begin{document}
-\\maketitle\n
-"""
         # parse stdout from task_generate_mesh to determine domain size
         s = gmsh_stdout.split("Used domain size:")[1]
         size = s.split("Used mesh size")[0]
 
         # read file written by task_poisson to determine number of DoFs
-        with open(deps[2], "r") as handle:
+        with open(deps[3], "r") as handle:
             ndofs = handle.read()
 
-        body = "\\inputplot{{{}}}{{{}}}{{{}}}{{{}}}\n".format(deps[0], deps[1], float(size), int(ndofs))
-        end = "\\end{document}"
-        with open(targets[0], "w") as handle:
-            handle.write(preamble)
-            handle.write(body)
-            handle.write(end)
+        plot = "\\inputplot{{{}}}{{{}}}{{{}}}{{{}}}\n".format(deps[1], deps[2], float(size), int(ndofs))
+        paper = paper.replace("% TODO inputplot", plot)
+
+        with open(targets[0], "w") as outfile:
+            outfile.write(paper)
+
     return {
-        "file_dep": [SOURCE / "lineplot.tex", ROOT / "plotoverline.csv", ROOT / "numdofs.txt"],
+        "file_dep": [SOURCE / "paper.tex", SOURCE / "lineplot.tex", ROOT / "plotoverline.csv", ROOT / "numdofs.txt"],
         "actions": [(write_source, [])],
         "getargs": {"gmsh_stdout": ("generate_mesh", "stdout"),},
         "targets": [ROOT / "paper.tex"],
