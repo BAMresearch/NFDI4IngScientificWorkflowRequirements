@@ -1,0 +1,18 @@
+\documentclass[12pt]{article}
+\usepackage{pgfplots}
+\usepackage{graphicx}
+
+\title{A simple use case}
+
+\newcommand\inputplot[4]{%
+    \def\DATA{#2}%
+    \def\SIZE{#3}%
+    \def\NUMDOFS{#4}%
+    \input{#1}%
+}
+        
+\begin{document}
+\maketitle
+
+% TODO inputplot
+\end{document}
