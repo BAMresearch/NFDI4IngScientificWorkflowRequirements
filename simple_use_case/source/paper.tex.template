@@ -1,6 +1,7 @@
 \documentclass[12pt]{article}
 
 \usepackage{pgfplots}
+\newcommand{\domainSize}{${DOMAINSIZE}}
 
 \title{A simple use case}
 
@@ -12,6 +13,7 @@
     \begin{axis}[xmin=0, xmax=1.5, ymin=0.9, ymax=4.1]
         \addplot[color=red,smooth,thick] table[col sep=comma,header=true,x index=2,y index=0] {./plotoverline.csv};
     \end{axis}
+    \caption{Solution of the poisson equation over the line ($$L = \{(x, y)\in\Omega = {(0, \domainSize)}^2 | x = y\}$$) using (TODO: get number of dofs from fenics run) degrees of freeddom in the finite element model.}
 \end{tikzpicture}
 \end{center}
 

@@ -48,4 +48,5 @@ steps:
     run: compile_paper.cwl
     in:
       csvfile: plot_over_line/resultcsv
+      domain_size: make_mesh/domain_size
     out: [pdf]
