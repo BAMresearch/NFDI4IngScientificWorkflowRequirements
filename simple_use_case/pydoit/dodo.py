@@ -1,5 +1,10 @@
 import pathlib
+from doit import get_var
 from doit.action import CmdAction
+from doit.tools import config_changed
+
+GLOBAL_PARAMS = {"size": get_var("size", '2.0')}
+DOMAIN_SIZE = GLOBAL_PARAMS["size"]
 
 ROOT = pathlib.Path(__file__).parent
 SOURCE = ROOT.parent / "source"
@@ -9,12 +14,13 @@ def task_generate_mesh():
     """generate the mesh with Gmsh"""
     geo = SOURCE / "unit_square.geo"
     msh = ROOT / "unit_square.msh"
-    args = ["gmsh", "-2", "-setnumber", "domain_size", "2.0", f"{geo}", "-o", f"{msh}"]
+    args = ["gmsh", "-2", "-setnumber", "domain_size", f"{DOMAIN_SIZE}", f"{geo}", "-o", f"{msh}"]
     return {
         "file_dep": [geo],
         "actions": [CmdAction(" ".join(args), save_out="stdout")],
         "targets": [msh],
         "clean": True,
+        "uptodate": [config_changed(DOMAIN_SIZE)],
     }
 
 
