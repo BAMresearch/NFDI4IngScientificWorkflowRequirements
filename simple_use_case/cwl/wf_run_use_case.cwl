@@ -44,8 +44,15 @@ steps:
       pvdfile: run_simulation/resultpvd
     out: [resultcsv]
 
+  prepare_paper_macros:
+    run: prepare_paper_macros.cwl
+    in:
+      domain_size: make_mesh/domain_size
+    out: [macros_file]
+
   compile_paper:
     run: compile_paper.cwl
     in:
       csvfile: plot_over_line/resultcsv
+      macros: prepare_paper_macros/macros_file
     out: [pdf]
