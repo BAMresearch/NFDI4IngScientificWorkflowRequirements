@@ -3,11 +3,16 @@ from doit import get_var
 from doit.action import CmdAction
 from doit.tools import config_changed
 
+ROOT = pathlib.Path(__file__).parent
+SOURCE = ROOT.parent / "source"
+
 GLOBAL_PARAMS = {"size": get_var("size", '2.0')}
 DOMAIN_SIZE = GLOBAL_PARAMS["size"]
 
-ROOT = pathlib.Path(__file__).parent
-SOURCE = ROOT.parent / "source"
+DOIT_CONFIG = {
+        "action_string_formatting": "both",
+        "verbosity": 2,
+        }
 
 
 def task_generate_mesh():
@@ -22,6 +27,20 @@ def task_generate_mesh():
         "clean": True,
         "uptodate": [config_changed(DOMAIN_SIZE)],
     }
+
+
+def task_get_domain_size():
+    """parse stdout of the task `task_generate_mesh` and return domain size as float"""
+
+    def parse(stdout):
+        s = stdout.split("Used domain size:")[1]
+        size = float(s.split("Used mesh size")[0])
+        return {"size": size}
+
+    return {
+            "actions": [(parse, )],
+            "getargs": {"stdout": ("generate_mesh", "stdout")},
+            }
 
 
 def task_convert():
@@ -53,6 +72,22 @@ def task_poisson():
     }
 
 
+def task_get_num_dofs():
+    """reads number of degrees of freedom and returns it as integer"""
+
+    def read(dependencies):
+        with open(dependencies[0], "r") as handle:
+            num_dofs = int(handle.read())
+
+        return {"num_dofs": num_dofs}
+
+    return {
+            "file_dep": [ROOT / "numdofs.txt"],
+            "actions": [(read, )],
+            }
+
+
+
 def task_plot_over_line():
     """write data using Paraview"""
     postproc = SOURCE / "postprocessing.py"
@@ -67,62 +102,38 @@ def task_plot_over_line():
     }
 
 
-def task_write_paper_source():
-    """write paper source to file"""
-
-    def write_source(gmsh_stdout, dependencies, targets):
-        # file names in correct order
-        fnames = ["paper.tex", "lineplot.tex", "plotoverline.csv", "numdofs.txt"]
-        deps = fix_deps(dependencies, fnames)
-
-        with open(deps[0], "r") as infile:
-            paper = infile.read()
-
-        # parse stdout from task_generate_mesh to determine domain size
-        s = gmsh_stdout.split("Used domain size:")[1]
-        size = s.split("Used mesh size")[0]
-
-        # read file written by task_poisson to determine number of DoFs
-        with open(deps[3], "r") as handle:
-            ndofs = handle.read()
-
-        plot = "\\inputplot{{{}}}{{{}}}{{{}}}{{{}}}\n".format(deps[1], deps[2], float(size), int(ndofs))
-        paper = paper.replace("% TODO inputplot", plot)
-
-        with open(targets[0], "w") as outfile:
-            outfile.write(paper)
+def task_substitute_macros():
+    """places the correct values into the paper macros"""
+    script = SOURCE / "prepare_paper_macros.py"
+    file_deps = {"--macro-template-file": SOURCE / "macros.tex.template",
+            "--plot-data-path": ROOT / "plotoverline.csv",
+    }
+    def create_cmd():
+        cmd = f"python {script}"
+        for key, value in file_deps.items():
+            cmd += f" {key} {value}"
+        cmd += " --domain-size {size}"
+        cmd += " --num-dofs {num_dofs}"
+        cmd += " --output-macro-file {targets}"
+        return cmd
 
     return {
-        "file_dep": [SOURCE / "paper.tex", SOURCE / "lineplot.tex", ROOT / "plotoverline.csv", ROOT / "numdofs.txt"],
-        "actions": [(write_source, [])],
-        "getargs": {"gmsh_stdout": ("generate_mesh", "stdout"),},
-        "targets": [ROOT / "paper.tex"],
-        "clean": True,
-        "verbosity": 2,
-    }
-
-
-def fix_deps(dependencies, fnames):
-    """unfortunately the order of the `file_dep` is not guaranteed
-    see https://github.com/pydoit/doit/issues/254
-
-    Parameters
-    ----------
-    fnames : list of str
-        The filenames in the correct order.
-    """
-    from pathlib import Path
-    deps = [Path(d).name for d in dependencies]
-    order = [deps.index(fn) for fn in fnames]
-    return [dependencies[i] for i in order]
+            "file_dep": [script] + list(file_deps.values()),
+            "actions" : [create_cmd()],
+            "getargs": {"size": ("get_domain_size", "size"),
+                "num_dofs": ("get_num_dofs", "num_dofs")},
+            "targets": [ROOT / "macros.tex"],
+            "clean": True,
+            }
 
 
 def task_paper():
     """compile pdf from latex source"""
-    latexcode = ROOT / "paper.tex"
+    paper_source = SOURCE / "paper.tex"
+    paper = ROOT / "paper.tex"
     return {
-        "file_dep": [latexcode, ROOT / "plotoverline.csv", SOURCE / "lineplot.tex"],
-        "actions": [f"tectonic {latexcode}"],
-        "targets": [ROOT / "paper.pdf"],
+        "file_dep": [paper_source, ROOT / "macros.tex", ROOT / "plotoverline.csv"],
+        "actions": [f"cp {paper_source} {paper}", f"tectonic {paper}"],
+        "targets": [paper, ROOT / "paper.pdf"],
         "clean": True,
     }
