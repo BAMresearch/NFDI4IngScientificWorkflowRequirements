@@ -68,10 +68,10 @@ def solve_and_write_output(mesh: str, degree: int, outputfile: str, numdofs: str
     resultFile = df.File(outputfile)
     resultFile << discrete_solution
 
+    dofs = discrete_solution.function_space().dim()
     with open(numdofs, "w") as handle:
-        dofs = discrete_solution.function_space().dim()
         handle.write("{}\n".format(dofs))
-
+    print(f"Number of dofs used: {dofs}")
 
 if __name__ == "__main__":
     PARSER = ArgumentParser(description="run script for the poisson problem")
