@@ -15,7 +15,7 @@ from paraview.simple import (
 def main(args):
     pvd_file = args.pvd
     source = PVDReader(registrationName="poisson.pvd", FileName=[pvd_file])
-    source.PointArrays = [args["field"]]
+    source.PointArrays = [args.field]
     UpdatePipeline()
 
     (xmin, xmax, ymin, ymax, zmin, zmax) = source.GetDataInformation().GetBounds()
@@ -32,7 +32,7 @@ def main(args):
         args.csv,
         proxy=plotOverLine1,
         ChooseArraysToWrite=1,
-        PointDataArrays=["arc_length", args["field"], "vtkValidPointMask"],
+        PointDataArrays=["arc_length", args.field, "vtkValidPointMask"],
     )
 
 
