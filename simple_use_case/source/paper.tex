@@ -1,18 +1,22 @@
 \documentclass[12pt]{article}
-
+\usepackage{graphicx}
 \usepackage{pgfplots}
+
+\input{macros}
 
 \title{A simple use case}
 
 \begin{document}
 \maketitle
 
-\begin{center}
-\begin{tikzpicture}
-    \begin{axis}[xmin=0, xmax=1.5, ymin=0.9, ymax=4.1]
-        \addplot[color=red,smooth,thick] table[col sep=comma,header=true,x index=2,y index=0] {./plotoverline.csv};
-    \end{axis}
-\end{tikzpicture}
-\end{center}
+\begin{figure}[h]
+    \centering%
+    \begin{tikzpicture}
+        \begin{axis}[]
+            \addplot[color=red,smooth,thick] table[col sep=comma,header=true,x index=2,y index=0] {\plotDataPath};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Solution of the poisson equation over the line $L = \{(x, y)\in\Omega = {(0, \domainSize{})}^2 | x = y\}$ using \numDofs{} DoFs in the finite element model.}%
+\end{figure}
 
 \end{document}
