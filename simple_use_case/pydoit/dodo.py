@@ -6,20 +6,29 @@ from doit.tools import config_changed
 ROOT = pathlib.Path(__file__).parent
 SOURCE = ROOT.parent / "source"
 
-GLOBAL_PARAMS = {"size": get_var("size", '2.0')}
+GLOBAL_PARAMS = {"size": get_var("size", "2.0")}
 DOMAIN_SIZE = GLOBAL_PARAMS["size"]
 
 DOIT_CONFIG = {
-        "action_string_formatting": "both",
-        "verbosity": 2,
-        }
+    "action_string_formatting": "both",
+    "verbosity": 2,
+}
 
 
 def task_generate_mesh():
     """generate the mesh with Gmsh"""
     geo = SOURCE / "unit_square.geo"
     msh = ROOT / "unit_square.msh"
-    args = ["gmsh", "-2", "-setnumber", "domain_size", f"{DOMAIN_SIZE}", f"{geo}", "-o", f"{msh}"]
+    args = [
+        "gmsh",
+        "-2",
+        "-setnumber",
+        "domain_size",
+        f"{DOMAIN_SIZE}",
+        f"{geo}",
+        "-o",
+        f"{msh}",
+    ]
     return {
         "file_dep": [geo],
         "actions": [CmdAction(" ".join(args), save_out="stdout")],
@@ -38,9 +47,9 @@ def task_get_domain_size():
         return {"size": size}
 
     return {
-            "actions": [(parse, )],
-            "getargs": {"stdout": ("generate_mesh", "stdout")},
-            }
+        "actions": [(parse,)],
+        "getargs": {"stdout": ("generate_mesh", "stdout")},
+    }
 
 
 def task_convert():
@@ -82,10 +91,9 @@ def task_get_num_dofs():
         return {"num_dofs": num_dofs}
 
     return {
-            "file_dep": [ROOT / "numdofs.txt"],
-            "actions": [(read, )],
-            }
-
+        "file_dep": [ROOT / "numdofs.txt"],
+        "actions": [(read,)],
+    }
 
 
 def task_plot_over_line():
@@ -96,7 +104,7 @@ def task_plot_over_line():
     pol = ROOT / "plotoverline.csv"
     return {
         "file_dep": [pvdfile, vtufile, postproc],
-        "actions": [f"pvbatch {postproc} -i {pvdfile} -o {pol}"],
+        "actions": [f"pvbatch {postproc} {pvdfile} {pol}"],
         "targets": [pol],
         "clean": True,
     }
@@ -105,9 +113,11 @@ def task_plot_over_line():
 def task_substitute_macros():
     """places the correct values into the paper macros"""
     script = SOURCE / "prepare_paper_macros.py"
-    file_deps = {"--macro-template-file": SOURCE / "macros.tex.template",
-            "--plot-data-path": ROOT / "plotoverline.csv",
+    file_deps = {
+        "--macro-template-file": SOURCE / "macros.tex.template",
+        "--plot-data-path": ROOT / "plotoverline.csv",
     }
+
     def create_cmd():
         cmd = f"python {script}"
         for key, value in file_deps.items():
@@ -118,13 +128,15 @@ def task_substitute_macros():
         return cmd
 
     return {
-            "file_dep": [script] + list(file_deps.values()),
-            "actions" : [create_cmd()],
-            "getargs": {"size": ("get_domain_size", "size"),
-                "num_dofs": ("get_num_dofs", "num_dofs")},
-            "targets": [ROOT / "macros.tex"],
-            "clean": True,
-            }
+        "file_dep": [script] + list(file_deps.values()),
+        "actions": [create_cmd()],
+        "getargs": {
+            "size": ("get_domain_size", "size"),
+            "num_dofs": ("get_num_dofs", "num_dofs"),
+        },
+        "targets": [ROOT / "macros.tex"],
+        "clean": True,
+    }
 
 
 def task_paper():
