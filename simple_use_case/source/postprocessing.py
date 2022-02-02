@@ -2,6 +2,7 @@
 $ pvbatch postprocessing.py -h
 """
 
+import sys
 import argparse
 from paraview.simple import (
     PlotOverLine,
@@ -12,7 +13,7 @@ from paraview.simple import (
 
 
 def main(args):
-    pvd_file = args["inputfile"]
+    pvd_file = args.pvd
     source = PVDReader(registrationName="poisson.pvd", FileName=[pvd_file])
     source.PointArrays = [args["field"]]
     UpdatePipeline()
@@ -28,7 +29,7 @@ def main(args):
 
     # save data
     SaveData(
-        args["outputfile"],
+        args.csv,
         proxy=plotOverLine1,
         ChooseArraysToWrite=1,
         PointDataArrays=["arc_length", args["field"], "vtkValidPointMask"],
@@ -39,15 +40,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog=f"pvbatch {__file__}",
         description="Plots the solution over a line and writes the data to file.",
-        usage="%(prog)s [options] ",
+        usage="%(prog)s [options] pvd csv",
     )
-    parser.add_argument("-i", "--inputfile", required=True, help="The source pvd filepath.")
-    parser.add_argument("-o", "--outputfile", required=True, help="The target csv filepath.")
+    parser.add_argument("pvd", type=str, help="The source pvd filepath.")
+    parser.add_argument("csv", type=str, help="The target csv filepath.")
     parser.add_argument(
         "--field",
         type=str,
         default="u",
         help="Field variable to plot (default: u)",
     )
-    args = vars(parser.parse_args())
+    args = parser.parse_args(sys.argv[1:])
     main(args)
