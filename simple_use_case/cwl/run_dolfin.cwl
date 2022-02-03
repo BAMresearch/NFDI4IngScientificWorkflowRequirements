@@ -5,11 +5,12 @@ class: CommandLineTool
 doc: |
   Run the poisson solver in dolfin
 baseCommand: ["python3"]
-arguments: ["$(inputs.script)", "--domain-size", "$(inputs.domainsize)",
-                                "--mesh", "$(inputs.xdmfmeshfile.path)",
+arguments: ["$(inputs.script)", "--mesh", "$(inputs.xdmfmeshfile.path)",
                                 "--degree", "2",
                                 "--output", "result.pvd"]
+stdout: output.txt
 requirements:
+  InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
       listing:
         - $(inputs.xdmfmeshfile)
@@ -24,8 +25,6 @@ inputs:
     type: File
   h5meshfile:
     type: File
-  domainsize:
-    type: float
 outputs:
   resultvtu:
     type: File
@@ -35,3 +34,15 @@ outputs:
     type: File
     outputBinding:
       glob: ["result.pvd"]
+  num_dofs:
+    type: float
+    outputBinding:
+      glob: "output.txt"
+      loadContents: true
+      outputEval: |
+        ${
+            var output = self[0].contents;
+            var dofs_string = output.split("Number of dofs used:")[1];
+            dofs_string = dofs_string.split("\n")[0];
+            return parseFloat(dofs_string);
+        }

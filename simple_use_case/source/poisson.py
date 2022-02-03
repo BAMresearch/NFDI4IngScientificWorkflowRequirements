@@ -88,7 +88,8 @@ if __name__ == "__main__":
     PARSER.add_argument(
         "-n",
         "--num-dofs",
-        required=True,
+        required=False,
+        default="dummy_num_dofs.txt",
         help="file name for the number of DoFs to be written",
     )
     ARGS = vars(PARSER.parse_args())
