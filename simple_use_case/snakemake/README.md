@@ -25,7 +25,10 @@ The workflow can be run with
 snakemake --cores 1 --use-conda ./paper.pdf
 ```
 with Mamba as the default conda frontend.
-If you don't want to use Mamba, you need to specify conda as the frontend for installing environments with
+The parameter `domain_size` with default value 2.0 is defined in the configuration file `config.yaml`.
+The values defined in the configuration file can be overwritten via the command line, e.g.
 ```sh
-snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
+snakemake --cores 1 --use-conda --config domain_size=4.0 ./paper.pdf
 ```
+If you don't want to use Mamba, you need to specify conda as the frontend for installing environments.
+This can be done by appending `--conda-frontend conda`.
