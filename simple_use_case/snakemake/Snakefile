@@ -1,19 +1,57 @@
+configfile: "./config.yaml"
+
+
+# NOTE 
+# $ snakemake --use-conda --cores 1 --config domain_size=4.0
+# does not re-execute the job generated from rule 'generate_mesh'
+# if it was executed before with e.g. the default value 2.0
+# It seems one has to force the execution of 'somerule' in this case
+# $ snakemake -R somerule
 rule generate_mesh:
-	input:
-		"../source/unit_square.geo"
-	output:
-		"preprocessing/unit_square.msh"
-	conda:
-		"../source/envs/preprocessing.yaml"
-	shell:
-		"gmsh -2 -order 1 -format msh2 {input} -o {output}"
+    input:
+        "../source/unit_square.geo"
+    output:
+        msh="preprocessing/square.msh",
+        stdout="preprocessing/gmsh_stdout.txt"
+    conda:
+        "../source/envs/preprocessing.yaml"
+    shell:
+        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output.msh} > {output.stdout}"
+
+
+# NOTE parsing stdout of the gmsh job does not make a lot of sense
+# in this particular case, since the value of config["domain_size"]
+# is not changed by the gmsh job.
+# Our intension was to investigate how one would deal with non-file
+# output (the result of the parse_stdout job), but unfortunately
+# snakemake does not seem to offer output types other than 'file'
+# or 'pipe'.
+# If I understand correctly the 'pipe' directive is used to group
+# tasks and execute them simultaneously rather than passing
+# non-file output from one job to another.
+# See https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#piped-output
+# Also, when executing snakemake with --cores 1, I got an error message
+# stating that I would need to increase the number of cores if I
+# wanted to use the 'pipe' directive.
+rule parse_stdout:
+    input:
+        rules.generate_mesh.output.stdout
+    output: 
+        "preprocessing/domain_size.txt"
+    run:
+        with open(input[0], "r") as handle:
+            stdout = handle.read()
+            part = stdout.split("Used domain size:")[1]
+            size = float(part.split("Used mesh size")[0])
+            with open(output[0], "w") as outstream:
+                outstream.write(str(size))
 
 
 rule convert_to_xdmf:
 	input:
-		"preprocessing/{domain}.msh"
+		rules.generate_mesh.output.msh
 	output:
-		"preprocessing/{domain}.xdmf"
+		"preprocessing/square.xdmf"
 	conda:
 		"../source/envs/preprocessing.yaml"
 	shell:
@@ -21,45 +59,59 @@ rule convert_to_xdmf:
 
 
 rule poisson:
-	input:
-		py="../source/poisson.py",
-		xdmf="preprocessing/unit_square.xdmf"
-	output:
-		"processing/poisson.pvd"
-	conda:
-		"../source/envs/processing.yaml"
-	shell:
-		"python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output}"
+    input:
+        py="../source/poisson.py",
+        xdmf=rules.convert_to_xdmf.output
+    output:
+        pvd="processing/poisson.pvd",
+        txt="processing/numdofs.txt"
+    conda:
+        "../source/envs/processing.yaml"
+    shell:
+        "python {input.py} --mesh {input.xdmf} --degree {config[degree]} --outputfile {output.pvd} --num-dofs {output.txt}"
 
 
-rule plot_solution:
-	input:
-		py="../source/postprocessing.py",
-		pvd="processing/poisson.pvd"
-	output:
-		"postprocessing/plotoverline.csv"
-	conda:
-		"../source/envs/postprocessing.yaml"
-	shell:
-		"pvbatch {input.py} {input.pvd} {output}"
+rule plot_over_line:
+    input:
+        py="../source/postprocessing.py",
+        pvd=rules.poisson.output.pvd
+    output:
+        "postprocessing/plotoverline.csv"
+    conda:
+        "../source/envs/postprocessing.yaml"
+    shell:
+        "pvbatch {input.py} {input.pvd} {output}"
 
 
-rule copy_source:
-	input:
-		"../source/{document}.tex"
-	output:
-		"postprocessing/{document}.tex"
-	shell:
-		"cp {input} {output}"
+rule substitute_macros:
+    input:
+        py="../source/prepare_paper_macros.py",
+        template="../source/macros.tex.template",
+        data=rules.plot_over_line.output,
+        domainsize=rules.parse_stdout.output,
+        ndofs=rules.poisson.output.txt
+    output:
+        "macros.tex"
+    run:
+        with open(input.domainsize[0], "r") as instream:
+            domain_size = float(instream.read())
+        with open(input.ndofs, "r") as instream:
+            ndofs = int(instream.read())
+        shell("python {input.py} --macro-template-file {input.template} \
+                --plot-data-path {input.data} \
+                --domain-size %s \
+                --num-dofs %s \
+                --output-macro-file {output[0]}" % (domain_size, ndofs))
 
 
-rule compile:
-	input:
-		tex="postprocessing/{document}.tex",
-		png="postprocessing/plotoverline.csv"
-	output:
-		"{document}.pdf"
-	conda:
-		"../source/envs/postprocessing.yaml"
-	shell:
-		"tectonic {input.tex} --outdir ."
+rule compile_paper:
+    input:
+        paper="../source/paper.tex",
+        macros=rules.substitute_macros.output
+    output:
+        tex="paper.tex",
+        pdf="paper.pdf"
+    conda:
+        "../source/envs/postprocessing.yaml"
+    shell:
+        "cp {input.paper} {output.tex} && tectonic {output.tex}"
