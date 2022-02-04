@@ -19,34 +19,6 @@ rule generate_mesh:
         "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output.msh} > {output.stdout}"
 
 
-# NOTE parsing stdout of the gmsh job does not make a lot of sense
-# in this particular case, since the value of config["domain_size"]
-# is not changed by the gmsh job.
-# Our intension was to investigate how one would deal with non-file
-# output (the result of the parse_stdout job), but unfortunately
-# snakemake does not seem to offer output types other than 'file'
-# or 'pipe'.
-# If I understand correctly the 'pipe' directive is used to group
-# tasks and execute them simultaneously rather than passing
-# non-file output from one job to another.
-# See https://snakemake.readthedocs.io/en/stable/snakefiles/rules.html#piped-output
-# Also, when executing snakemake with --cores 1, I got an error message
-# stating that I would need to increase the number of cores if I
-# wanted to use the 'pipe' directive.
-rule parse_stdout:
-    input:
-        rules.generate_mesh.output.stdout
-    output: 
-        "preprocessing/domain_size.txt"
-    run:
-        with open(input[0], "r") as handle:
-            stdout = handle.read()
-            part = stdout.split("Used domain size:")[1]
-            size = float(part.split("Used mesh size")[0])
-            with open(output[0], "w") as outstream:
-                outstream.write(str(size))
-
-
 rule convert_to_xdmf:
 	input:
 		rules.generate_mesh.output.msh
@@ -88,20 +60,17 @@ rule substitute_macros:
         py="../source/prepare_paper_macros.py",
         template="../source/macros.tex.template",
         data=rules.plot_over_line.output,
-        domainsize=rules.parse_stdout.output,
         ndofs=rules.poisson.output.txt
     output:
         "macros.tex"
     run:
-        with open(input.domainsize[0], "r") as instream:
-            domain_size = float(instream.read())
         with open(input.ndofs, "r") as instream:
             ndofs = int(instream.read())
         shell("python {input.py} --macro-template-file {input.template} \
                 --plot-data-path {input.data} \
-                --domain-size %s \
+                --domain-size {config[domain_size]} \
                 --num-dofs %s \
-                --output-macro-file {output[0]}" % (domain_size, ndofs))
+                --output-macro-file {output[0]}" % (ndofs))
 
 
 rule compile_paper:
