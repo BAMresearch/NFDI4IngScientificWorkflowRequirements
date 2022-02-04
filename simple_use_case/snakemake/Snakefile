@@ -40,7 +40,7 @@ rule poisson:
     conda:
         "../source/envs/processing.yaml"
     shell:
-        "python {input.py} --mesh {input.xdmf} --degree {config[degree]} --outputfile {output.pvd} --num-dofs {output.txt}"
+        "python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output.pvd} --num-dofs {output.txt}"
 
 
 rule plot_over_line:
