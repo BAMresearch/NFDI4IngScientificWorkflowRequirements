@@ -12,19 +12,17 @@ outputs:
     outputSource: plot_over_line/resultcsv
 
 inputs:
-  geometryfile:
-    type: File
-    default:
-      class: File
-      location: ../source/unit_square.geo
+  domain_size:
+    type: float
+    default: 1.0
 
 steps:
 
   make_mesh:
     run: make_gmsh_mesh.cwl
     in:
-      geofile: geometryfile
-    out: [mesh, domain_size]
+      domain_size: domain_size
+    out: [mesh]
 
   convert_mesh:
     run: convert_msh_to_xdmf.cwl
@@ -50,7 +48,7 @@ steps:
     run: prepare_paper_macros.cwl
     in:
       num_dofs: run_simulation/num_dofs
-      domain_size: make_mesh/domain_size
+      domain_size: domain_size
       plot_data_file: plot_over_line/resultcsv
     out: [macros_file]
 
