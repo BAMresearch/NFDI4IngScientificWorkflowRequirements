@@ -11,17 +11,16 @@ rule generate_mesh:
     input:
         "../source/unit_square.geo"
     output:
-        msh="preprocessing/square.msh",
-        stdout="preprocessing/gmsh_stdout.txt"
+        "preprocessing/square.msh",
     conda:
         "../source/envs/preprocessing.yaml"
     shell:
-        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output.msh} > {output.stdout}"
+        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output}"
 
 
 rule convert_to_xdmf:
 	input:
-		rules.generate_mesh.output.msh
+		rules.generate_mesh.output
 	output:
 		"preprocessing/square.xdmf"
 	conda:
