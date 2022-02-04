@@ -10,6 +10,12 @@ outputs:
   pol_data:
     type: File
     outputSource: plot_over_line/resultcsv
+  macros:
+    type: File
+    outputSource: prepare_paper_macros/macros_file
+  resultvtu:
+    type: File
+    outputSource: run_simulation/resultvtu
 
 inputs:
   domain_size:
