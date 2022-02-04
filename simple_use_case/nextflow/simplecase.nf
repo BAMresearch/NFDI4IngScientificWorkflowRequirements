@@ -1,6 +1,6 @@
 #!/usr/bin/env nextflow
 
-params.degree = 2
+params.domainSize = 2
 
 // for now simply add dependent files as Channels
 geo_ch = Channel.fromPath("$PWD/../source/unit_square.geo")
@@ -21,7 +21,7 @@ process generateMesh {
     file "unit_square.msh" into msh_ch
 
     """
-    gmsh -2 -order 1 -format msh2 $geo -o unit_square.msh
+    gmsh -2 -setnumber domain_size ${params.domainSize} $geo -o unit_square.msh
     """
 }
 
@@ -60,7 +60,7 @@ process solvePoisson {
     file "poisson*.vtu" into vtu_ch
 
     """
-    python $fenics_code --mesh $mesh --degree ${params.degree} --outputfile poisson.pvd
+    python $fenics_code --mesh $mesh --degree 2 --outputfile poisson.pvd
     """
 }
 
