@@ -96,7 +96,7 @@ process makePlotOverLine {
     file pvd from poisson_pvd
 
     output: 
-    file "plotoverline.csv" into plot_over_line
+    file "plotoverline.csv" into (plot_over_line, plotOverLine)
 
     """
     pvbatch $paraview_script $pvd plotoverline.csv
@@ -112,6 +112,7 @@ process substituteMacros {
     input:
     file prepare_macros
     file macro_template
+    file plotOverLine
     val number_of_dofs
 
     output:
@@ -119,7 +120,7 @@ process substituteMacros {
 
     """
     python $prepare_macros --macro-template-file $macro_template \
-        --plot-data-path "./plotoverline.csv" \
+        --plot-data-path $plotOverLine \
         --domain-size ${params.domainSize} \
         --num-dofs ${number_of_dofs.replaceAll("\\s", "")} \
         --output-macro-file macros.tex
