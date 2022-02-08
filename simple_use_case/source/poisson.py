@@ -11,9 +11,9 @@ def boundary_expression():
     return "1.0 + x[0] * x[0] + 2.0 * x[1] * x[1]"
 
 
-def solve_poisson(meshfile: str,
-                  degree: int,
-                  bc_expression: str = boundary_expression()):
+def solve_poisson(
+    meshfile: str, degree: int, bc_expression: str = boundary_expression()
+):
     """solves the poisson equation
 
     Parameters
@@ -48,8 +48,9 @@ def solve_poisson(meshfile: str,
     return solution
 
 
-def solve_and_write_output(mesh: str, degree: int, outputfile: str):
-    """solves the poisson equation and writes the solution to the given file
+def solve_and_write_output(mesh: str, degree: int, outputfile: str, numdofs: str):
+    """solves the poisson equation and writes the solution
+    and the number of DoFs to the given files
 
     Parameters
     ----------
@@ -59,25 +60,40 @@ def solve_and_write_output(mesh: str, degree: int, outputfile: str):
         Degree of the finite element space.
     outputfile : str
         FilePath to the output file into which the solution is written.
+    numdofs : str
+        FilePath to which the number of DoFs is written.
     """
     discrete_solution = solve_poisson(mesh, degree)
     discrete_solution.rename("u", discrete_solution.name())
     resultFile = df.File(outputfile)
     resultFile << discrete_solution
 
+    dofs = discrete_solution.function_space().dim()
+    with open(numdofs, "w") as handle:
+        handle.write("{}\n".format(dofs))
+    print(f"Number of dofs used: {dofs}")
 
 if __name__ == "__main__":
     PARSER = ArgumentParser(description="run script for the poisson problem")
-    PARSER.add_argument("-m", "--mesh",
-                        required=True, help="mesh file to be used")
-    PARSER.add_argument("-d", "--degree",
-                        required=True,
-                        help="polynomial order to be used")
-    PARSER.add_argument("-o", "--outputfile",
-                        required=True,
-                        help="file name for the output to be written")
+    PARSER.add_argument("-m", "--mesh", required=True, help="mesh file to be used")
+    PARSER.add_argument(
+        "-d", "--degree", required=True, help="polynomial order to be used"
+    )
+    PARSER.add_argument(
+        "-o",
+        "--outputfile",
+        required=True,
+        help="file name for the output to be written",
+    )
+    PARSER.add_argument(
+        "-n",
+        "--num-dofs",
+        required=False,
+        default="dummy_num_dofs.txt",
+        help="file name for the number of DoFs to be written",
+    )
     ARGS = vars(PARSER.parse_args())
 
     solve_and_write_output(
-        ARGS["mesh"], int(ARGS["degree"]), ARGS["outputfile"]
+        ARGS["mesh"], int(ARGS["degree"]), ARGS["outputfile"], ARGS["num_dofs"]
     )

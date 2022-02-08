@@ -16,3 +16,8 @@ Executing the workflow is as simple as
 nextflow run simplecase.nf
 ```
 Nextflow will install all required software specified through conda environment files for you.
+Any script parameter can be specified on the command line by prefixing the parameter name with
+double dash characters, e.g.
+```
+nextflow run simplecase.nf --domainSize 1.0
+```

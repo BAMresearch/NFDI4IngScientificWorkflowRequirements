@@ -7,20 +7,27 @@ outputs:
   paperpdf:
     type: File
     outputSource: compile_paper/pdf
+  pol_data:
+    type: File
+    outputSource: plot_over_line/resultcsv
+  macros:
+    type: File
+    outputSource: prepare_paper_macros/macros_file
+  resultvtu:
+    type: File
+    outputSource: run_simulation/resultvtu
 
 inputs:
-  geometryfile:
-    type: File
-    default:
-      class: File
-      location: ../source/unit_square.geo
+  domain_size:
+    type: float
+    default: 1.0
 
 steps:
 
   make_mesh:
     run: make_gmsh_mesh.cwl
     in:
-      geofile: geometryfile
+      domain_size: domain_size
     out: [mesh]
 
   convert_mesh:
@@ -34,7 +41,7 @@ steps:
     in:
       xdmfmeshfile: convert_mesh/outputmesh
       h5meshfile: convert_mesh/outputmeshdata
-    out: [resultvtu, resultpvd]
+    out: [resultvtu, resultpvd, num_dofs]
 
   plot_over_line:
     run: make_paraview_plot.cwl
@@ -43,8 +50,17 @@ steps:
       pvdfile: run_simulation/resultpvd
     out: [resultcsv]
 
+  prepare_paper_macros:
+    run: prepare_paper_macros.cwl
+    in:
+      num_dofs: run_simulation/num_dofs
+      domain_size: domain_size
+      plot_data_file: plot_over_line/resultcsv
+    out: [macros_file]
+
   compile_paper:
     run: compile_paper.cwl
     in:
       csvfile: plot_over_line/resultcsv
+      macros: prepare_paper_macros/macros_file
     out: [pdf]

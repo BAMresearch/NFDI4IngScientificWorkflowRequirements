@@ -1,19 +1,54 @@
 import pathlib
+from doit import get_var
+from doit.action import CmdAction
+from doit.tools import config_changed
 
 ROOT = pathlib.Path(__file__).parent
 SOURCE = ROOT.parent / "source"
 
+GLOBAL_PARAMS = {"size": get_var("size", "2.0")}
+DOMAIN_SIZE = GLOBAL_PARAMS["size"]
 
-def task_mesh():
+DOIT_CONFIG = {
+    "action_string_formatting": "both",
+    "verbosity": 2,
+}
+
+
+def task_generate_mesh():
     """generate the mesh with Gmsh"""
     geo = SOURCE / "unit_square.geo"
     msh = ROOT / "unit_square.msh"
-    args = ["gmsh", "-2", "-order", "1", "-format", "msh2", f"{geo}", "-o", f"{msh}"]
+    args = [
+        "gmsh",
+        "-2",
+        "-setnumber",
+        "domain_size",
+        f"{DOMAIN_SIZE}",
+        f"{geo}",
+        "-o",
+        f"{msh}",
+    ]
     return {
         "file_dep": [geo],
-        "actions": [" ".join(args)],
+        "actions": [CmdAction(" ".join(args), save_out="stdout")],
         "targets": [msh],
         "clean": True,
+        "uptodate": [config_changed(DOMAIN_SIZE)],
+    }
+
+
+def task_get_domain_size():
+    """parse stdout of the task `task_generate_mesh` and return domain size as float"""
+
+    def parse(stdout):
+        s = stdout.split("Used domain size:")[1]
+        size = float(s.split("Used mesh size")[0])
+        return {"size": size}
+
+    return {
+        "actions": [(parse,)],
+        "getargs": {"stdout": ("generate_mesh", "stdout")},
     }
 
 
@@ -35,13 +70,29 @@ def task_poisson():
     degree = 2
     pvdfile = ROOT / "poisson.pvd"
     vtufile = ROOT / (pvdfile.stem + "000000.vtu")
+    txtfile = ROOT / "numdofs.txt"
     return {
         "file_dep": [mesh, mesh.with_suffix(".h5"), poisson],
         "actions": [
-            f"python {poisson} --mesh {mesh} --degree {degree} --outputfile {pvdfile}"
+            f"python {poisson} --mesh {mesh} --degree {degree} --outputfile {pvdfile} --num-dofs {txtfile}"
         ],
-        "targets": [pvdfile, vtufile],
+        "targets": [pvdfile, vtufile, txtfile],
         "clean": True,
+    }
+
+
+def task_get_num_dofs():
+    """reads number of degrees of freedom and returns it as integer"""
+
+    def read(dependencies):
+        with open(dependencies[0], "r") as handle:
+            num_dofs = int(handle.read())
+
+        return {"num_dofs": num_dofs}
+
+    return {
+        "file_dep": [ROOT / "numdofs.txt"],
+        "actions": [(read,)],
     }
 
 
@@ -59,23 +110,42 @@ def task_plot_over_line():
     }
 
 
-def task_copy_paper():
-    """copy paper.tex from source directory"""
-    source_code = SOURCE / "paper.tex"
-    root_code = ROOT / "paper.tex"
+def task_substitute_macros():
+    """places the correct values into the paper macros"""
+    script = SOURCE / "prepare_paper_macros.py"
+    file_deps = {
+        "--macro-template-file": SOURCE / "macros.tex.template",
+        "--plot-data-path": ROOT / "plotoverline.csv",
+    }
+
+    def create_cmd():
+        cmd = f"python {script}"
+        for key, value in file_deps.items():
+            cmd += f" {key} {value}"
+        cmd += " --domain-size {size}"
+        cmd += " --num-dofs {num_dofs}"
+        cmd += " --output-macro-file {targets}"
+        return cmd
+
     return {
-        "actions": [f"cp {source_code} {root_code}"],
-        "targets": [root_code],
+        "file_dep": [script] + list(file_deps.values()),
+        "actions": [create_cmd()],
+        "getargs": {
+            "size": ("get_domain_size", "size"),
+            "num_dofs": ("get_num_dofs", "num_dofs"),
+        },
+        "targets": [ROOT / "macros.tex"],
         "clean": True,
     }
 
 
 def task_paper():
     """compile pdf from latex source"""
-    latexcode = ROOT / "paper.tex"
+    paper_source = SOURCE / "paper.tex"
+    paper = ROOT / "paper.tex"
     return {
-        "file_dep": [latexcode, ROOT / "plotoverline.csv"],
-        "actions": [f"tectonic {latexcode}"],
-        "targets": [ROOT / "paper.pdf"],
+        "file_dep": [paper_source, ROOT / "macros.tex", ROOT / "plotoverline.csv"],
+        "actions": [f"cp {paper_source} {paper}", f"tectonic {paper}"],
+        "targets": [paper, ROOT / "paper.pdf"],
         "clean": True,
     }

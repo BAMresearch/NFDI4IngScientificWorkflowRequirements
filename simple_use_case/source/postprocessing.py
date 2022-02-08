@@ -15,14 +15,16 @@ from paraview.simple import (
 def main(args):
     pvd_file = args.pvd
     source = PVDReader(registrationName="poisson.pvd", FileName=[pvd_file])
-    source.PointArrays = ["u"]
+    source.PointArrays = [args.field]
+    UpdatePipeline()
 
+    (xmin, xmax, ymin, ymax, zmin, zmax) = source.GetDataInformation().GetBounds()
+    # init the 'Line' selected for 'Source'
     plotOverLine1 = PlotOverLine(
         registrationName="PlotOverLine1", Input=source, Source="Line"
     )
-    # init the 'Line' selected for 'Source'
-    plotOverLine1.Source.Point1 = [0.0, 0.0, 0.0]
-    plotOverLine1.Source.Point2 = [1.0, 1.0, 0.0]
+    plotOverLine1.Source.Point1 = [xmin, ymin, zmin]
+    plotOverLine1.Source.Point2 = [xmax, ymax, zmax]
     UpdatePipeline()
 
     # save data
@@ -30,7 +32,7 @@ def main(args):
         args.csv,
         proxy=plotOverLine1,
         ChooseArraysToWrite=1,
-        PointDataArrays=["arc_length", "u", "vtkValidPointMask"],
+        PointDataArrays=["arc_length", args.field, "vtkValidPointMask"],
     )
 
 
