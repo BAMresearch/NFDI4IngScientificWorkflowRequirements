@@ -50,7 +50,7 @@ workflow tools.
 A list of preselected tools can be found in the [documentation](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/).
 If you would like to add an implementation of the [simple use case](https://nfdi4ingscientificworkflowrequirements.readthedocs.io/en/latest/docs/simpleusecase.html) for a tool
 (not limited to the given list), or if you suggest changes to one of the
-existing implementations, please raise an issue and submit a pull request.
+existing implementations, please raise an issue and/or submit a pull request.
 We also encourage to start a new [discussion](https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/discussions)
 for general comments, questions and ideas you would like to share.
 

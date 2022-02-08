@@ -14,7 +14,7 @@ on a square domain :math:`\varOmega={(0, s)}^2, s\in\mathbb{R}^+`.
 The domain size :math:`s` is defined as an input to the workflow, such that the workflow can
 be run for different computational domains.
 The final output of the workflow is a PDF document showing the solution :math:`u` over the
-line :math:`L=\{(x, y)\in\varOmega\,\vert\,x=y\}` and the number of degrees of freedom in the finite element model.
+line :math:`L=\{(x, y)\in\varOmega\,\vert\,x=y\}` and the number of degrees of freedom used in the finite element model.
 The (directed acyclic graph of the) workflow is shown below and consists of the following processes:
 
 .. |DAG| image:: ./../img/simple_use_case_dag.png
@@ -29,7 +29,7 @@ The (directed acyclic graph of the) workflow is shown below and consists of the 
    gmsh -2 -setnumber domain_size 1.0 source/square.geo -o ./square.msh
 
 
-2. Conversion of the file format (into one readable by `FEniCS`) using `meshio <https://github.com/nschloe/meshio>`_,
+2. Conversion of the file format (into one readable by `FEniCS <https://fenicsproject.org/>`_) using `meshio <https://github.com/nschloe/meshio>`_,
 
 .. code-block:: console
 
