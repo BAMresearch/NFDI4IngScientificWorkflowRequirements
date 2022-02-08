@@ -56,4 +56,4 @@ for general comments, questions and ideas you would like to share.
 
 ## Acknowledgements
 We would like to thank the following people for their contribution to this repository:
-* Who wants to be first?
+* TBA
