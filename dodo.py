@@ -4,9 +4,10 @@ import pathlib
 def task_website():
     deps = ["index.rst", "conf.py"]
     docs = pathlib.Path("docs")
-    sources = list(docs.glob("*.rst"))
+    for f in docs.glob("*.rst"):
+        deps.append(str(f))
     return {
-            "file_dep": deps + sources,
-            "actions": ["sphinx-build . website"],
-            "verbosity": 2,
-            }
+        "file_dep": deps,
+        "actions": ["sphinx-build . website"],
+        "verbosity": 2,
+    }

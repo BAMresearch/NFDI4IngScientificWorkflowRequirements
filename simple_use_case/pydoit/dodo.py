@@ -22,7 +22,7 @@ def task_convert():
     msh = ROOT / "unit_square.msh"
     return {
         "file_dep": [msh],
-        "actions": [f"meshio-convert {msh} {msh.with_suffix('.xdmf')}"],
+        "actions": [f"meshio convert {msh} {msh.with_suffix('.xdmf')}"],
         "targets": [msh.with_suffix(".xdmf"), msh.with_suffix(".h5")],
         "clean": True,
     }
@@ -45,16 +45,16 @@ def task_poisson():
     }
 
 
-def task_contourplot():
-    """make a contourplot using Paraview"""
+def task_plot_over_line():
+    """write data using Paraview"""
     postproc = SOURCE / "postprocessing.py"
     pvdfile = ROOT / "poisson.pvd"
     vtufile = ROOT / (pvdfile.stem + "000000.vtu")
-    contour = ROOT / "contourplot.png"
+    pol = ROOT / "plotoverline.csv"
     return {
         "file_dep": [pvdfile, vtufile, postproc],
-        "actions": [f"pvbatch {postproc} {pvdfile} {contour}"],
-        "targets": [contour],
+        "actions": [f"pvbatch {postproc} {pvdfile} {pol}"],
+        "targets": [pol],
         "clean": True,
     }
 
@@ -74,8 +74,8 @@ def task_paper():
     """compile pdf from latex source"""
     latexcode = ROOT / "paper.tex"
     return {
-        "file_dep": [latexcode, ROOT / "contourplot.png"],
-        "actions": [f"latexmk -pdf -cd {latexcode}"],
+        "file_dep": [latexcode, ROOT / "plotoverline.csv"],
+        "actions": [f"tectonic {latexcode}"],
         "targets": [ROOT / "paper.pdf"],
         "clean": True,
     }

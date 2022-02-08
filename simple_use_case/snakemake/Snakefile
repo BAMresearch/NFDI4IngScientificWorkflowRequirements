@@ -1,0 +1,65 @@
+rule generate_mesh:
+	input:
+		"../source/unit_square.geo"
+	output:
+		"preprocessing/unit_square.msh"
+	conda:
+		"../source/envs/preprocessing.yaml"
+	shell:
+		"gmsh -2 -order 1 -format msh2 {input} -o {output}"
+
+
+rule convert_to_xdmf:
+	input:
+		"preprocessing/{domain}.msh"
+	output:
+		"preprocessing/{domain}.xdmf"
+	conda:
+		"../source/envs/preprocessing.yaml"
+	shell:
+		"meshio convert {input} {output}"
+
+
+rule poisson:
+	input:
+		py="../source/poisson.py",
+		xdmf="preprocessing/unit_square.xdmf"
+	output:
+		"processing/poisson.pvd"
+	conda:
+		"../source/envs/processing.yaml"
+	shell:
+		"python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output}"
+
+
+rule plot_solution:
+	input:
+		py="../source/postprocessing.py",
+		pvd="processing/poisson.pvd"
+	output:
+		"postprocessing/plotoverline.csv"
+	conda:
+		"../source/envs/postprocessing.yaml"
+	shell:
+		"pvbatch {input.py} {input.pvd} {output}"
+
+
+rule copy_source:
+	input:
+		"../source/{document}.tex"
+	output:
+		"postprocessing/{document}.tex"
+	shell:
+		"cp {input} {output}"
+
+
+rule compile:
+	input:
+		tex="postprocessing/{document}.tex",
+		png="postprocessing/plotoverline.csv"
+	output:
+		"{document}.pdf"
+	conda:
+		"../source/envs/postprocessing.yaml"
+	shell:
+		"tectonic {input.tex} --outdir ."

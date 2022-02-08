@@ -1,0 +1,9 @@
+# environment folder as mentioned in readme
+simpleusecase
+
+# potential artifacts of workflow execution
+*.pdf
+*.csv
+*.vtu
+*.pvd
+*.msh
