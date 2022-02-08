@@ -1,12 +1,15 @@
 #!/usr/bin/env nextflow
 
-params.degree = 2
+params.domainSize = 1.0
 
 // for now simply add dependent files as Channels
-geo_ch = Channel.fromPath("$PWD/../source/unit_square.geo")
-fenics_ch = Channel.fromPath("$PWD/../source/poisson.py")
-pv_ch = Channel.fromPath("$PWD/../source/postprocessing.py")
-tex_ch = Channel.fromPath("$PWD/../source/paper.tex")
+geofile = Channel.fromPath("$PWD/../source/unit_square.geo")
+fenics_code = Channel.fromPath("$PWD/../source/poisson.py")
+paraview_script = Channel.fromPath("$PWD/../source/postprocessing.py")
+macro_template = Channel.fromPath("$PWD/../source/macros.tex.template")
+prepare_macros = Channel.fromPath("$PWD/../source/prepare_paper_macros.py")
+paper_source = Channel.fromPath("$PWD/../source/paper.tex")
+
 
 process generateMesh {
     // generate mesh using Gmsh
@@ -15,52 +18,70 @@ process generateMesh {
     conda "../source/envs/preprocessing.yaml"
 
     input:
-    file geo from geo_ch
+    file geofile
 
     output:
-    file "unit_square.msh" into msh_ch
+    file "unit_square.msh" into mesh_msh
 
     """
-    gmsh -2 -order 1 -format msh2 $geo -o unit_square.msh
+    gmsh -2 -setnumber domain_size ${params.domainSize} $geofile -o unit_square.msh
     """
 }
 
 
 process convertToXDMF {
-    // convert any msh file to xdmf
+    // convert .msh file to .xdmf
 
     conda "../source/envs/preprocessing.yaml"
 
     input:
-    file msh from msh_ch
+    file mesh from mesh_msh
 
     output:
-    file "unit_square.h5" into h5_ch
-    file "unit_square.xdmf" into xdmf_ch
+    file "unit_square.h5" into mesh_h5
+    file "unit_square.xdmf" into mesh_xdmf
 
     """
-    meshio convert $msh unit_square.xdmf
+    meshio convert $mesh unit_square.xdmf
     """
 }
 
 
 process solvePoisson {
-    // solve poisson equation using fenics code
+    // solve poisson equation using fenics
 
     conda "../source/envs/processing.yaml"
 
     // multiple inputs from different channels
     input:
-    file fenics_code from fenics_ch
-    file meshdata from h5_ch
-    file mesh from xdmf_ch
+    file fenics_code
+    file meshdata from mesh_h5
+    file mesh from mesh_xdmf
 
     output:
-    file "poisson.pvd" into pvd_ch
-    file "poisson*.vtu" into vtu_ch
+    file "poisson.pvd" into poisson_pvd
+    file "poisson*.vtu" into poisson_vtu
+    stdout poisson_stdout
 
     """
-    python $fenics_code --mesh $mesh --degree ${params.degree} --outputfile poisson.pvd
+    python $fenics_code --mesh $mesh --degree 2 --outputfile poisson.pvd
+    """
+}
+
+
+process readNumberOfDofs {
+    input:
+    val x from poisson_stdout
+
+    output:
+    stdout number_of_dofs
+
+    """
+    #!/usr/bin/python3
+    s = '''${x.replaceAll("\\n", "&")}'''
+    dof_string = s.split("Number of dofs used:")[1]
+    num_dofs = dof_string.split("&")[0]
+    print(int(num_dofs))
     """
 }
 
@@ -70,32 +91,57 @@ process makePlotOverLine {
     conda "../source/envs/postprocessing.yaml"
 
     input:
-    file postproc from pv_ch
-    file vtu from vtu_ch
-    file pvd from pvd_ch
+    file paraview_script
+    file vtu from poisson_vtu
+    file pvd from poisson_pvd
 
     output: 
-    file "plotoverline.csv" into csv_ch
+    file "plotoverline.csv" into (plot_over_line, plotOverLine)
 
     """
-    pvbatch $postproc $pvd plotoverline.csv
+    pvbatch $paraview_script $pvd plotoverline.csv
     """
 }
 
 
-process compile {
+process substituteMacros {
+    // place the correct value into the paper macros
+
+    conda "../source/envs/postprocessing.yaml"
+
+    input:
+    file prepare_macros
+    file macro_template
+    file plotOverLine
+    val number_of_dofs
+
+    output:
+    file "macros.tex" into macros
+
+    """
+    python $prepare_macros --macro-template-file $macro_template \
+        --plot-data-path $plotOverLine \
+        --domain-size ${params.domainSize} \
+        --num-dofs ${number_of_dofs.replaceAll("\\s", "")} \
+        --output-macro-file macros.tex
+    """
+}
+
+
+process compilePaper {
 
     conda "../source/envs/postprocessing.yaml"
     publishDir "$PWD"
 
     input:
-    file tex_code from tex_ch
-    file csv from csv_ch
+    file paper_source
+    file plot_over_line
+    file macros
 
     output:
     file "paper.pdf" 
 
     """
-    tectonic $tex_code
+    tectonic $paper_source
     """
 }
