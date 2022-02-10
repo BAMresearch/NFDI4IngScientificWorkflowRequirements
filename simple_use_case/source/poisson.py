@@ -48,9 +48,11 @@ def solve_poisson(
     return solution
 
 
-def solve_and_write_output(mesh: str, degree: int, outputfile: str, numdofs: str):
+def solve_and_write_output(
+    mesh: str, degree: int, outputfile: str, numdofs=None, return_dofs=False
+):
     """solves the poisson equation and writes the solution
-    and the number of DoFs to the given files
+    and the number of degrees of freedom to the given file
 
     Parameters
     ----------
@@ -60,8 +62,10 @@ def solve_and_write_output(mesh: str, degree: int, outputfile: str, numdofs: str
         Degree of the finite element space.
     outputfile : str
         FilePath to the output file into which the solution is written.
-    numdofs : str
-        FilePath to which the number of DoFs is written.
+    numdofs : optional, str
+        FilePath to which the number of degrees of freedom is written.
+    return_dofs : optional, bool
+        If True, return number of degrees of freedom.
     """
     discrete_solution = solve_poisson(mesh, degree)
     discrete_solution.rename("u", discrete_solution.name())
@@ -69,9 +73,14 @@ def solve_and_write_output(mesh: str, degree: int, outputfile: str, numdofs: str
     resultFile << discrete_solution
 
     dofs = discrete_solution.function_space().dim()
-    with open(numdofs, "w") as handle:
-        handle.write("{}\n".format(dofs))
     print(f"Number of dofs used: {dofs}")
+
+    if numdofs is not None:
+        with open(numdofs, "w") as handle:
+            handle.write("{}\n".format(dofs))
+    if return_dofs:
+        return dofs
+
 
 if __name__ == "__main__":
     PARSER = ArgumentParser(description="run script for the poisson problem")
@@ -89,7 +98,7 @@ if __name__ == "__main__":
         "-n",
         "--num-dofs",
         required=False,
-        default="dummy_num_dofs.txt",
+        default=None,
         help="file name for the number of DoFs to be written",
     )
     ARGS = vars(PARSER.parse_args())
