@@ -1,7 +1,26 @@
-from pathlib import Path
+#!/usr/bin/env runaiida
+import pathlib
 
-from aiida.orm import List, SinglefileData
-from aiida.engine.processes.functions import shellfunction, workfunction
+from aiida import orm
+from aiida_shell import launch_shell_job
+
+results, node = launch_shell_job(
+    "python",
+    arguments=[
+        "{script}",
+        "--mesh",
+        "{mesh}",
+        "--degree",
+        "2",
+        "--output",
+        "poisson.pvd",
+    ],
+    files={"script": "resources/poisson.py", "mesh": converted_mesh["mesh_xdmf"]},
+    filenames={"mesh": "mesh.xdmf"},
+    outputs=["poisson.pvd", "poisson000000.vtu"],
+    context_files={"mesh_h5": converted_mesh["mesh_h5"]},
+    context_filenames={"mesh_h5": "mesh.h5"},
+)
 
 
 @shellfunction(command="gmsh", output_filenames=["*.msh"])
