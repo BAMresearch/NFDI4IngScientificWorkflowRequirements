@@ -72,7 +72,7 @@ only the variable domain size should be exposed as an actual input parameter.
 The number of degrees of freedom is written to stdout
 by the FEniCS script `source/poisson.py`
 and used here to showcase how one might deal with output of integer type (i.e. non-file output).
-If the tool does not support this the number of degrees of freedom is written to file.
+If the tool does not support this the number of degrees of freedom is written to a file.
 
 Details on the specific versions used for each software package can be found in the `conda environment specification file <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/simple_use_case/source/envs/default_env.yaml>`_.
 Exemplary implementations with various tools can be found `here <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/tree/main/simple_use_case>`_.

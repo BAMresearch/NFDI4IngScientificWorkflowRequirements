@@ -3,8 +3,7 @@
 List of tools
 =============
 This is a list of preselected tools based on possible requirements at the start of
-the project. Examples of these requirements are, the seamless integration of
-HPC systems or the execution of containerized applications.
+the project. 
 
 .. contents::
 
