@@ -53,7 +53,3 @@ If you would like to add an implementation of the [simple use case](https://nfdi
 existing implementations, please raise an issue and/or submit a pull request.
 We also encourage to start a new [discussion](https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/discussions)
 for general comments, questions and ideas you would like to share.
-
-## Acknowledgements
-We would like to thank the following people for their contribution to this repository:
-* TBA
