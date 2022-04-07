@@ -119,15 +119,11 @@ paper, paper_node = launch_shell_job(
 )
 
 # ### extract final PDF from database
-pdfWriter = PyPDF2.PdfFileWriter()
-output_file = open("./target.pdf", "wb")
+outstream = open("./paper.pdf", "wb")
+PdfWriter = PyPDF2.PdfFileWriter()
 
 with paper["paper_pdf"].open(mode="rb") as handle:
-    output_file.write(handle.read())
-
-pdfWriter.write(output_file)
-
-breakpoint()
-# while at breakpoint, try viewing `target.pdf` --> not empty
-# after c(ontinue) and end of program `target.pdf` is empty ...
-output_file.close()
+    reader = PyPDF2.PdfFileReader(handle)
+    PdfWriter.appendPagesFromReader(reader)
+    PdfWriter.write(outstream)
+outstream.close()
