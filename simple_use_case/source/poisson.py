@@ -85,7 +85,6 @@ def solve_and_write_output(
 if __name__ == "__main__":
     PARSER = ArgumentParser(description="run script for the poisson problem")
     PARSER.add_argument("-m", "--mesh", required=True, help="mesh file to be used")
-    PARSER.add_argument("--h5", required=False, help="h5 file belonging to mesh.xdmf")
     PARSER.add_argument(
         "-d", "--degree", required=True, help="polynomial order to be used"
     )
