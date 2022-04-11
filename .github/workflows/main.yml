@@ -13,6 +13,21 @@ jobs:
   run-aiida:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres
+        # `POSTGRES_HOST` is `postgres`
+        env:
+          POSTGRES_DB: aiida_db
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: aiida
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: checkout-repository
         uses: actions/checkout@v2
@@ -22,6 +37,11 @@ jobs:
 
       - name: install-aiida-services
         uses: ./.github/actions/install-aiida-services
+
+      - name: setup-database
+        run: psql -h postgres -U aiida -c 'CREATE DATABASE "aiida_db";'
+        env:
+          PGPASSWORD: postgres
 
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
@@ -54,7 +74,7 @@ jobs:
       - name: setup-profile
         shell: bash -l {0}
         run: |
-          verdi quicksetup --non-interactive --profile "default" --email "aiida@localhost" --first-name "Guiseppe" --last-name "Verdi" --institution "Khedivial"
+          verdi setup -n --profile "default" --email "aiida@localhost" --first-name "Guiseppe" --last-name "Verdi" --institution "Khedivial" --db-name "aiida_db" --db-username "aiida" --db-password "postgres"
 
       - name: run-workflow
         shell: bash -l {0}
