@@ -54,14 +54,7 @@ jobs:
       - name: setup-profile
         shell: bash -l {0}
         run: |
-          verdi quicksetup \
-              --non-interactive \
-              --profile "default" \
-              --email "aiida@localhost" \
-              --first-name "Guiseppe" \
-              --last-name "Verdi" \
-              --institution "Khedivial" \  
-              --db-backend "psql_dos"
+          verdi quicksetup --non-interactive --profile "default" --email "aiida@localhost" --first-name "Guiseppe" --last-name "Verdi" --institution "Khedivial"
 
       - name: run-workflow
         shell: bash -l {0}
