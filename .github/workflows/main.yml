@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/install-basic-deps
 
       - name: install-aiida-services
-        uses: ./.githutb/actions/install-aiida-services
+        uses: ./.github/actions/install-aiida-services
 
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
