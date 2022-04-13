@@ -12,10 +12,8 @@ on:
 jobs:
   run-aiida:
     runs-on: ubuntu-latest
-    # docker pull aiidateam/aiida-prerequisites:0.4.0
-      # image: aiidateam:aiida-prerequisites-0.4.0
     container: 
-      image: node:14.16
+      image: aiidateam/aiida-prerequisites:0.4.0
 
     steps:
       - name: hello
