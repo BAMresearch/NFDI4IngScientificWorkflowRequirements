@@ -38,7 +38,7 @@ jobs:
           sudo apt-get update && sudo apt-get install --yes postgresql-client
 
       - name: query-database
-        run: psql -h postgres -U aiida -c 'CREATE DATABASE "aiida_db";'
+        run: psql -U aiida -c 'CREATE DATABASE "aiida_db";'
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: ${{ job.services.postgres.ports[5432] }}
