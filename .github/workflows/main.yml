@@ -11,6 +11,7 @@ on:
 
 jobs:
   run-aiida:
+    runs-on: ubuntu-latest
     container: aiida-prerequisites:0.4.0
 
     steps:
