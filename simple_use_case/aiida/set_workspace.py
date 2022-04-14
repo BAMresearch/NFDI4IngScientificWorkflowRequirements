@@ -2,7 +2,7 @@ import argparse
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("replace GITHUB_WORKPACE")
+    parser = argparse.ArgumentParser("replace GITHUB_WORKSPACE")
     parser.add_argument("--input", required=True, help="input file")
     parser.add_argument("--output", required=True, help="output file")
     args = parser.parse_args()
@@ -12,6 +12,6 @@ if __name__ == "__main__":
             content = instream.read()
             new = content.replace(
                 "${GITHUB_WORKSPACE}",
-                "${GITHUB_WORKPACE}/simple_use_case/aiida/aiida-core",
+                "${GITHUB_WORKSPACE}/simple_use_case/aiida/aiida-core",
             )
             outstream.write(new)
