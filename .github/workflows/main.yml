@@ -70,10 +70,9 @@ jobs:
         python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
 
     - name: setup-aiida-environment
-      working-directory: simple_use_case/aiida
       run: |
-        chmod +x aiida-core/.github/workflows/mysetup.sh
-        aiida-core/.github/workflows/mysetup.sh
+        chmod +x $GITHUB_WORKPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
+        $GITHUB_WORKPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
 
     - name: check-status
       run:
