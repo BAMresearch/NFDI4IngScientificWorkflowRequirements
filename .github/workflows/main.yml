@@ -71,7 +71,8 @@ jobs:
 
     - name: setup-aiida-environment
       working-directory: simple_use_case/aiida
-      run:
+      run: |
+        chmod +x aiida-core/.github/workflows/mysetup.sh
         aiida-core/.github/workflows/mysetup.sh
 
     - name: check-status
