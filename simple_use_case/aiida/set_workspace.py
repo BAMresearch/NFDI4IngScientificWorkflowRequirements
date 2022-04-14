@@ -12,6 +12,6 @@ if __name__ == "__main__":
             content = instream.read()
             new = content.replace(
                 "${GITHUB_WORKSPACE}",
-                "./aiida-core",
+                "${GITHUB_WORKPACE}/simple_use_case/aiida/aiida-core",
             )
             outstream.write(new)
