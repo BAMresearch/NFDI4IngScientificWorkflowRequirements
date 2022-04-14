@@ -40,15 +40,20 @@ jobs:
     - name: checkout-repository
       uses: actions/checkout@v2
 
-    - name: setup-python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+    - name: install-basic-deps
+      uses: ./.github/actions/install-basic-deps
 
     - name: install-system-dependencies
       run: |
         sudo apt update
         sudo apt install postgresql graphviz
+
+    - name: setup-conda-environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        environment-file: simple_use_case/source/envs/default_env.yaml
+        miniforge-version: latest
+        activate-environment: simple_use_case
 
     - name: upgrade-pip-and-setuptools
       # It is crucial to update `setuptools` or the installation of `pymatgen` can break
@@ -64,6 +69,14 @@ jobs:
         git checkout v2.0.0b1
         pip install -e .
 
+    - name: install-aiida-shell
+      working-directory: simple_use_case/aiida
+      run: |
+        git clone https://github.com/sphuber/aiida-shell.git
+        cd aiida-shell
+        git checkout v0.1.0
+        pip install -e .
+
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
       run:
@@ -75,5 +88,23 @@ jobs:
         $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
 
     - name: check-status
-      run:
+      run: |
+        verdi profile show || echo "The default profile is not set."
+        verdi daemon stop
+        verdi storage migrate --force || echo "Database migration failed."
+        verdi daemon start || echo "AiiDA daemon is not running"
         verdi status
+
+    - name: run-workflow
+      working-directory: simple_use_case/aiida
+      shell: bash -l {0}
+      run:
+        ./suc_v2b1.py
+
+    - name: upload-paper-artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: paper
+        path: ./simple_use_case/aiida/paper.pdf
+        retention-days: 1
+        if-no-files-found: error
