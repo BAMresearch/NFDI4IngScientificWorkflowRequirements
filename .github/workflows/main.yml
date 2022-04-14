@@ -138,3 +138,35 @@ jobs:
           path: ./simple_use_case/snakemake/paper.pdf
           retention-days: 1
           if-no-files-found: error
+
+  run-kadistudio:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v2
+
+      - name: install-basic-deps
+        uses: ./.github/actions/install-basic-deps
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          environment-file: simple_use_case/source/envs/default_env.yaml
+          miniforge-version: latest
+          activate-environment: simple_use_case
+
+      - name: run-workflow
+        shell: bash -l -i {0}
+        run: |
+          bash $GITHUB_WORKSPACE/simple_use_case/kadistudio/install_components.sh
+          mkdir $GITHUB_WORKSPACE/run
+          process_engine run $GITHUB_WORKSPACE/simple_use_case/kadistudio/simple_use_case.flow -p $GITHUB_WORKSPACE/run
+
+      - name: upload-paper-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: paper
+          path: ./simple_use_case/kadistudio/paper.pdf
+          retention-days: 1
+          if-no-files-found: error
