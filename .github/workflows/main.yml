@@ -62,9 +62,8 @@ jobs:
 
     - name: upgrade-pip-and-setuptools
       # It is crucial to update `setuptools` or the installation of `pymatgen` can break
-      run: |
-        pip install --upgrade pip setuptools
-        pip --version
+      run:
+        conda install --channel conda-forge pip setuptools --yes
 
     - name: install-aiida-core
       working-directory: simple_use_case/aiida
@@ -81,6 +80,12 @@ jobs:
         cd aiida-shell
         git checkout v0.1.0
         pip install -e .
+
+    - name: check-conda-env
+      shell: bash -l {0}
+      run: |
+        conda list | grep fenics || echo "Fenics is not installed"
+        conda list | grep aiida || echo "AiiDA is not installed"
 
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
