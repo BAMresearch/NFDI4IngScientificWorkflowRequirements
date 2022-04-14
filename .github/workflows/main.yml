@@ -56,17 +56,16 @@ jobs:
         activate-environment: simple_use_case
 
     - name: install-pypdf2
+      # It is crucial to update `setuptools` or the installation of `pymatgen` can break
       shell: bash -l {0}
       run:
-        conda install --channel conda-forge pypdf2 --yes
-
-    - name: upgrade-pip-and-setuptools
-      # It is crucial to update `setuptools` or the installation of `pymatgen` can break
-      run:
-        conda install --channel conda-forge pip setuptools --yes
+        conda install --channel conda-forge pypdf2 setuptools pip --yes
 
     - name: install-aiida-core
       working-directory: simple_use_case/aiida
+      # the shell directive is necessary to properly activate the shell
+      # see https://github.com/marketplace/actions/setup-miniconda
+      shell: bash -l {0}
       run: |
         git clone https://github.com/aiidateam/aiida-core.git
         cd aiida-core
@@ -75,6 +74,7 @@ jobs:
 
     - name: install-aiida-shell
       working-directory: simple_use_case/aiida
+      shell: bash -l {0}
       run: |
         git clone https://github.com/sphuber/aiida-shell.git
         cd aiida-shell
@@ -89,15 +89,18 @@ jobs:
 
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
+      shell: bash -l {0}
       run:
         python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
 
     - name: setup-aiida-environment
+      shell: bash -l {0}
       run: |
         chmod +x $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
         $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
 
     - name: check-status
+      shell: bash -l {0}
       run: |
         verdi profile show || echo "The default profile is not set."
         verdi daemon stop
