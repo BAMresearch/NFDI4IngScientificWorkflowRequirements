@@ -12,10 +12,17 @@ on:
 jobs:
   run-aiida:
     runs-on: ubuntu-latest
+    # run this job in the container instead of the VM
+    # the below image should point to aiida-core v2.0.0b1
     container: 
-      image: aiidateam/aiida-prerequisites:0.4.0
+      image: aiidateam/aiida-core:master@sha256:281a16f7b50027e00d7e2ce81af1a273c1d7f0918671971ded1315549d41c5c5
+      options: --name aiida-container
 
     steps:
-      - name: hello
+      - name: start-aiida-services
         shell: bash -l {0}
-        run: echo "Hello"
+        run: wait-for-services
+
+      - name: check-status
+        shell: bash -l {0}
+        run: verdi status
