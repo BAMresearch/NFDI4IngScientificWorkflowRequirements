@@ -12,68 +12,17 @@ on:
 jobs:
   run-aiida:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:10
-        env:
-          POSTGRES_DB: test_aiida
-          POSTGRES_PASSWORD: ''
-          POSTGRES_HOST_AUTH_METHOD: trust
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
-      rabbitmq:
-        image: rabbitmq:latest
-        ports:
-          - 5672:5672
-      slurm:
-        image: xenonmiddleware/slurm:17
-        ports:
-          - 5001:22
+    # run this job in the container instead of the VM
+    # the below image should point to aiida-core v2.0.0b1
+    container: 
+      image: aiidateam/aiida-core:master@sha256:281a16f7b50027e00d7e2ce81af1a273c1d7f0918671971ded1315549d41c5c5
+      options: --name aiida-container
 
     steps:
-    - name: checkout-repository
-      uses: actions/checkout@v2
+      - name: start-aiida-services
+        shell: bash -l {0}
+        run: wait-for-services
 
-    - name: setup-python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: install-system-dependencies
-      run: |
-        sudo apt update
-        sudo apt install postgresql graphviz
-
-    - name: upgrade-pip-and-setuptools
-      # It is crucial to update `setuptools` or the installation of `pymatgen` can break
-      run: |
-        pip install --upgrade pip setuptools
-        pip --version
-
-    - name: install-aiida-core
-      working-directory: $GITHUB_WORKSPACE/simple_use_case/aiida
-      run: |
-        git clone https://github.com/aiidateam/aiida-core.git
-        cd aiida-core
-        git checkout v2.0.0b1
-        pip install -e .
-
-    - name: adjust-github-workspace
-      working-directory: $GITHUB_WORKSPACE/simple_use_case/aiida
-      run:
-        python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
-
-    - name: setup-aiida-environment
-      working-directory: $GITHUB_WORKSPACE/simple_use_case/aiida
-      run:
-        aiida-core/.github/workflows/mysetup.sh
-
-    - name: check-status
-      run:
-        verdi status
+      - name: check-status
+        shell: bash -l {0}
+        run: verdi status
