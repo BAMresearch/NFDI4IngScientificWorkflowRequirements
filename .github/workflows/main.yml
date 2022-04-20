@@ -74,6 +74,33 @@ jobs:
           retention-days: 1
           if-no-files-found: error
 
+  run-cwl-auto-conda:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v2
+
+      - name: install-basic-deps
+        uses: ./.github/actions/install-basic-deps
+      - name: prepare-conda
+        uses: conda-incubator/setup-miniconda@v2
+  
+      - name: run-workflow
+        shell: bash -l {0}
+        run: |
+          sudo apt-get update && sudo apt-get install --no-install-recommends --yes python3-pip
+          python3 -m pip install cwltool[deps]
+          cd $GITHUB_WORKSPACE/simple_use_case/cwl
+          python3 -m cwltool --debug --beta-conda-dependencies wf_run_use_case.cwl
+
+      - name: upload-paper-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: paper
+          path: ./simple_use_case/cwl/paper.pdf
+          retention-days: 1
+          if-no-files-found: error
 
   run-nextflow:
     runs-on: ubuntu-latest
