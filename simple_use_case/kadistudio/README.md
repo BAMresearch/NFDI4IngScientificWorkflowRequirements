@@ -19,6 +19,21 @@ The tools used within KadiStudio have to be installed separately using the pytho
 pip install workflow-nodes
 ```
 
+## Creating workflows
+
+Workflows can be created in KadiStudio using a GUI to which tools can be added using a point-and-click interface.
+In the gif below this is exemplified by the simple use case. 
+
+![workflow creation](workflowCreation.gif)
+
+Each added tool represents a command that is run when the 
+workflow is executed. Using the input ports on the left-hand side the corresponding tool can be parameterised. Connecting
+the green dependency ports of the tools nodes defines the order of execution making the modelled workflow easier to 
+grasp for the user.
+
+The complete workflow saved in the simple_use_case.flow file is shown in the following image.
+![workflow creation](WorkflowNFDI4Ing.png)
+
 ## Running the simple_use_case workflow
 
 The execution of a workflow can either be started directly inside the GUI of KadiStudio or with the following CLI command:
