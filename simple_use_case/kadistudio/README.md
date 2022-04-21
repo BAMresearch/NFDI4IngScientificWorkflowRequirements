@@ -19,6 +19,9 @@ The tools used within KadiStudio have to be installed separately using the pytho
 pip install workflow-nodes
 ```
 
+The documentation of the workflow-nodes project as well as the description of how to add new tools 
+can be found [here](https://pypi.org/project/workflow-nodes/).
+
 ## Creating workflows
 
 Workflows can be created in KadiStudio using a GUI to which tools can be added using a point-and-click interface.
