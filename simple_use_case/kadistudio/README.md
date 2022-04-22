@@ -65,8 +65,8 @@ the command:
 ```sh
 process_engine run simple_use_case.flow -p /path/to/execution_folder
 ```
-However, this is not recommended, as the background tasks initiated by the process-manager when executing a workflow omitted in this case.
-This can lead to overwriting data when executing a workflow several times.
+However, using the process-engine directly is not recommended, as the background tasks initiated by the process-manager when executing a
+workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times.
 
 ## Visualisation of the workflow
 
