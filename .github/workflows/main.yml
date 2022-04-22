@@ -81,12 +81,6 @@ jobs:
         git checkout v0.1.0
         pip install -e .
 
-    - name: check-conda-env
-      shell: bash -l {0}
-      run: |
-        conda list | grep fenics || echo "Fenics is not installed"
-        conda list | grep aiida || echo "AiiDA is not installed"
-
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
       shell: bash -l {0}
@@ -98,15 +92,6 @@ jobs:
       run: |
         chmod +x $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
         $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
-
-    - name: check-status
-      shell: bash -l {0}
-      run: |
-        verdi profile show || echo "The default profile is not set."
-        verdi daemon stop
-        verdi storage migrate --force || echo "Database migration failed."
-        verdi daemon start || echo "AiiDA daemon is not running"
-        verdi status
 
     - name: run-workflow
       working-directory: simple_use_case/aiida
