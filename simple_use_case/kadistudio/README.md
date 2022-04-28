@@ -65,8 +65,24 @@ the command:
 ```sh
 process_engine run simple_use_case.flow -p /path/to/execution_folder
 ```
+
 However, using the process-engine directly is not recommended, as the background tasks initiated by the process-manager when executing a
 workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times.
+
+### Necessary configuration for execution
+
+The workflow saved in the simple_use_case.flow file was specifically modelled to run inside the actions of this github project.
+For this the variable GITHUB_WORKSPACE was used to reliably access the folder structure of the container that runs the workflow.
+To be able to run the workflow manually it is therefore necessary to set this variable on your machine as well. This can
+be done using the command:
+
+```sh
+export GITHUB_WORKSPACE="/path/to/NFDI4IngScientificWorkflowRequirements"
+```
+
+This path might vary depending on your folder structure. Its only essential point is that it directs to the folder in which
+the simple_use_case folder is located.
+
 
 ## Visualisation of the workflow
 
