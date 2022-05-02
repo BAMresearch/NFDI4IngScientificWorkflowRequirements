@@ -3,7 +3,7 @@ Implementation of the simple use case with KadiStudio. `KadiStudio` is a softwar
 Kadi4Mat research data infrastructure, that is dedicated to model, visualise and execute scientific workflows using a GUI.
 
 ## Installation
-`KadiStudio` can be installed using the debian package provided [here](https://kadi4mat.iam-cms.kit.edu/records/6479).
+`KadiStudio` can be installed using the debian package provided [here](https://bwsyncandshare.kit.edu/s/cJSZrE6fDTR6cLQ).
 To execute a workflow in KadiStudio, the two software components `process-manager` and `process-engine` are
 required. They are available as debian packages and can be installed using the following commands:
 
@@ -87,4 +87,4 @@ the simple_use_case folder is located.
 ## Visualisation of the workflow
 
 The workflow files can be visualised inside KadiStudio or on Kadi4Mat.
-A visualisation of the simple_use_case.flow can be found [here](https://kadi4mat.iam-cms.kit.edu/records/9975/files/997c4ddd-0d36-4e8d-9014-0ce3f5dcb599).
+A screenshot of the workflow can be seen in the image above.
