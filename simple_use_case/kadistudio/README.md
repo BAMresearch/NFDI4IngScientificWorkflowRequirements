@@ -59,7 +59,7 @@ process_manager start simple_use_case.flow
 ```
 
 Thus, if KadiStudio is not available or its GUI cannot be displayed, it is also possible to start a workflow directly from a terminal
-using the command above. Alternatively, it is also possible to start a workflow directly by passing it to a process-enigne using
+using the command above. Alternatively, it is also possible to start a workflow directly by passing it to a process-engine using
 the command:
 
 ```sh
@@ -69,7 +69,7 @@ process_engine run simple_use_case.flow -p /path/to/execution_folder
 However, using the process-engine directly is not recommended, as the background tasks initiated by the process-manager when executing a
 workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times.
 
-### Necessary configuration for execution
+### Command line execution -- Necessary configuration
 
 The workflow saved in the simple_use_case.flow file was specifically modelled to run inside the actions of this github project.
 For this the variable GITHUB_WORKSPACE was used to reliably access the folder structure of the container that runs the workflow.
@@ -81,7 +81,9 @@ export GITHUB_WORKSPACE="/path/to/NFDI4IngScientificWorkflowRequirements"
 ```
 
 This path might vary depending on your folder structure. Its only essential point is that it directs to the folder in which
-the simple_use_case folder is located.
+the simple_use_case folder is located. When executing the simple_use_case workflow inside the GUI of KadiStudio, setting this variable
+can be omitted as a check whether the $GITHUB_WORKSPACE is known is performed before execution. In case it is unknown, the user will
+be prompted to enter the path to the NFDI4IngScientificWorkflowRequirements folder interactively.
 
 
 ## Visualisation of the workflow
