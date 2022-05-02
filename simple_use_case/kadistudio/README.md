@@ -84,9 +84,3 @@ This path might vary depending on your folder structure. Its only essential poin
 the simple_use_case folder is located. When executing the simple_use_case workflow inside the GUI of KadiStudio, setting this variable
 can be omitted as a check whether the $GITHUB_WORKSPACE is known is performed before execution. In case it is unknown, the user will
 be prompted to enter the path to the NFDI4IngScientificWorkflowRequirements folder interactively.
-
-
-## Visualisation of the workflow
-
-The workflow files can be visualised inside KadiStudio or on Kadi4Mat.
-A screenshot of the workflow can be seen in the image above.
