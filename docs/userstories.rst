@@ -1,6 +1,6 @@
 .. _userstories:
 
-User Stories
+User stories
 ============
         "A user story is an informal, general explanation of a software feature written from the perspective of the end user.
         Its purpose is to articulate how a software feature will provide value to the customer." 

@@ -158,6 +158,7 @@ jobs:
           bash $GITHUB_WORKSPACE/simple_use_case/kadistudio/install_components.sh
           mkdir $GITHUB_WORKSPACE/run
           process_engine run $GITHUB_WORKSPACE/simple_use_case/kadistudio/simple_use_case.flow -p $GITHUB_WORKSPACE/run
+
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
