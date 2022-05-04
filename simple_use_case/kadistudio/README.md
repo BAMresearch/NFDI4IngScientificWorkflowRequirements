@@ -67,7 +67,9 @@ process_engine run simple_use_case.flow -p /path/to/execution_folder
 ```
 
 However, using the process-engine directly is not recommended, as the background tasks initiated by the process-manager when executing a
-workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times.
+workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times. To install the necessary
+workflow nodes for the simple_use_case, please use the pip install command shown within the install_components.sh script, as some unreleased
+nodes are utilised.
 
 ### Command line execution -- Necessary configuration
 
