@@ -33,7 +33,6 @@ jobs:
           conda install --channel conda-forge doit=0.33.1
           cd $GITHUB_WORKSPACE/simple_use_case/pydoit
           doit
-
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
@@ -65,7 +64,6 @@ jobs:
           conda install --channel conda-forge cwltool
           cd $GITHUB_WORKSPACE/simple_use_case/cwl
           cwltool wf_run_use_case.cwl
-
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
@@ -97,7 +95,6 @@ jobs:
           conda install --channel bioconda nextflow=21.04.0
           cd $GITHUB_WORKSPACE/simple_use_case/nextflow
           nextflow run simplecase.nf
-
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
@@ -130,7 +127,6 @@ jobs:
           conda install snakemake
           cd $GITHUB_WORKSPACE/simple_use_case/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
-
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
@@ -170,3 +166,100 @@ jobs:
           path: ./simple_use_case/kadistudio/paper.pdf
           retention-days: 1
           if-no-files-found: error
+
+  run-aiida:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:10
+        env:
+          POSTGRES_DB: test_aiida
+          POSTGRES_PASSWORD: ''
+          POSTGRES_HOST_AUTH_METHOD: trust
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      rabbitmq:
+        image: rabbitmq:3.8.14
+        ports:
+          - 5672:5672
+      slurm:
+        image: xenonmiddleware/slurm:17
+        ports:
+          - 5001:22
+
+    steps:
+    - name: checkout-repository
+      uses: actions/checkout@v2
+
+    - name: install-basic-deps
+      uses: ./.github/actions/install-basic-deps
+
+    - name: install-system-dependencies
+      run: |
+        sudo apt update
+        sudo apt install postgresql graphviz
+
+    - name: setup-conda-environment
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        environment-file: simple_use_case/source/envs/default_env.yaml
+        miniforge-version: latest
+        activate-environment: simple_use_case
+
+    - name: install-pypdf2
+      # It is crucial to update `setuptools` or the installation of `pymatgen` can break
+      shell: bash -l {0}
+      run:
+        conda install --channel conda-forge pypdf2 setuptools pip --yes
+
+    - name: install-aiida-core
+      working-directory: simple_use_case/aiida
+      # the shell directive is necessary to properly activate the shell
+      # see https://github.com/marketplace/actions/setup-miniconda
+      shell: bash -l {0}
+      run: |
+        git clone https://github.com/aiidateam/aiida-core.git
+        cd aiida-core
+        git checkout v2.0.0b1
+        pip install -e .
+
+    - name: install-aiida-shell
+      working-directory: simple_use_case/aiida
+      shell: bash -l {0}
+      run: |
+        git clone https://github.com/sphuber/aiida-shell.git
+        cd aiida-shell
+        git checkout v0.1.0
+        pip install -e .
+
+    - name: adjust-github-workspace
+      working-directory: simple_use_case/aiida
+      shell: bash -l {0}
+      run:
+        python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
+
+    - name: setup-aiida-environment
+      shell: bash -l {0}
+      run: |
+        chmod +x $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
+        $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
+
+    - name: run-workflow
+      working-directory: simple_use_case/aiida
+      shell: bash -l {0}
+      run:
+        ./suc_v2b1.py
+
+    - name: upload-paper-artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: paper
+        path: ./simple_use_case/aiida/paper.pdf
+        retention-days: 1
+        if-no-files-found: error
