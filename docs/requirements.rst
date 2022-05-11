@@ -107,6 +107,21 @@ Evaluation criteria:
 
 .. _requirements_manually_editable:
 
+Manually editable workflow definitions
+--------------------------------------
+
+While it can be beneficial to create and edit workflows using a graphical user interface, it may be important that the
+resulting workflow description is given in a human-readable format. This does not solely mean that the definition should
+be a text file, but also that the structure (e.g. indentation) and the naming are comprehensive. This facilitates
+version-controlling (e.g. with git), in particular the code review process. Moreover, this does not force all users and/or
+developers to rely on the graphical user interface.
+
+Evaluation criteria:
+
+1. The workflow description is a binary file
+2. The workflow description is a text file but difficult to impossible to interpret by humans
+3. The workflow description file format can naturally be understood by humans
+
 
 .. _requirement_platform:
 
