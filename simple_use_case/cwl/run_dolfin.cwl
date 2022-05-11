@@ -2,13 +2,21 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-doc: |
-  Run the poisson solver in dolfin
-baseCommand: ["python3"]
+doc: Run the poisson solver in dolfin
+baseCommand: python3
 arguments: ["$(inputs.script)", "--mesh", "$(inputs.xdmfmeshfile.path)",
                                 "--degree", "2",
                                 "--output", "result.pvd"]
 stdout: output.txt
+hints:
+  SoftwareRequirement:
+   packages:
+     fenics:
+       version: [ 2019.1.0=py39hf3d152e_26, 2019.1.0 ]
+       specs:
+         - https://anaconda.org/conda-forge/fenics
+         - https://bio.tools/fenics
+
 requirements:
   InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:

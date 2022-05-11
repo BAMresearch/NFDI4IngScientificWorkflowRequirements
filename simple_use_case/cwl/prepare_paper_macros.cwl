@@ -2,8 +2,7 @@
 
 cwlVersion: v1.0
 class: CommandLineTool
-doc: |
-  Update the macros of the paper with values from this run
+doc: Update the macros of the paper with values from this run
 baseCommand: ["python3"]
 arguments: ["$(inputs.substitution_script)",
             "--domain-size", "$(inputs.domain_size)",
