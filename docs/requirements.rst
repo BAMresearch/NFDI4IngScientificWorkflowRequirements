@@ -9,23 +9,48 @@ fulfill these aspects.
 
 .. contents::
 
-.. _requirements_monitoring:
+.. _requirements_execution:
 
-Execution, scheduling and monitoring
+Execution and scheduling
 ------------------------------------
 The complete workflow has to be scheduled and executed, maybe reusing
 up-to-date results (see :ref:`requirements_uptodateness`). The workload may
 be distributed among different machines, and it may be necessary to use an HPC
-system for intensive computations. The workflow system should provide the means
-to monitor the progress of the workflow execution at any time.
+system for intensive computations.
+
+.. _requirements_monitor:
+
+Monitoring
+----------
+
+Depending on the application, the execution of scientific workflows can be very time-consuming. This can be caused by compute-intensive processes,
+such as e.g. numerical simulations, or by a large number of short processes that are executed many times. In both cases, it can be very helpful to
+be able to query the state of the execution, that is, which processes have been finished, which processes are currently being processed, and which
+are still pending. A trivial way of such monitoring would be, for instance, when the workflow is started in a terminal which is kept open to inspect
+the output written by the workflow system and the running processes. However, ideally, the workflow system allows for submission of the workflow in
+the form of a process running in the background, while still providing means to monitor the state of the execution.
+
+Evaluation criteria:
+
+1. Only way to monitor the workflow is to watch the console output
+2. The workflow system provides a way to query the execution status at any time
 
 .. _provenance:
 
-Data provenance graph
----------------------
-After the successful execution of a workflow, it should be possible to obtain
-the provenance graph for all produced or modified data within the workflow.
+Data provenance
+---------------
+The data provenance graph contains, for a particular execution of the workflow, which data and processes participated in the generation of a particular
+piece of data. Thus, this is closely related to the workflow itself, which can be thought of as a template for how that data generation should take place.
+However, a concrete realization of the workflow must contain information on the exact input data and parameters that were used, possibly along with meta
+information on the person that executed the workflow, the compute ressources used and the time it took to finish. Collection of all relevant information,
+its storage in machine-readable formats and subsequent publication alongside the data can be very useful for future researchers in order to understand
+how exactly the data was produced. Ideally, the workflow system has the means to automatically collect this information upon workflow execution.
 
+Evaluation criteria:
+
+1. The workflow system provides no means to export relevant information from a particular execution
+2. Upon workflow execution, the tool writes metadata files alongside the results, overwriting them upon re-execution
+3. Produced data is stored in a database, allowing to uniquely associate produced data with particular workflow instantiations
 
 .. _requirements_metadata:
 
@@ -61,25 +86,26 @@ A task is referred to as up-to-date if execution of the task would produce the s
 as the previous execution.
 
 
-.. _requirements_visualization:
-
-Graphical visualization
------------------------
-A workflow tool may be able to export the workflow graph into a format that can
-be visualized, or provide visualization capabilities itself. A visual representation
-of the flow of data between computational components can be a valuable form of
-documentation, making it easier for users to understand the underlying logic.
-
-
 .. _requirements_gui:
 
 Graphical user interface
-------------------------
-In addition to simply visualizing the workflow (see :ref:`requirements_visualization`),
-a user interface may also provide the means to define a workflow graphically
-in a user-friendly way without having to know the details about the underlying API.
-This GUI may also be capable of plugging together components defined in other workflows,
-which may address the capability described in :ref:`requirement_platform`.
+-----------------------
+
+Independent of a particular execution of the workflow, the workflow system may provide facilities to visualize the graph of the workflow, indicating the
+mutual dependencies of the individual processes and the direction of the flow of data. One can think of this graph as the template for the data provenance
+graph. This visualization can help in conveying the logic behind a particular workflow, making it easier for other researchers to understand and possibly
+incorporate it into their own research. The latter requires that the workflow system is able to handle hierarchical workflows, i.e. it needs to support
+sub-workflows as processes inside another workflow. Beyond a mere visualization, a graphical user interface may allow for visually connecting different
+workflows into a new one by means of drag & drop. An example for this is the [Rabix Composer](https://github.com/rabix/composer), which allows for the composition of workflows
+written in CWL.
+
+Evaluation criteria:
+
+1. The workflow system provides no means to visualize the workflow
+2. The workflow system or third-party tools allow to visualize the workflow definition
+3. The workflow system or third-party tools provide a graphical user interface that enables users to graphically create workflows
+
+.. _requirements_manually_editable:
 
 
 .. _requirement_platform:
