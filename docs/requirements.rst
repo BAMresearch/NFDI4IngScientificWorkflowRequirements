@@ -10,19 +10,17 @@ fulfill these aspects.
 .. contents::
 
 .. _requirements_execution:
+-Execution and scheduling
+-------------------------------------
+-The complete workflow has to be scheduled and executed, maybe reusing
+-up-to-date results (see :ref:`requirements_uptodateness`). The workload may
+-be distributed among different machines, and it may be necessary to use an HPC
+-system for intensive computations.
 
-Execution and scheduling
-------------------------------------
-The complete workflow has to be scheduled and executed, maybe reusing
-up-to-date results (see :ref:`requirements_uptodateness`). The workload may
-be distributed among different machines, and it may be necessary to use an HPC
-system for intensive computations.
 
 .. _requirements_monitor:
-
 Monitoring
 ----------
-
 Depending on the application, the execution of scientific workflows can be very time-consuming. This can be caused by compute-intensive processes,
 such as e.g. numerical simulations, or by a large number of short processes that are executed many times. In both cases, it can be very helpful to
 be able to query the state of the execution, that is, which processes have been finished, which processes are currently being processed, and which
@@ -36,7 +34,6 @@ Evaluation criteria:
 2. The workflow system provides a way to query the execution status at any time
 
 .. _provenance:
-
 Data provenance
 ---------------
 The data provenance graph contains, for a particular execution of the workflow, which data and processes participated in the generation of a particular
@@ -52,20 +49,19 @@ Evaluation criteria:
 2. Upon workflow execution, the tool writes metadata files alongside the results, overwriting them upon re-execution
 3. Produced data is stored in a database, allowing to uniquely associate produced data with particular workflow instantiations
 
-.. _requirements_metadata:
 
-Metadata
+.. _requirements_metadata:
+Metadata (old?)
 --------
-To make a published workflow compliant with the
-`FAIR principles <https://www.go-fair.org/fair-principles/>`_, appropriate metadata
-about the workflow has to be provided. Workflow tools may provide the possibility
-to export detailed information on the used software components, for instance, the
-exact versions, the chosen parameters, etc. This metadata should be exportable into
+To make a published workflow compliant with the `FAIR principles <https://www
+.go-fair.org/fair-principles/>`_, appropriate metadata about the workflow has
+to be provided. Workflow tools may provide the possibility to export detailed
+information on the used software components, for instance, the exact
+versions, the chosen parameters, etc. This metadata should be exportable into
 widely-used data formats such as JSON.
 
 
 .. _requirements_compute_environment:
-
 Compute environment
 -------------------
 Research workflows should be executable by others in order to guarantee reproducible
@@ -75,22 +71,51 @@ instance, by bundling all required components into a container.
 
 
 .. _requirements_uptodateness:
-
 Up-to-dateness
 --------------
-It may be required that the tool not only documents all steps of the workflow and
-executes them in sequence, but also that it is capable of checking for up-to-dateness.
-In case of changes somewhere in the *pipeline* it determines and only executes the *tasks*
-which are not up-to-date, without the need to rerun everything from scratch.
-A task is referred to as up-to-date if execution of the task would produce the same result
-as the previous execution.
+There are different areas for the application of workflows. On the one hand,
+people might use a workflow to define a single piece of reproducible code
+that when executed, always returns the same result. Based on that they might
+start a large quantity of different jobs and use the workflow system to
+perform this task. Another area of application is the constant development
+within the workflow (e.g. exchanging processes, varying parameter or even
+modifying the source code of a process) until a satisfactory result is
+obtained. The two scenarios require a slightly different behavior of the
+workflow system. In the first scenario, all runs should be kept in the data
+provenance graph with a documentation of how each result instance has been
+obtained (e.g. by always documenting the codes, parameters, and processes).
+If identical runs (identical inputs and processes should result in the same
+output) are detected, a recomputation should be avoided and the original
+output should be linked in the data provenance graph. The benefit of this
+behavior certainly depends on the ratio between the computation time for a
+single process compared to the overhead to query the data base.
+
+However, when changing the processes (e.g. coding a new time integration
+scheme, a new constitutive model), the workflow system should rather behave
+like a built system (such as make) - only recomputing the steps that are
+changed or that depend on these changes. In particular for complex problems,
+this allows to work with complex dependencies without manually triggering
+computations and results in automatically recomputing only the relevant parts
+. An example is a paper with multiple figures that each is a result of
+complex simulations that in itself depend on a set of general modules that
+are developed in the paper. The ``erroneus'' runs are usually not interesting
+and should be overwritten.
+
+How this is handled varies between the tools. Some always recompute the
+complete workflow marked in the matrix by an **R**ecompute, others allow
+to create a new entry in the data provenance graph and link the previous
+result (without the need to recompute already existing results) marked in the
+matrix as **L**ink. Finally, make-like tools recreate only the parts
+that are not up-to-date labeled as **U**pdate. Note that the latter
+usually reduces the overhead to store multiple instances of the workflow, but
+at the same time also prevents - without additional effort (e.g. when
+executing in different folders) computing multiple instances of the same
+workflow.
 
 
 .. _requirements_gui:
-
 Graphical user interface
 -----------------------
-
 Independent of a particular execution of the workflow, the workflow system may provide facilities to visualize the graph of the workflow, indicating the
 mutual dependencies of the individual processes and the direction of the flow of data. One can think of this graph as the template for the data provenance
 graph. This visualization can help in conveying the logic behind a particular workflow, making it easier for other researchers to understand and possibly
@@ -105,11 +130,28 @@ Evaluation criteria:
 2. The workflow system or third-party tools allow to visualize the workflow definition
 3. The workflow system or third-party tools provide a graphical user interface that enables users to graphically create workflows
 
-.. _requirements_manually_editable:
+.. _requirements_hierarchical:
+Hierarchical composition of workflows
+-------------------------------------
+A workflow consists of a mapping between a set of inputs (could be empty) and
+a set of outputs, whereas in between a number of sequential processes are
+performed. Connecting the output of one workflow to the input of another
+workflow results in a new, longer workflow. This is particularly relevant in
+situations, where multiple people share a common set of procedures (e.g.
+common pre- and postprocessing routines). In this case, copying the
+preprocessing workflow into another one is certainly always possible, but
+does not allow to jointly perform modifications and work with different
+versions. If the workflow system supports a hierarchical embedding of one
+workflow into another one, the property is labeled as + (otherwise -). This
+also requries to define separate compute environments for each sub-workflow
+(e.g. docker/singularity or conda), because each sub-workflow might use
+different tools or even the same tools but with different versions (e.g.
+python2 vs. python3), so executing all sub-workflows in the same environment
+might not be possible.
 
+.. _requirements_manually_editable:
 Manually editable workflow definitions
 --------------------------------------
-
 While it can be beneficial to create and edit workflows using a graphical user interface, it may be important that the
 resulting workflow description is given in a human-readable format. This does not solely mean that the definition should
 be a text file, but also that the structure (e.g. indentation) and the naming are comprehensive. This facilitates
@@ -124,11 +166,18 @@ Evaluation criteria:
 
 
 .. _requirement_platform:
-
 Platform for publishing and sharing workflows
 ---------------------------------------------
-Ideally, workflows are continuously developed, reused independently by others and shared on a platform.
-Other researchers should have the possibility to search for existing workflows, embed a component into
-their own workflow that addresses a different research question, and publish these modified or extended
-workflows with appropriate metadata and permissions. To this end, it is important that the components'
-inputs and outputs are standardized, portable across compute environments and versioned.
+The benefit of a workflow system is already significant when using it for
+individual research such as the development of my paper or reproducing the
+paper someone else has written, when their data processing pipeline is fully
+reproducible and documented and published with the publication. However, the
+benefit can be even more increased if people are able to jointly work on
+(sub-)workflows together. In particular, when a hierarchical workflow system
+is used. Even though workflows can easily be shared together with the work (e
+.g. in a repository), it might be beneficial to provide a platform that
+allows to publish documented workflows with a search and versioning
+functionality. This feature is not part of the requirement matrix to compare
+the different tools, but we consider a documentation of these platforms (if
+existing) in the subsequent section important source of information as a good
+starting point for further research (exchange).
