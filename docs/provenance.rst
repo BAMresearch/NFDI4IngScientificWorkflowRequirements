@@ -23,3 +23,6 @@ What must be queryable?
 
 1. Which of the workflows involve a finite element analysis?
 2. Which of the workflows make use of a certain software package/tool (+version constraint)?
+3. What are worflows executed on a specific HPC machine (e.g. at BAM) that used MPI with more than 500 cores?
+5. What are workflows jointly created by Thomas Mustermann and Alexandra Musterfrau?
+6. Which workflows combine gmsh with FEniCS?
