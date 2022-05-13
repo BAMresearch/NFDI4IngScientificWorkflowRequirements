@@ -10,13 +10,21 @@ fulfill these aspects.
 .. contents::
 
 .. _requirements_execution:
--Execution and scheduling
--------------------------------------
--The complete workflow has to be scheduled and executed, maybe reusing
--up-to-date results (see :ref:`requirements_uptodateness`). The workload may
--be distributed among different machines, and it may be necessary to use an HPC
--system for intensive computations.
+Execution
+---------
+The workflow tool should automatically execute the scientific workflow, i.e.\ the processes that make up the workflow should be executed in the correct order to satisfy dependencies between them.
+To this end, a directed acyclic graph (DAG; dependency-graph) should be created and stored for later tracing and visualisation of specific instances of a workflow execution (see also :ref:`requirements_provenance`.
+Moreover, the (possible) reuse of already computed results is an important feature with regard to the execution of the workflow, but also handled quite differently by the investigated tools.
+Therefore, this is listed as a separate requirement (see :ref:`requirements_uptodateness`).
+In this requirement, it is focused on how (easily) the execution of the workflow either locally (your computer) or on a remote machine (HPC cluster or cloud) can be integrated.
+Note, that this relates to the configuration of remote machines and e.g. the ressource manager on a HPC cluster or the cloud computing service with the workflow tool rather than the actual execution, since for this a suitable compute environment needs to be instantiated which is covered in :ref:`requirements_compute_environment`.
+Ideally, the workflow can be executed anywhere without changing the workflow definition script apart from small changes (one-liner) related to the workflow tool configuration file.
 
+Evaluation criteria:
+
+1. The workflow system supports the execution of the workflow on the local system.
+2. The workflow system supports the execution of the workflow on the local system via a batch system.
+3. The workflow system supports the execution of the workflow via a batch system on the local or a remote system.
 
 .. _requirements_monitor:
 Monitoring
@@ -33,7 +41,7 @@ Evaluation criteria:
 1. Only way to monitor the workflow is to watch the console output
 2. The workflow system provides a way to query the execution status at any time
 
-.. _provenance:
+.. _requirements_provenance:
 Data provenance
 ---------------
 The data provenance graph contains, for a particular execution of the workflow, which data and processes participated in the generation of a particular
@@ -64,11 +72,15 @@ widely-used data formats such as JSON.
 .. _requirements_compute_environment:
 Compute environment
 -------------------
-Research workflows should be executable by others in order to guarantee reproducible
-research. Thus, it must be possible to export/share the workflow/modules in such a way that
-it no longer depends on machine-local installations of libraries or source code, for
-instance, by bundling all required components into a container.
+In order to guarantee interoperability and reproducibility of scientific workflows, the workflows need to be executable by others.
+Here, the reinstantiation of the compute environment (installation of libraries or source code) poses the main challenge.
+Therefore, it is of great use that the workflow tool is able to automatically deploy the software stack (on a per workflow or per process basis) by means of a package manager (e.g. conda) or that running processes in a container (e.g. docker, singularity, etc.) is integrated in the tool.
 
+Evaluation criteria:
+
+1. The automatic instantiation of the compute environment is not intended.
+2. The workflow system allows the automatic instantiation of the compute environment on a per workflow basis.
+3. The workflow system allows the automatic instantiation of the compute environment on a per process basis.
 
 .. _requirements_uptodateness:
 Up-to-dateness
@@ -98,15 +110,15 @@ this allows to work with complex dependencies without manually triggering
 computations and results in automatically recomputing only the relevant parts
 . An example is a paper with multiple figures that each is a result of
 complex simulations that in itself depend on a set of general modules that
-are developed in the paper. The ``erroneus'' runs are usually not interesting
+are developed in the paper. The "erroneus" runs are usually not interesting
 and should be overwritten.
 
 How this is handled varies between the tools. Some always recompute the
-complete workflow marked in the matrix by an **R**ecompute, others allow
+complete workflow marked in the matrix by an **R**\ ecompute, others allow
 to create a new entry in the data provenance graph and link the previous
 result (without the need to recompute already existing results) marked in the
-matrix as **L**ink. Finally, make-like tools recreate only the parts
-that are not up-to-date labeled as **U**pdate. Note that the latter
+matrix as **L**\ ink. Finally, make-like tools recreate only the parts
+that are not up-to-date labeled as **U**\ pdate. Note that the latter
 usually reduces the overhead to store multiple instances of the workflow, but
 at the same time also prevents - without additional effort (e.g. when
 executing in different folders) computing multiple instances of the same
@@ -148,6 +160,23 @@ also requries to define separate compute environments for each sub-workflow
 different tools or even the same tools but with different versions (e.g.
 python2 vs. python3), so executing all sub-workflows in the same environment
 might not be possible.
+
+.. _requirements_interfaces:
+Process interfaces
+------------------
+Each process in a workflow has some input and output data.
+In a traditional file based pipeline the output of one process is input to the other.
+However, it is often more convenient to pass non-file output (e.g. float or integer values) directly from one process to the other without the creation of intermediate files.
+In this case, it is desirable that the workflow tool is able to check for the validity of the data (e.g. the correct data type) to be processed.
+Furthermore, this clearly defines the interface for a process and which input values may be changed.
+This way, a third person is able to understand how to work with, adapt and extend the workflow/process.
+In contrast, in a file based pipeline this is usually not the case, since a dependency in form of a file does not give information about the type of data contained in that file.
+
+Evaluation criteria:
+
+1. The workflow system is purely file-based and does not define interface formats. 
+2. The workflow system has a file and non-file based interface, where the non-file based inputs are well defined.
+3. The workflow system has a file and non-file based interface, where both the file and non-file based inputs are well defined.
 
 .. _requirements_manually_editable:
 Manually editable workflow definitions
