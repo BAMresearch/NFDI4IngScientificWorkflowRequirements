@@ -10,6 +10,7 @@ fulfill these aspects.
 .. contents::
 
 .. _requirements_execution:
+
 Execution
 ---------
 The workflow tool should automatically execute the scientific workflow, i.e.\ the processes that make up the workflow should be executed in the correct order to satisfy dependencies between them.
@@ -27,6 +28,7 @@ Evaluation criteria:
 3. The workflow system supports the execution of the workflow via a batch system on the local or a remote system.
 
 .. _requirements_monitor:
+
 Monitoring
 ----------
 Depending on the application, the execution of scientific workflows can be very time-consuming. This can be caused by compute-intensive processes,
@@ -42,6 +44,7 @@ Evaluation criteria:
 2. The workflow system provides a way to query the execution status at any time
 
 .. _requirements_provenance:
+
 Data provenance
 ---------------
 The data provenance graph contains, for a particular execution of the workflow, which data and processes participated in the generation of a particular
@@ -59,8 +62,9 @@ Evaluation criteria:
 
 
 .. _requirements_metadata:
+
 Metadata (old?)
---------
+---------------
 To make a published workflow compliant with the `FAIR principles <https://www
 .go-fair.org/fair-principles/>`_, appropriate metadata about the workflow has
 to be provided. Workflow tools may provide the possibility to export detailed
@@ -70,6 +74,7 @@ widely-used data formats such as JSON.
 
 
 .. _requirements_compute_environment:
+
 Compute environment
 -------------------
 In order to guarantee interoperability and reproducibility of scientific workflows, the workflows need to be executable by others.
@@ -83,6 +88,7 @@ Evaluation criteria:
 3. The workflow system allows the automatic instantiation of the compute environment on a per process basis.
 
 .. _requirements_uptodateness:
+
 Up-to-dateness
 --------------
 There are different areas for the application of workflows. On the one hand,
@@ -126,8 +132,9 @@ workflow.
 
 
 .. _requirements_gui:
+
 Graphical user interface
------------------------
+------------------------
 Independent of a particular execution of the workflow, the workflow system may provide facilities to visualize the graph of the workflow, indicating the
 mutual dependencies of the individual processes and the direction of the flow of data. One can think of this graph as the template for the data provenance
 graph. This visualization can help in conveying the logic behind a particular workflow, making it easier for other researchers to understand and possibly
@@ -143,6 +150,7 @@ Evaluation criteria:
 3. The workflow system or third-party tools provide a graphical user interface that enables users to graphically create workflows
 
 .. _requirements_hierarchical:
+
 Hierarchical composition of workflows
 -------------------------------------
 A workflow consists of a mapping between a set of inputs (could be empty) and
@@ -162,6 +170,7 @@ python2 vs. python3), so executing all sub-workflows in the same environment
 might not be possible.
 
 .. _requirements_interfaces:
+
 Process interfaces
 ------------------
 Each process in a workflow has some input and output data.
@@ -179,6 +188,7 @@ Evaluation criteria:
 3. The workflow system has a file and non-file based interface, where both the file and non-file based inputs are well defined.
 
 .. _requirements_manually_editable:
+
 Manually editable workflow definitions
 --------------------------------------
 While it can be beneficial to create and edit workflows using a graphical user interface, it may be important that the
@@ -194,7 +204,8 @@ Evaluation criteria:
 3. The workflow description file format can naturally be understood by humans
 
 
-.. _requirement_platform:
+.. _requirements_platform:
+
 Platform for publishing and sharing workflows
 ---------------------------------------------
 The benefit of a workflow system is already significant when using it for
@@ -210,3 +221,12 @@ functionality. This feature is not part of the requirement matrix to compare
 the different tools, but we consider a documentation of these platforms (if
 existing) in the subsequent section important source of information as a good
 starting point for further research (exchange).
+
+.. _requirements_evaluation:
+
+Evaluation
+----------
+
+.. image:: ./../img/evaluation_matrix.png
+    :width: 800
+    :alt: evaluation_matrix
