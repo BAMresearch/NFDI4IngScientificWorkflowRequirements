@@ -61,18 +61,6 @@ Evaluation criteria:
 3. Produced data is stored in a database, allowing to uniquely associate produced data with particular workflow instantiations
 
 
-.. _requirements_metadata:
-
-Metadata (old?)
----------------
-To make a published workflow compliant with the `FAIR principles <https://www
-.go-fair.org/fair-principles/>`_, appropriate metadata about the workflow has
-to be provided. Workflow tools may provide the possibility to export detailed
-information on the used software components, for instance, the exact
-versions, the chosen parameters, etc. This metadata should be exportable into
-widely-used data formats such as JSON.
-
-
 .. _requirements_compute_environment:
 
 Compute environment
