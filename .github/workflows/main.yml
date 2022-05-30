@@ -148,6 +148,7 @@ jobs:
           miniforge-version: latest
           activate-environment: simple_use_case
           channels: conda-forge,bioconda
+          channel-priority: strict
 
       - name: run-workflow
         shell: bash -l {0}
