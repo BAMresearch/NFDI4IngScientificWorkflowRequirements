@@ -2,3 +2,4 @@ tags
 __pycache__
 website
 paper.pdf
+.doit.*

@@ -57,8 +57,9 @@ This saves computation time and may lead to a significant speed up in the time n
 
 .. _user_story_3:
 
-High-throughput simulations
----------------------------
+
+Complex hierarchical computations
+---------------------------------
         *As a materials scientist, I want to be able to automate and manage complex workflows so I can keep track of all associated data.*
 
 In cases where screening or parameter sweeps are required, involving thousands of simulations, running these one by one is not feasible.

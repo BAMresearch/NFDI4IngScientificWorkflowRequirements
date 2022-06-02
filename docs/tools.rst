@@ -12,7 +12,7 @@ AiiDA/AiiDAlab
 * `AiiDA Website <https://www.aiida.net/>`_
 * `AiiDALab Website <https://www.aiidalab.materialscloud.org/>`_
 * `Main Paper <https://www.nature.com/articles/s41597-020-00638-4>`_ (AiiDA >= 1.0) with (so it seems) main authors
-  Sebastiaan P. Huber (`<mail@sphuber.net>`_) and Spyros Zoupanos (no longer active member of the AiiDA team). Correspondence and requests for materials should be addressed to S.P.H. or Giovanni Pizzi (`<giovanni.pizzi@epfl.ch>`_)
+  Sebastiaan P. Huber and Spyros Zoupanos (no longer active member of the AiiDA team). Correspondence and requests for materials should be addressed to S.P.H. or Giovanni Pizzi.
 * `AiiDA mailing list <https://www.aiida.net/mailing-list/>`_ for general questions about AiiDA.
 * `Github Issue Tracker <https://github.com/aiidateam/aiida-core/issues>`_ for bug reports.
 
@@ -43,7 +43,6 @@ Gnu guix
 Kadi4Mat
 --------
 * `Kadi4Mat website <https://kadi.iam-cms.kit.edu/>`_
-* `Email Michael Selzer <michael.selzer@kit.edu>`_
 
 
 Kepler
@@ -66,10 +65,9 @@ Pegasus
 Pydoit
 ------
 * `Pydoit website <https://pydoit.org>`_
-* created and maintained by `Eduardo Schettino <https://github.com/schettino72>`_ (`<schettino72@gmail.com>`_)
+* created and maintained by Eduardo Schettino
 * `Discussion Group <https://groups.google.com/g/python-doit>`_
 * Info from the discussion group: Unless you are looking for paid support, do **not** send private emails to the project maintainer.
-* Eduardo Schettino offers his services via `xscode <https://xscode.com/schettino72/doit>`_
 
 
 Pyiron
@@ -88,8 +86,8 @@ Snakemake
 ---------
 * `Snakemake website <https://snakemake.github.io/>`_
 * `Credits <https://snakemake.readthedocs.io/en/stable/project_info/authors.html>`_ shows list of
-  development team members and lead `Johannes Köster <https://johanneskoester.bitbucket.io/>`_
-* *rolling* `paper <https://f1000researchdata.s3.amazonaws.com/manuscripts/32078/ff757599-5758-4989-90ee-f91103a81e7d_29032_-_johannes_koster.pdf?doi=10.12688/f1000research.29032.1&numberOfBrowsableCollections=29&numberOfBrowsableInstitutionalCollections=4&numberOfBrowsableGateways=25>`_ which is updated regularly, corresponding author: Johannes Köster (`<johannes.koester@uni-due.de>`_)
+  development team members and lead Johannes Köster
+* *rolling* `paper <https://f1000researchdata.s3.amazonaws.com/manuscripts/32078/ff757599-5758-4989-90ee-f91103a81e7d_29032_-_johannes_koster.pdf?doi=10.12688/f1000research.29032.1&numberOfBrowsableCollections=29&numberOfBrowsableInstitutionalCollections=4&numberOfBrowsableGateways=25>`_ which is updated regularly.
 
 
 Swift
