@@ -8,7 +8,8 @@ User stories
         "As a [persona], I [want to], [so that]."
         (Source: `Atlassian <https://www.atlassian.com/agile/project-management/user-stories>`_)
 
-Based on the concept of user stories as a component of agile software development, we aim to deduce :ref:`requirements` from challenges posed in the respective user stories below.
+The concept of a user story as a component of agile software development is used here to describe a certain application scenario.
+We aim to deduce :ref:`requirements` from challenges posed in the respective user stories below.
 
 .. _user_story_1:
 
@@ -36,24 +37,21 @@ Research group collaboration
 ----------------------------
         *As part of a research group, I want to be able to interconnect and reuse components of several different workflows so that everyone may benefit from their colleagues' work.*
 
-Similar to the first user story the output of the workflow could be a scientific paper. 
-However, with this example interdisciplinary workflows are addressed and the reusability of single components/modules is essential. 
-Each process in the workflow may require a different expertise and hence modularity and a common framework are necessary features for efficient collaboration.
-Moreover, joint software development and the development of the scientific workflow itself play an important role.
+Similar to the first user story the output of the workflow could be a scientific paper. However with this example, interdisciplinary workflows are addressed and the reusability of single components/modules is essential. Each process in the workflow may require a different expertise and hence modularity and a common framework is a necessary requirement for an efficient collaboration and reuse of other tools. Moreover, joint software development and the development of the scientific workflow itself play an important role.
 
 Herein, the following challenges might occur.
-First, the workflow may consist of heterogeneous models, such as HPC computational model, calibration model or preprocessing of experimental data potentially even running on different machines. 
-These models then need to be embedded into a common framework. 
-Without a common framework/interface the exchange of data between processes is not possible (except for file based workflows).
-Second, during joint development of the workflow, it needs to be executable indepent of the local machine.
+First, the workflow may consist of heterogeneous models of different complexity, such as large computations requiring HPC potentially including many dependent substeps to be executed, preprocessing of experimental data or joint analysis in postprocessing step - all processes potentially running on different machines.
+These models then need to be embedded into a common framework.
+Without a common framework/interface the exchange of data between processes is challenging and requires manual adjustments.
+Second, during joint development of the workflow, it needs to be executable independent of the local machine.
 Therefore, the workflow tool must provide means to control (automatically install) the compute environment for specific processes of the workflow.
 This greatly enhances the reusability of a process and/or modules (chain of processes) of the workflow and guarantees the machine-independent execution.
 Another challenge are high computational costs.
 Here, the seamless integration of HPC systems is of high value.
-Moreover, for complex workflows containing computationally expensive processes caching of results becomes relevant.
+Moreover, for complex workflows containing computationally expensive processes, caching of results becomes relevant.
 Upon changes in the workflow only parts of the workflow which are not up-to-date are rerun.
 This saves computation time and may lead to a significant speed up in the time needed for development of the workflow.
-
+Finally, a hierarchically embedding of a versioned published workflow as a sub-workflow in another workflow is of great benefit - thus improvements within this sub-workflow can be easily integrated.
 
 .. _user_story_3:
 
@@ -62,11 +60,13 @@ Complex hierarchical computations
 ---------------------------------
         *As a materials scientist, I want to be able to automate and manage complex workflows so I can keep track of all associated data.*
 
-In cases where screening or parameter sweeps are required, involving thousands of simulations, running these one by one is not feasible.
-Moreover, besides the automation of running the calculations their inputs and outputs need to be stored.
-Not only the data and calculations should be stored to achieve reproducibility, but also the causal relationships between them, i.e. the full provenance.
+In cases where screening or parameter sweeps are required, involving thousands of simulations, running these manually one by one is not feasible.
+In addition, these workflows are often complex, i.e. the output of one process is the input to a subsequent one - potentially with many levels of dependencies.
 
-Given the large amount of data (inputs/outputs) manually keeping track of the full provenance becomes infeasible.
-Therefore, the workflow tool must automatically track and record inputs, outputs and metadata of all processes in a database.
+Moreover, besides the automation of running the calculations, the inputs and outputs need to be managed.
+Not only the data and calculations should be stored to achieve reproducibility, but also the causal relationships between them, i.e. the full data provenance.
+
+Given the large amount of data (inputs/outputs), manually keeping track of the full provenance becomes infeasible.
+Therefore, the workflow tool must automatically track and record inputs, outputs and metadata of all processes in a database and allow to easily search for the relavant (meta-)data.
 Furthermore, fast queries of the database and automatic generation of the provenance graph are required features of the workflow tool.
 Due to the large computational effort the seamless integration of HPC systems is as well vital for this use case.
