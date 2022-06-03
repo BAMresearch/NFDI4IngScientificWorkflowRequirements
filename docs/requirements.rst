@@ -175,23 +175,6 @@ Evaluation criteria:
 2. The workflow system has a file and non-file based interface, where the non-file based inputs are well defined.
 3. The workflow system has a file and non-file based interface, where both the file and non-file based inputs are well defined.
 
-.. _requirements_manually_editable:
-
-Manually editable workflow definitions
---------------------------------------
-While it can be beneficial to create and edit workflows using a graphical user interface, it may be important that the
-resulting workflow description is given in a human-readable format. This does not solely mean that the definition should
-be a text file, but also that the structure (e.g. indentation) and the naming are comprehensive. This facilitates
-version-controlling (e.g. with git), in particular the code review process. Moreover, this does not force all users and/or
-developers to rely on the graphical user interface.
-
-Evaluation criteria:
-
-1. The workflow description is a binary file
-2. The workflow description is a text file but difficult to impossible to interpret by humans
-3. The workflow description file format can naturally be understood by humans
-
-
 .. _requirements_platform:
 
 Platform for publishing and sharing workflows
@@ -220,20 +203,18 @@ Evaluation
 .. ○ WHITE CIRCLE
 .. 🔴 large red circle to indicate important requirement for user story
 
-Todo: comment on reason for below evaluation results.
-
 +----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
 | Tool                       | Execution | Monitoring | Provenance | Compute Environment | GUI | Composition | Process Interfaces | Up-to-dateness | Ease-of-first-use |
 +============================+===========+============+============+=====================+=====+=============+====================+================+===================+
-| CWL                        | ●●○       | ●●         | ●○○        | ●●●                 | ●●● | ●●●         | ●●●                | R              | ●●○               |
+| AiiDA                      | ●●●       | ●●         | ●●●        | ●○○                 | ●●○ | ●●○         | ●●○                | L              | ●○○               |
 +----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
-| AiiDA                      | ●●●       | ●●         | ●●●        | ●○○                 | ●●○ | ●●○         | ●●○                | L/C            | ●○○               |
-+----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
-| Snakemake                  | ●●○       | ●○         | ●●○        | ●●●                 | ●●○ | ●●●         | ●○○                | U              | ●●●               |
-+----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
-| Nextflow                   | ●●○       | ●○         | ●●○        | ●●●                 | ●●○ | ●●●         | ●○○                | L/C            | ●●●               |
+| CWL                        | ●●○       | ●●         | ●●○        | ●●●                 | ●●● | ●●●         | ●●●                | R              | ●●○               |
 +----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
 | Doit                       | ●○○       | ●○         | ●○○        | ●○○                 | ●○○ | ●●○         | ●○○                | U              | ●●●               |
++----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
+| Nextflow                   | ●●○       | ●○         | ●●○        | ●●●                 | ●●○ | ●●●         | ●○○                | L              | ●●●               |
++----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
+| Snakemake                  | ●●○       | ●○         | ●●○        | ●●●                 | ●●○ | ●●●         | ●○○                | U              | ●●●               |
 +----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
 | User Story                 | Execution | Monitoring | Provenance | Compute Environment | GUI | Composition | Process Interfaces | Up-to-dateness | Ease-of-first-use |
 +----------------------------+-----------+------------+------------+---------------------+-----+-------------+--------------------+----------------+-------------------+
