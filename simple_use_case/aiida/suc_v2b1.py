@@ -1,7 +1,7 @@
 #!/usr/bin/env runaiida
-
+from aiida.engine import calcfunction
+from aiida.orm import Float, Str
 from aiida_shell import launch_shell_job
-import PyPDF2
 
 # ### generate mesh with gmsh
 gmsh_results, gmsh_node = launch_shell_job(
@@ -63,17 +63,18 @@ paraview_results, paraview_node = launch_shell_job(
 )
 
 
-def read_domain_size():
-    stdout = gmsh_results["stdout"].get_content()
-    s = stdout.split("Used domain size:")[1]
-    size = float(s.split("Used mesh size")[0])
-    return str(size)
+@calcfunction
+def get_domain_size(gmsh_stdout):
+    string = gmsh_stdout.get_content().split("Used domain size:")[1]
+    size = float(string.split("Used mesh size")[0])
+    return Float(size)
 
 
-def read_num_dofs():
-    stdout = fenics_results["stdout"].get_content()
+@calcfunction
+def get_num_dofs(fenics_stdout):
+    stdout = fenics_stdout.get_content()
     ndofs = stdout.split("Number of dofs used:")[1]
-    return "".join(ndofs.split())
+    return Str("".join(ndofs.split()))
 
 
 # ### prepare latex macros
@@ -86,9 +87,9 @@ macros, macros_node = launch_shell_job(
         "--plot-data-path",
         "{csvfile}",
         "--domain-size",
-        read_domain_size(),
+        get_domain_size(gmsh_results["stdout"]),
         "--num-dofs",
-        read_num_dofs(),
+        get_num_dofs(fenics_results["stdout"]),
         "--output-macro-file",
         "macros.tex",
     ],
@@ -119,11 +120,6 @@ paper, paper_node = launch_shell_job(
 )
 
 # ### extract final PDF from database
-outstream = open("./paper.pdf", "wb")
-PdfWriter = PyPDF2.PdfFileWriter()
+with open("paper.pdf", "wb") as handle:
+    handle.write(paper["paper_pdf"].get_object_content(mode='rb'))
 
-with paper["paper_pdf"].open(mode="rb") as handle:
-    reader = PyPDF2.PdfFileReader(handle)
-    PdfWriter.appendPagesFromReader(reader)
-    PdfWriter.write(outstream)
-outstream.close()
