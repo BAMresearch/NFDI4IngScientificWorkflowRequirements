@@ -1,6 +1,6 @@
 #!/usr/bin/env runaiida
 from aiida.engine import calcfunction
-from aiida.orm import Float, Str
+from aiida.orm import Float, Int
 from aiida_shell import launch_shell_job
 
 # ### generate mesh with gmsh
@@ -74,7 +74,7 @@ def get_domain_size(gmsh_stdout):
 def get_num_dofs(fenics_stdout):
     stdout = fenics_stdout.get_content()
     ndofs = stdout.split("Number of dofs used:")[1]
-    return Str("".join(ndofs.split()))
+    return Int("".join(ndofs.split()))
 
 
 # ### prepare latex macros
@@ -121,5 +121,5 @@ paper, paper_node = launch_shell_job(
 
 # ### extract final PDF from database
 with open("paper.pdf", "wb") as handle:
-    handle.write(paper["paper_pdf"].get_object_content(mode='rb'))
+    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode='rb'))
 
