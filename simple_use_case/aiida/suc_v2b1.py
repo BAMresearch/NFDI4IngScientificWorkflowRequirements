@@ -15,7 +15,7 @@ gmsh_results, gmsh_node = launch_shell_job(
         "-o",
         "mesh.msh",
     ],
-    files={"geometry": "../source/unit_square.geo"},
+    nodes={"geometry": "../source/unit_square.geo"},
     outputs=["mesh.msh"],
 )
 
@@ -23,7 +23,7 @@ gmsh_results, gmsh_node = launch_shell_job(
 meshio_results, meshio_node = launch_shell_job(
     "meshio",
     arguments=["convert", "{mesh}", "mesh.xdmf"],
-    files={"mesh": gmsh_results["mesh_msh"]},
+    nodes={"mesh": gmsh_results["mesh_msh"]},
     filenames={"mesh": "mesh.msh"},
     outputs=["*.xdmf", "*.h5"],
 )
@@ -40,7 +40,7 @@ fenics_results, fenics_node = launch_shell_job(
         "--outputfile",
         "poisson.pvd",
     ],
-    files={
+    nodes={
         "script": "../source/poisson.py",
         "mesh": meshio_results["mesh_xdmf"],
         "mesh_h5": meshio_results["mesh_h5"],
@@ -53,7 +53,7 @@ fenics_results, fenics_node = launch_shell_job(
 paraview_results, paraview_node = launch_shell_job(
     "pvbatch",
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
-    files={
+    nodes={
         "script": "../source/postprocessing.py",
         "pvdfile": fenics_results["poisson_pvd"],
         "vtufile": fenics_results["poisson000000_vtu"],
@@ -87,16 +87,18 @@ macros, macros_node = launch_shell_job(
         "--plot-data-path",
         "{csvfile}",
         "--domain-size",
-        get_domain_size(gmsh_results["stdout"]),
+        "{domain_size}",
         "--num-dofs",
-        get_num_dofs(fenics_results["stdout"]),
+        "{num_dofs}",
         "--output-macro-file",
         "macros.tex",
     ],
-    files={
+    nodes={
         "script": "../source/prepare_paper_macros.py",
         "template": "../source/macros.tex.template",
         "csvfile": paraview_results["plotoverline_csv"],
+        "domain_size": get_domain_size(gmsh_results["stdout"]),
+        "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },
     filenames={"csvfile": "plotoverline.csv"},
     outputs=["macros.tex"],
@@ -106,7 +108,7 @@ macros, macros_node = launch_shell_job(
 paper, paper_node = launch_shell_job(
     "tectonic",
     arguments=["{texfile}"],
-    files={
+    nodes={
         "texfile": "../source/paper.tex",
         "macros": macros["macros_tex"],
         "csvfile": paraview_results["plotoverline_csv"],

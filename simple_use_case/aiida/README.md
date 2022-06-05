@@ -44,20 +44,10 @@ conda env create --name aiida_simplecase --file ../source/envs/default_env.yaml
 conda activate aiida_simplecase
 ```
 Make sure that the python version is greater than 3.8, since this is required by the `aiida-shell` plugin.
-Moreover, `aiida-core` version `2.0.0b1` is required which was released on March 16th, 2022.
-Therefore, we proceed to install `aiida-core` and the `aiida-shell` plugin from source.
-Make that your conda environment is activated as above and run the following commands.
+Next we install the `aiida-shell` plugin, which will automatically install AiiDA as a dependency.
+Make sure that your conda environment is activated as above and run the following commands.
 ```sh
-git clone git@github.com:aiidateam/aiida-core.git
-cd aiida-core
-git checkout v2.0.0b1
-pip install -e .
-```
-```sh
-git clone git@github.com:sphuber/aiida-shell.git
-cd aiida-shell
-git checkout v0.1.0
-pip install -e .
+pip install aiida-shell==0.2.0
 ```
 Finally, run
 ```sh
