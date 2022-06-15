@@ -241,36 +241,20 @@ jobs:
         miniforge-version: latest
         activate-environment: simple_use_case
 
-    - name: install-pypdf2
-      # It is crucial to update `setuptools` or the installation of `pymatgen` can break
-      shell: bash -l {0}
-      run:
-        conda install --channel conda-forge pypdf2 setuptools pip --yes
-
-    - name: install-aiida-core
-      working-directory: simple_use_case/aiida
+    - name: install-aiida-shell
       # the shell directive is necessary to properly activate the shell
       # see https://github.com/marketplace/actions/setup-miniconda
       shell: bash -l {0}
       run: |
-        git clone https://github.com/aiidateam/aiida-core.git
-        cd aiida-core
-        git checkout v2.0.0b1
-        pip install -e .
-
-    - name: install-aiida-shell
-      working-directory: simple_use_case/aiida
-      shell: bash -l {0}
-      run: |
-        git clone https://github.com/sphuber/aiida-shell.git
-        cd aiida-shell
-        git checkout v0.1.0
-        pip install -e .
+        # will install aiida-core as a dependency
+        pip install aiida-shell==0.2.0
 
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
       shell: bash -l {0}
       run:
+        git clone https://github.com/aiidateam/aiida-core.git
+        cd aiida-core
         python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
 
     - name: setup-aiida-environment
@@ -283,7 +267,7 @@ jobs:
       working-directory: simple_use_case/aiida
       shell: bash -l {0}
       run:
-        ./suc_v2b1.py
+        ./simple_use_case.py
 
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v2
