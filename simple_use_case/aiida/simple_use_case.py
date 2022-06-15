@@ -123,5 +123,4 @@ paper, paper_node = launch_shell_job(
 
 # ### extract final PDF from database
 with open("paper.pdf", "wb") as handle:
-    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode='rb'))
-
+    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
