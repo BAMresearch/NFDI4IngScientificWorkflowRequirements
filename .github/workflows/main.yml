@@ -252,7 +252,7 @@ jobs:
     - name: adjust-github-workspace
       working-directory: simple_use_case/aiida
       shell: bash -l {0}
-      run:
+      run: |
         git clone https://github.com/aiidateam/aiida-core.git
         cd aiida-core
         python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
