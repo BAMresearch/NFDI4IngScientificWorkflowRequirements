@@ -254,7 +254,6 @@ jobs:
       shell: bash -l {0}
       run: |
         git clone https://github.com/aiidateam/aiida-core.git
-        cd aiida-core
         python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
 
     - name: setup-aiida-environment
