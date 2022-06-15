@@ -250,17 +250,9 @@ jobs:
         pip install aiida-shell==0.2.0
 
     - name: adjust-github-workspace
-      working-directory: simple_use_case/aiida
       shell: bash -l {0}
       run: |
-        git clone https://github.com/aiidateam/aiida-core.git
-        python3 ./set_workspace.py --input ./aiida-core/.github/workflows/setup.sh --output ./aiida-core/.github/workflows/mysetup.sh
-
-    - name: setup-aiida-environment
-      shell: bash -l {0}
-      run: |
-        chmod +x $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
-        $GITHUB_WORKSPACE/simple_use_case/aiida/aiida-core/.github/workflows/mysetup.sh
+        verdi quicksetup --non-interactive --profile default --email aiida@localhost --first-name Giuseppe --last-name Verdi --institution Khedivial --db-backend psql_dos
 
     - name: run-workflow
       working-directory: simple_use_case/aiida
