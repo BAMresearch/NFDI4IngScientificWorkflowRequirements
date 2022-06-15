@@ -63,9 +63,9 @@ If you are using `conda`, activate your environment.
 ```
 conda activate aiida_simplecase
 ```
-Make the workflow script executable (`chmod +x ./suc_v2b1.py`) and run it with
+Make the workflow script executable (`chmod +x ./simple_use_case.py`) and run it with
 ```
-./suc_v2b1.py
+./simple_use_case.py
 ```
 By default all `ShellJob`s are run on the `localhost`.
 Some useful commands to inspect the status of the processes run and their results stored in the database are listed below.
