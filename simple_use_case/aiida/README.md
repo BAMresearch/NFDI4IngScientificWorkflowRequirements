@@ -76,3 +76,10 @@ verdi process report <PK>       # log messages if something went wrong
 verdi node show <PK>            # show info about node
 verdi node graph generate <PK>  # generate provenance graph for node
 ```
+The provenance graph can be created in `.png` format with the command
+```
+verdi node graph generate --output-format png <PK>
+```
+and is shown below.
+
+<center><img src="./img/aiida_provenance_graph.png" width="400"></center>
