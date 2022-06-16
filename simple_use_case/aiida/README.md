@@ -82,4 +82,4 @@ verdi node graph generate --output-format png <PK>
 ```
 and is shown below.
 
-<center><img src="../../img/aiida_provenance_graph.png" width="400"></center>
+<center><img src="../../img/aiida_provenance_graph.png" width="800"></center>
