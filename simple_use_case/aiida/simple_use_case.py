@@ -1,7 +1,7 @@
 #!/usr/bin/env runaiida
-
+from aiida.engine import calcfunction
+from aiida.orm import Float, Int
 from aiida_shell import launch_shell_job
-import PyPDF2
 
 # ### generate mesh with gmsh
 gmsh_results, gmsh_node = launch_shell_job(
@@ -15,7 +15,7 @@ gmsh_results, gmsh_node = launch_shell_job(
         "-o",
         "mesh.msh",
     ],
-    files={"geometry": "../source/unit_square.geo"},
+    nodes={"geometry": "../source/unit_square.geo"},
     outputs=["mesh.msh"],
 )
 
@@ -23,7 +23,7 @@ gmsh_results, gmsh_node = launch_shell_job(
 meshio_results, meshio_node = launch_shell_job(
     "meshio",
     arguments=["convert", "{mesh}", "mesh.xdmf"],
-    files={"mesh": gmsh_results["mesh_msh"]},
+    nodes={"mesh": gmsh_results["mesh_msh"]},
     filenames={"mesh": "mesh.msh"},
     outputs=["*.xdmf", "*.h5"],
 )
@@ -40,7 +40,7 @@ fenics_results, fenics_node = launch_shell_job(
         "--outputfile",
         "poisson.pvd",
     ],
-    files={
+    nodes={
         "script": "../source/poisson.py",
         "mesh": meshio_results["mesh_xdmf"],
         "mesh_h5": meshio_results["mesh_h5"],
@@ -53,7 +53,7 @@ fenics_results, fenics_node = launch_shell_job(
 paraview_results, paraview_node = launch_shell_job(
     "pvbatch",
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
-    files={
+    nodes={
         "script": "../source/postprocessing.py",
         "pvdfile": fenics_results["poisson_pvd"],
         "vtufile": fenics_results["poisson000000_vtu"],
@@ -63,17 +63,18 @@ paraview_results, paraview_node = launch_shell_job(
 )
 
 
-def read_domain_size():
-    stdout = gmsh_results["stdout"].get_content()
-    s = stdout.split("Used domain size:")[1]
-    size = float(s.split("Used mesh size")[0])
-    return str(size)
+@calcfunction
+def get_domain_size(gmsh_stdout):
+    string = gmsh_stdout.get_content().split("Used domain size:")[1]
+    size = float(string.split("Used mesh size")[0])
+    return Float(size)
 
 
-def read_num_dofs():
-    stdout = fenics_results["stdout"].get_content()
+@calcfunction
+def get_num_dofs(fenics_stdout):
+    stdout = fenics_stdout.get_content()
     ndofs = stdout.split("Number of dofs used:")[1]
-    return "".join(ndofs.split())
+    return Int("".join(ndofs.split()))
 
 
 # ### prepare latex macros
@@ -86,16 +87,18 @@ macros, macros_node = launch_shell_job(
         "--plot-data-path",
         "{csvfile}",
         "--domain-size",
-        read_domain_size(),
+        "{domain_size}",
         "--num-dofs",
-        read_num_dofs(),
+        "{num_dofs}",
         "--output-macro-file",
         "macros.tex",
     ],
-    files={
+    nodes={
         "script": "../source/prepare_paper_macros.py",
         "template": "../source/macros.tex.template",
         "csvfile": paraview_results["plotoverline_csv"],
+        "domain_size": get_domain_size(gmsh_results["stdout"]),
+        "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },
     filenames={"csvfile": "plotoverline.csv"},
     outputs=["macros.tex"],
@@ -105,7 +108,7 @@ macros, macros_node = launch_shell_job(
 paper, paper_node = launch_shell_job(
     "tectonic",
     arguments=["{texfile}"],
-    files={
+    nodes={
         "texfile": "../source/paper.tex",
         "macros": macros["macros_tex"],
         "csvfile": paraview_results["plotoverline_csv"],
@@ -119,11 +122,5 @@ paper, paper_node = launch_shell_job(
 )
 
 # ### extract final PDF from database
-outstream = open("./paper.pdf", "wb")
-PdfWriter = PyPDF2.PdfFileWriter()
-
-with paper["paper_pdf"].open(mode="rb") as handle:
-    reader = PyPDF2.PdfFileReader(handle)
-    PdfWriter.appendPagesFromReader(reader)
-    PdfWriter.write(outstream)
-outstream.close()
+with open("paper.pdf", "wb") as handle:
+    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
