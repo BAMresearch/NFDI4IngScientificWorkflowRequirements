@@ -31,3 +31,6 @@ Note that there exist tools to visualize, edit or create cwl workflows. For inst
 visualize workflows contained in git repositories with [view.commonwl.org](https://view.commonwl.org/),
 or you can use the [Rabix Composer](https://github.com/rabix/composer) to compose workflows locally
 on your machine.
+
+Example: ![Workflow Diagram](workflow.svg)
+[source](https://w3id.org/cwl/view/git/177943beba5afdefed0b3b6e3c62d84404831d6c/simple_use_case/cwl/wf_run_use_case.cwl)
