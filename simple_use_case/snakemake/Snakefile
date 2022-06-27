@@ -14,8 +14,10 @@ rule generate_mesh:
         "preprocessing/square.msh",
     conda:
         "../source/envs/preprocessing.yaml"
+    log:
+        "logs/gmsh.log",
     shell:
-        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output}"
+        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output} > {log} 2>&1"
 
 
 rule convert_to_xdmf:
@@ -25,8 +27,10 @@ rule convert_to_xdmf:
         "preprocessing/square.xdmf",
     conda:
         "../source/envs/preprocessing.yaml"
+    log:
+        "logs/meshio.log",
     shell:
-        "meshio convert {input} {output}"
+        "meshio convert {input} {output} > {log} 2>&1"
 
 
 rule poisson:
@@ -38,8 +42,10 @@ rule poisson:
         txt="processing/numdofs.txt",
     conda:
         "../source/envs/processing.yaml"
+    log:
+        "logs/fenics.log",
     shell:
-        "python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output.pvd} --num-dofs {output.txt}"
+        "python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output.pvd} --num-dofs {output.txt} > {log} 2>&1"
 
 
 rule plot_over_line:
@@ -50,8 +56,10 @@ rule plot_over_line:
         "postprocessing/plotoverline.csv",
     conda:
         "../source/envs/postprocessing.yaml"
+    log:
+        "logs/paraview.log",
     shell:
-        "pvbatch {input.py} {input.pvd} {output}"
+        "pvbatch {input.py} {input.pvd} {output} > {log} 2>&1"
 
 
 rule substitute_macros:
@@ -62,6 +70,8 @@ rule substitute_macros:
         ndofs=rules.poisson.output.txt,
     output:
         "macros.tex",
+    log:
+        "logs/macros.log",
     run:
         with open(input.ndofs, "r") as instream:
             ndofs = int(instream.read())
@@ -84,5 +94,7 @@ rule compile_paper:
         pdf="paper.pdf",
     conda:
         "../source/envs/postprocessing.yaml"
+    log:
+        "logs/tectonic.log",
     shell:
-        "cp {input.paper} {output.tex} && tectonic {output.tex}"
+        "cp {input.paper} {output.tex} && tectonic {output.tex} > {log} 2>&1"
