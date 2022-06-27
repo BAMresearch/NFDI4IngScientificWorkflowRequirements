@@ -1,7 +1,7 @@
 configfile: "./config.yaml"
 
 
-# NOTE 
+# NOTE
 # $ snakemake --use-conda --cores 1 --config domain_size=4.0
 # does not re-execute the job generated from rule 'generate_mesh'
 # if it was executed before with e.g. the default value 2.0
@@ -9,49 +9,57 @@ configfile: "./config.yaml"
 # $ snakemake -R somerule
 rule generate_mesh:
     input:
-        "../source/unit_square.geo"
+        "../source/unit_square.geo",
     output:
         "preprocessing/square.msh",
     conda:
         "../source/envs/preprocessing.yaml"
+    log:
+        "logs/gmsh.log",
     shell:
-        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output}"
+        "gmsh -2 -setnumber domain_size {config[domain_size]} {input} -o {output} > {log} 2>&1"
 
 
 rule convert_to_xdmf:
-	input:
-		rules.generate_mesh.output
-	output:
-		"preprocessing/square.xdmf"
-	conda:
-		"../source/envs/preprocessing.yaml"
-	shell:
-		"meshio convert {input} {output}"
+    input:
+        rules.generate_mesh.output,
+    output:
+        "preprocessing/square.xdmf",
+    conda:
+        "../source/envs/preprocessing.yaml"
+    log:
+        "logs/meshio.log",
+    shell:
+        "meshio convert {input} {output} > {log} 2>&1"
 
 
 rule poisson:
     input:
         py="../source/poisson.py",
-        xdmf=rules.convert_to_xdmf.output
+        xdmf=rules.convert_to_xdmf.output,
     output:
         pvd="processing/poisson.pvd",
-        txt="processing/numdofs.txt"
+        txt="processing/numdofs.txt",
     conda:
         "../source/envs/processing.yaml"
+    log:
+        "logs/fenics.log",
     shell:
-        "python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output.pvd} --num-dofs {output.txt}"
+        "python {input.py} --mesh {input.xdmf} --degree 2 --outputfile {output.pvd} --num-dofs {output.txt} > {log} 2>&1"
 
 
 rule plot_over_line:
     input:
         py="../source/postprocessing.py",
-        pvd=rules.poisson.output.pvd
+        pvd=rules.poisson.output.pvd,
     output:
-        "postprocessing/plotoverline.csv"
+        "postprocessing/plotoverline.csv",
     conda:
         "../source/envs/postprocessing.yaml"
+    log:
+        "logs/paraview.log",
     shell:
-        "pvbatch {input.py} {input.pvd} {output}"
+        "pvbatch {input.py} {input.pvd} {output} > {log} 2>&1"
 
 
 rule substitute_macros:
@@ -59,27 +67,34 @@ rule substitute_macros:
         py="../source/prepare_paper_macros.py",
         template="../source/macros.tex.template",
         data=rules.plot_over_line.output,
-        ndofs=rules.poisson.output.txt
+        ndofs=rules.poisson.output.txt,
     output:
-        "macros.tex"
+        "macros.tex",
+    log:
+        "logs/macros.log",
     run:
         with open(input.ndofs, "r") as instream:
             ndofs = int(instream.read())
-        shell("python {input.py} --macro-template-file {input.template} \
-                --plot-data-path {input.data} \
-                --domain-size {config[domain_size]} \
-                --num-dofs %s \
-                --output-macro-file {output[0]}" % (ndofs))
+        shell(
+            "python {input.py} --macro-template-file {input.template} \
+        --plot-data-path {input.data} \
+        --domain-size {config[domain_size]} \
+        --num-dofs %s \
+        --output-macro-file {output[0]}"
+            % (ndofs)
+        )
 
 
 rule compile_paper:
     input:
         paper="../source/paper.tex",
-        macros=rules.substitute_macros.output
+        macros=rules.substitute_macros.output,
     output:
         tex="paper.tex",
-        pdf="paper.pdf"
+        pdf="paper.pdf",
     conda:
         "../source/envs/postprocessing.yaml"
+    log:
+        "logs/tectonic.log",
     shell:
-        "cp {input.paper} {output.tex} && tectonic {output.tex}"
+        "cp {input.paper} {output.tex} && tectonic {output.tex} > {log} 2>&1"
