@@ -6,9 +6,11 @@ class: Workflow
 outputs:
   paperpdf:
     type: File
+    format: iana:application/pdf
     outputSource: compile_paper/pdf
   pol_data:
     type: File
+    format: iana:text/csv
     outputSource: plot_over_line/resultcsv
   macros:
     type: File
@@ -23,7 +25,6 @@ inputs:
     default: 1.0
 
 steps:
-
   make_mesh:
     run: make_gmsh_mesh.cwl
     in:
@@ -64,3 +65,6 @@ steps:
       csvfile: plot_over_line/resultcsv
       macros: prepare_paper_macros/macros_file
     out: [pdf]
+
+$namespaces:
+  iana: https://www.iana.org/assignments/media-types/

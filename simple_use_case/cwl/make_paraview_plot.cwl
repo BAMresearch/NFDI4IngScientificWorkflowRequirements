@@ -1,10 +1,12 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
+
 doc: Create plot-over-line data with paraview`s pvbatch
+
 baseCommand: [pvbatch]
-arguments: ["$(inputs.script)", "$(inputs.pvdfile.path)", "plotoverline.csv"]
+
+arguments: [ $(inputs.script), $(inputs.pvdfile.path), plotoverline.csv ]
 
 hints:
   SoftwareRequirement:
@@ -21,6 +23,7 @@ requirements:
       listing:
         - $(inputs.vtkfile)
         - $(inputs.pvdfile)
+
 inputs:
   script:
     type: File
@@ -31,8 +34,10 @@ inputs:
     type: File
   pvdfile:
     type: File
+
 outputs:
   resultcsv:
     type: File
+    format: https://www.iana.org/assignments/media-types/text/csv
     outputBinding:
-      glob: "plotoverline.csv"
+      glob: plotoverline.csv

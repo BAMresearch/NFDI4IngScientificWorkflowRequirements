@@ -1,13 +1,22 @@
 #!/usr/bin/env cwl-runner
-
 cwlVersion: v1.0
 class: CommandLineTool
+
 doc: Run the poisson solver in dolfin
+
 baseCommand: python3
-arguments: ["$(inputs.script)", "--mesh", "$(inputs.xdmfmeshfile.path)",
-                                "--degree", "2",
-                                "--output", "result.pvd"]
+
+arguments:
+ - $(inputs.script)
+ - --mesh
+ - $(inputs.xdmfmeshfile.path)
+ - --degree
+ - "2"
+ - --output
+ - result.pvd
+
 stdout: output.txt
+
 hints:
   SoftwareRequirement:
    packages:
@@ -23,6 +32,7 @@ requirements:
       listing:
         - $(inputs.xdmfmeshfile)
         - $(inputs.h5meshfile)
+
 inputs:
   script:
     type: File
@@ -33,19 +43,20 @@ inputs:
     type: File
   h5meshfile:
     type: File
+
 outputs:
   resultvtu:
     type: File
     outputBinding:
-      glob: ["result000000.vtu"]
+      glob: result000000.vtu
   resultpvd:
     type: File
     outputBinding:
-      glob: ["result.pvd"]
+      glob: result.pvd
   num_dofs:
     type: float
     outputBinding:
-      glob: "output.txt"
+      glob: output.txt
       loadContents: true
       outputEval: |
         ${
