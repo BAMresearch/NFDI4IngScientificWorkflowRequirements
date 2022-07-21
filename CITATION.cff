@@ -1,0 +1,37 @@
+# Visit https://github.com/citation-file-format/citation-file-format/blob/1.2.0/schema-guide.md#definitionspersonaffiliation
+# for more information on Citation File Format and optional metadata.
+
+cff-version: 1.2.0
+title: NFDI4Ing Scientific Workflow Requirements
+abstract: This is a repository to discuss, collect and store the requirements for scientific workflow systems.
+date-released: "2022-07-21"
+message: >-
+  Please cite this work using the metadata from this
+  file.
+type: software
+authors:
+  - given-names: Philipp
+    family-names: Diercks
+    email: philipp.diercks@bam.de
+    affiliation: >-
+      Bundesanstalt für Materialforschung und
+      -prüfung (BAM)
+  - given-names: Dennis
+    family-names: Gläser
+    email: dennis.glaeser@iws.uni-stuttgart.de
+    affiliation: >-
+      Universität Stuttgart
+  - given-names: Jörg F.
+    family-names: Unger
+    email: joerg.unger@bam.de
+    affiliation: >-
+      Bundesanstalt für Materialforschung und
+      -prüfung (BAM)
+  - given-names: Bernd
+    family-names: Flemisch
+    email: bernd.flemisch@iws.uni-stuttgart.de
+    affiliation: >-
+      Universität Stuttgart
+repository-code: "https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements"
+version: 0.0.1
+license: MIT License
