@@ -13,17 +13,20 @@ hints:
          - https://anaconda.org/conda-forge/meshio
          - https://doi.org/10.5281/zenodo.1173115
 
-baseCommand: [ meshio, convert]
+baseCommand: [ meshio, convert ]
+
 arguments: [ $(inputs.inputmesh.path), mesh_converted.xdmf ]
+
 inputs:
   inputmesh:
     type: File
+
 outputs:
   outputmesh:
     type: File
     outputBinding:
-      glob: "mesh_converted.xdmf"
+      glob: mesh_converted.xdmf
   outputmeshdata:
     type: File
     outputBinding:
-       glob: "mesh_converted.h5"
+       glob: mesh_converted.h5
