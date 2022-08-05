@@ -33,4 +33,4 @@ or you can use the [Rabix Composer](https://github.com/rabix/composer) to compos
 on your machine.
 
 Example: ![Workflow Diagram](workflow.svg)
-[source](https://w3id.org/cwl/view/git/177943beba5afdefed0b3b6e3c62d84404831d6c/simple_use_case/cwl/wf_run_use_case.cwl)
+[source](https://view.commonwl.org/workflows/github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/simple_use_case/cwl/wf_run_use_case.cwl)
