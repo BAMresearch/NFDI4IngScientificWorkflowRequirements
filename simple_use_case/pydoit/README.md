@@ -13,7 +13,7 @@ However, it does not handle the installation of the required software for you.
 Here, we assume that all required software and `doit` are already installed.
 For example you could do
 ```
-conda env create --name doit_simplecase --file ../source/envs/conda_env_explicit.yaml
+conda env create --name doit_simplecase --file ../source/envs/default_env.yaml
 ```
 to create a conda environment with all required software and then install `doit` in the
 same environment with
