@@ -11,7 +11,7 @@ on:
 
 jobs:
   run-pydoit:
-    runs-on: ubuntu:22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: checkout-repository
@@ -267,3 +267,41 @@ jobs:
         path: ./simple_use_case/aiida/paper.pdf
         retention-days: 1
         if-no-files-found: error
+
+  run-gwl:
+    # guix uses sandboxing features (like chroot capabilities) which are not
+    # available in the github container runtime environment. Ideally, a virtual
+    # machine with a guix installation should be used, but I have not found a
+    # way to upload a virtual machine image to github outside of using azure.
+
+    # As a workaround, a custom container image is used which already contains
+    # all software dependencies. If all dependencies are satisfied, guix doesn't
+    # use sandboxing features.
+
+    runs-on: ubuntu-latest
+    container: ghcr.io/onluen/sigwftools-gwl:latest
+
+    steps:
+      - name: checkout-repository
+        # actions/checkout v2 or higher is not supported. These versions mount a
+        # node installation into the container, which seems to depend on a few
+        # system libraries. Those are not available in this image. v1 works as
+        # it doesn't use node. See
+        # https://github.com/actions/checkout/issues/334 for more details.
+        uses: actions/checkout@v1
+
+      - name: run-workflow
+        run: |
+          # Start the guix-daemon in the background, which will be queried for
+          # the workflows software environment.
+          guix-daemon > guix-daemon.log 2>&1 &
+          cd simple_use_case/gwl
+          guix workflow run workflow.w
+
+      - name: upload-paper-artifact
+        # actions/upload-artifact v2 or higher is not supported, see
+        # actions/checkout notes above.
+        uses: actions/upload-artifact@v1
+        with:
+          name: paper
+          path: simple_use_case/gwl/paper.pdf
