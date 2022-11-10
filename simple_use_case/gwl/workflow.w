@@ -3,14 +3,14 @@ define domain-size 1
 
 
 ;; Define workflow process templates
-process make-gmsh-mesh (with geofile domainsize)
+process make-gmsh-mesh (with geofile domain-size)
   synopsis "Generate the computational mesh with gmsh"
   packages "gmsh"
   inputs
     . geofile: (file geofile)
   outputs
     . mesh: (file "mesh.msh")
-  # { gmsh -setnumber domainsize {{domainsize}} -2 {{inputs}} -o {{outputs}} }
+  # { gmsh -setnumber domainsize {{domain-size}} -2 {{inputs}} -o {{outputs}} }
 
 
 process convert-msh-to-xdmf (with inputmesh)
@@ -54,7 +54,7 @@ process make-paraview-plot (with pvd vtu)
   # { pvbatch {{inputs:script}} {{inputs:pvd}} {{outputs}} }
 
 
-process prepare-paper-macros (with domain_size num_dofs plot_data_file)
+process prepare-paper-macros (with domain-size num_dofs plot_data_file)
   synopsis "Update the macros of the paper with values from this run"
   packages "python"
   inputs
@@ -66,7 +66,7 @@ process prepare-paper-macros (with domain_size num_dofs plot_data_file)
     . macros_file: (file "macros.tex")
   # bash {
     python3 {{inputs:substitution_script}} \
-            --domain-size {{domain_size}} \
+            --domain-size {{domain-size}} \
             --macro-template-file {{inputs:macros_template}} \
             --num-dofs $(<{{inputs:num_dofs}}) \
             --plot-data-path {{inputs:plot_data_file}} \
