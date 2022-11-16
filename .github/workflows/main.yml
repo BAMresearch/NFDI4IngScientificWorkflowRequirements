@@ -246,8 +246,7 @@ jobs:
       # see https://github.com/marketplace/actions/setup-miniconda
       shell: bash -l {0}
       run: |
-        # will install aiida-core as a dependency
-        pip install aiida-shell==0.2.0
+        pip install "aiida-core>=2.0,<2.1" "aiida-shell==0.2.0"
 
     - name: setup-aiida-profile
       shell: bash -l {0}
