@@ -26,27 +26,20 @@ guix shell gwl
 
 This will spawn a new shell, in which GWL is available.
 
-Next, configure both GWL and Guix.
+Next, enable the GWL extension.
 
 ```sh
 export GUIX_EXTENSIONS_PATH=$GUIX_ENVIRONMENT/share/guix/extensions
-export GUIX_PACKAGE_PATH=../build-aux/gwl guix workflow run gwl/workflow.w
 ```
 
-GWL will use Guix to construct the compute environment on your system. At the
-time of this writing, the packages `cgns` and `paraview` are not available in
-Guix upstream. These packages are provided locally via the `GUIX_PACKAGE_PATH`
-environment variable in [sigfwtools.scm](../../build-aux/gwl/sigwftools.scm) for
-the time being. Upstreaming these packages is work-in-progress.
-
-You should now be able to execute the workflow. Since `cgns` and `paraview` need
-to be compiled, this will take a long time:
+You should now be able to execute the workflow:
 
 ```
 guix workflow run gwl/workflow.w
 ```
 
-Subsequent runs should be much faster, since the compilation results are cached.
+Subsequent runs should be much faster, since the computation environments for
+each workflow step are cached.
 
 > Instead of working in a temporary environment, it may be convenient to install
 > GWL into your default Guix profile using `guix package -i gwl` and fix the
@@ -61,11 +54,10 @@ author.
 > Please try this approach, if newer package versions in your Guix installation
 > break this workflow.
 
-Replace the `guix shell gwl` step with this:
+To do this, pull your Guix installation to the following commit hash:
 
 ```sh
-guix time-machine --commit=5f856c595479c30d9ccdb0063c9124248fdcf5c2 -- shell guix gwl
+guix pull --commit=8e54584d4448d37ddf8ae995bb545a181ba2493c
 ```
 
-This will spawn a shell with the Guix and GWL versions of the author, in which
-you can follow the remaining commands from above.
+Now you can follow the above commands.
