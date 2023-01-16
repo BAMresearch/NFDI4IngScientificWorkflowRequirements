@@ -56,6 +56,4 @@ for general comments, questions and ideas you would like to share.
 
 ## Acknowledgements
 
-The authors would also like to thank the Federal Government and
-the Heads of Government of the L¨ander, as well as the Joint Science Conference (GWK), for their
-funding and support within the framework of the NFDI4Ing consortium
+The authors would like to thank the Federal Government and the Heads of Government of the Länder, as well as the Joint Science Conference (GWK), for their funding and support within the framework of the NFDI4Ing consortium. Funded by the German Research Foundation (DFG) - project number 442146713.
