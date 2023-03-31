@@ -1,4 +1,4 @@
-name: run-simple-use-case
+name: run-exemplary-workflow
 
 on:
   push:
@@ -23,21 +23,21 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: simple_use_case/source/envs/default_env.yaml
+          environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: simple_use_case
+          activate-environment: exemplary_workflow
 
       - name: run-workflow
         shell: bash -l {0}
         run: |
           conda install --channel conda-forge doit=0.33.1
-          cd $GITHUB_WORKSPACE/simple_use_case/pydoit
+          cd $GITHUB_WORKSPACE/exemplary_workflow/pydoit
           doit
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/pydoit/paper.pdf
+          path: ./exemplary_workflow/pydoit/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -54,21 +54,21 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: simple_use_case/source/envs/default_env.yaml
+          environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: simple_use_case
+          activate-environment: exemplary_workflow
 
       - name: run-workflow
         shell: bash -l {0}
         run: |
           conda install --channel conda-forge cwltool
-          cd $GITHUB_WORKSPACE/simple_use_case/cwl
-          cwltool wf_run_use_case.cwl
+          cd $GITHUB_WORKSPACE/exemplary_workflow/cwl
+          cwltool wf_run_exemplary_wf.cwl
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/cwl/paper.pdf
+          path: ./exemplary_workflow/cwl/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -90,14 +90,14 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install --no-install-recommends --yes python3-pip
           python3 -m pip install cwltool[deps]
-          cd $GITHUB_WORKSPACE/simple_use_case/cwl
-          python3 -m cwltool --debug --beta-conda-dependencies wf_run_use_case.cwl
+          cd $GITHUB_WORKSPACE/exemplary_workflow/cwl
+          python3 -m cwltool --debug --beta-conda-dependencies wf_run_exemplary_wf.cwl
 
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/cwl/paper.pdf
+          path: ./exemplary_workflow/cwl/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -115,19 +115,19 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-version: latest
-          activate-environment: simple_use_case
+          activate-environment: exemplary_workflow
 
       - name: run-workflow
         shell: bash -l {0}
         run: |
           conda install --channel bioconda nextflow=21.04.0
-          cd $GITHUB_WORKSPACE/simple_use_case/nextflow
-          nextflow run simplecase.nf
+          cd $GITHUB_WORKSPACE/exemplary_workflow/nextflow
+          nextflow run exemplarywf.nf
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/nextflow/paper.pdf
+          path: ./exemplary_workflow/nextflow/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -146,7 +146,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-version: latest
-          activate-environment: simple_use_case
+          activate-environment: exemplary_workflow
           channels: conda-forge,bioconda
           channel-priority: strict
 
@@ -154,13 +154,13 @@ jobs:
         shell: bash -l {0}
         run: |
           conda install snakemake
-          cd $GITHUB_WORKSPACE/simple_use_case/snakemake
+          cd $GITHUB_WORKSPACE/exemplary_workflow/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/snakemake/paper.pdf
+          path: ./exemplary_workflow/snakemake/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -177,22 +177,22 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: simple_use_case/source/envs/default_env.yaml
+          environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: simple_use_case
+          activate-environment: exemplary_workflow
 
       - name: run-workflow
         shell: bash -l -i {0}
         run: |
-          bash $GITHUB_WORKSPACE/simple_use_case/kadistudio/install_components.sh
+          bash $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/install_components.sh
           mkdir $GITHUB_WORKSPACE/run
-          process_engine run $GITHUB_WORKSPACE/simple_use_case/kadistudio/simple_use_case.flow -p $GITHUB_WORKSPACE/run
+          process_engine run $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/exemplary_workflow.flow -p $GITHUB_WORKSPACE/run
 
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./simple_use_case/kadistudio/paper.pdf
+          path: ./exemplary_workflow/kadistudio/paper.pdf
           retention-days: 1
           if-no-files-found: error
 
@@ -237,9 +237,9 @@ jobs:
     - name: setup-conda-environment
       uses: conda-incubator/setup-miniconda@v2
       with:
-        environment-file: simple_use_case/source/envs/default_env.yaml
+        environment-file: exemplary_workflow/source/envs/default_env.yaml
         miniforge-version: latest
-        activate-environment: simple_use_case
+        activate-environment: exemplary_workflow
 
     - name: install-aiida-shell
       # the shell directive is necessary to properly activate the shell
@@ -254,16 +254,16 @@ jobs:
         verdi quicksetup --non-interactive --profile default --email aiida@localhost --first-name Giuseppe --last-name Verdi --institution Khedivial --db-backend psql_dos
 
     - name: run-workflow
-      working-directory: simple_use_case/aiida
+      working-directory: exemplary_workflow/aiida
       shell: bash -l {0}
       run:
-        ./simple_use_case.py
+        ./exemplary_workflow.py
 
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v2
       with:
         name: paper
-        path: ./simple_use_case/aiida/paper.pdf
+        path: ./exemplary_workflow/aiida/paper.pdf
         retention-days: 1
         if-no-files-found: error
 
@@ -293,11 +293,11 @@ jobs:
 
     - name: run-workflow
       run: |
-        cd simple_use_case/gwl
+        cd exemplary_workflow/gwl
         guix workflow run workflow.w
 
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v2
       with:
         name: paper
-        path: simple_use_case/gwl/paper.pdf
+        path: exemplary_workflow/gwl/paper.pdf

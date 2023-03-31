@@ -1,5 +1,5 @@
 description:
-  name: simple_use_case
+  name: exemplary_workflow
   description: A simple workflow which solves the poisson equation and shows the result in a PDF
 
 

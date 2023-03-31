@@ -7,7 +7,7 @@ The following steps assume that your current working directory is the
 [gwl](.) directory of this repository:
 
 ```sh
-cd simple_use_case/gwl
+cd exemplary_workflow/gwl
 ```
 
 ## Using your Guix installation

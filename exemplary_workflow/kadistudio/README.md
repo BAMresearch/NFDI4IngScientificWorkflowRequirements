@@ -1,5 +1,5 @@
 # KadiStudio
-Implementation of the simple use case with KadiStudio. `KadiStudio` is a software component of the
+Implementation of the exemplary workflow with KadiStudio. `KadiStudio` is a software component of the
 Kadi4Mat research data infrastructure, that is dedicated to model, visualise and execute scientific workflows using a GUI.
 
 ## Installation
@@ -37,7 +37,7 @@ of the workflow-nodes project as well as the description of how to add new tools
 ## Creating workflows
 
 Workflows can be created in KadiStudio using a GUI to which tools can be added using a point-and-click interface.
-In the gif below this is exemplified by the simple use case.
+In the gif below this is exemplified by the exemplary workflow.
 
 ![workflow creation](workflowCreation.gif)
 
@@ -45,17 +45,17 @@ Each added tool represents a command that is run when the workflow is executed. 
 left-hand side the corresponding tool can be parameterised. Connecting the green dependency ports of the tools
 nodes defines the order of execution making the modelled workflow easier to grasp for the user.
 
-The complete workflow saved in the simple_use_case.flow file is shown in the following image.
+The complete workflow saved in the exemplary_workflow.flow file is shown in the following image.
 ![workflow creation](WorkflowNFDI4Ing.png)
 
-## Running the simple_use_case workflow
+## Running the exemplary_workflow
 
 The execution of a workflow is recommended to be started inside the GUI of KadiStudio, as it offers the possiblity to easily
 track its status and to interact with the workflow in case a user input is required. When starting a workflow inside KadiStudio the
 following command is executed:
 
 ```sh
-process_manager start simple_use_case.flow
+process_manager start exemplary_workflow.flow
 ```
 
 Thus, if KadiStudio is not available or its GUI cannot be displayed, it is also possible to start a workflow directly from a terminal
@@ -63,17 +63,17 @@ using the command above. Alternatively, it is also possible to start a workflow 
 the command:
 
 ```sh
-process_engine run simple_use_case.flow -p /path/to/execution_folder
+process_engine run exemplary_workflow.flow -p /path/to/execution_folder
 ```
 
 However, using the process-engine directly is not recommended, as the background tasks initiated by the process-manager when executing a
 workflow are omitted in this case. This can lead to overwriting data when executing a workflow several times. To install the necessary
-workflow nodes for the simple_use_case, please use the pip install command shown within the install_components.sh script, as some unreleased
+workflow nodes for the exemplary_workflow, please use the pip install command shown within the install_components.sh script, as some unreleased
 nodes are utilised.
 
 ### Command line execution -- Necessary configuration
 
-The workflow saved in the simple_use_case.flow file was specifically modelled to run inside the actions of this github project.
+The workflow saved in the exemplary_workflow.flow file was specifically modelled to run inside the actions of this github project.
 For this the variable GITHUB_WORKSPACE was used to reliably access the folder structure of the container that runs the workflow.
 To be able to run the workflow manually it is therefore necessary to set this variable on your machine as well. This can
 be done using the command:
@@ -83,6 +83,6 @@ export GITHUB_WORKSPACE="/path/to/NFDI4IngScientificWorkflowRequirements"
 ```
 
 This path might vary depending on your folder structure. Its only essential point is that it directs to the folder in which
-the simple_use_case folder is located. When executing the simple_use_case workflow inside the GUI of KadiStudio, setting this variable
+the exemplary_workflow folder is located. When executing the exemplary_workflow workflow inside the GUI of KadiStudio, setting this variable
 can be omitted as a check whether the $GITHUB_WORKSPACE is known is performed before execution. In case it is unknown, the user will
 be prompted to enter the path to the NFDI4IngScientificWorkflowRequirements folder interactively.

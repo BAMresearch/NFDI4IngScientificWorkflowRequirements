@@ -47,7 +47,7 @@ source_suffix = {
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['conda-env','conda-env', '_build', 'Thumbs.db', '.DS_Store', 'simple_use_case']
+exclude_patterns = ['conda-env','conda-env', '_build', 'Thumbs.db', '.DS_Store', 'exemplary_workflow']
 
 
 # The master toctree document.

@@ -52,5 +52,5 @@ reproducible research workflows, by anyone, anywhere and anytime.
    docs/fairness.rst
    docs/userstories.rst
    docs/requirements.rst
-   docs/simpleusecase.rst
+   docs/exemplarywf.rst
    docs/tools.rst
