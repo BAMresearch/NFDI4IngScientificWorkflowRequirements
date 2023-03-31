@@ -104,8 +104,8 @@ define paper
     pick csv: : process-outputs plot-over-line with-tags:
 
 
-;; Define simple-use-case workflow by auto-connecting processes.
-workflow simple-use-case
+;; Define exemplary workflow by auto-connecting processes.
+workflow exemplary-wf
   processes
     auto-connect make-mesh convert-mesh run-simulation plot-over-line
       . paper-macros paper

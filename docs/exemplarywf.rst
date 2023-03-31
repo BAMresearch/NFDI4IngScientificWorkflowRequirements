@@ -1,8 +1,8 @@
 
-.. _simpleusecase:
+.. _exemplarywf:
 
-Simple use case
-===============
+Exemplary workflow
+==================
 As a minimal working example representative of workflows in computational science, the 
 poisson equation is solved using the finite element method for a set of predefined boundary conditions :math:`u_{\mathrm{D}}`
 on a square domain :math:`\varOmega={(0, s)}^2, s\in\mathbb{R}^+`.
@@ -17,10 +17,10 @@ The final output of the workflow is a PDF document showing the solution :math:`u
 line :math:`L=\{(x, y)\in\varOmega\,\vert\,x=y\}` and the number of degrees of freedom used in the finite element model.
 The (directed acyclic graph of the) workflow is shown below and consists of the following processes:
 
-.. |DAG| image:: ./../img/simple_use_case_dag.png
+.. |DAG| image:: ./../img/exemplary_wf_dag.png
     :class: align-right
     :width: 95%
-    :alt: simple_use_case_dag
+    :alt: exemplary_wf_dag
 
 1. Partition of the computational domain using `Gmsh <http://gmsh.info/>`_, |DAG|
 
@@ -66,7 +66,7 @@ The (directed acyclic graph of the) workflow is shown below and consists of the 
     cp source/paper.tex ./paper.tex
     tectonic ./paper.tex 
 
-It is important to note that the `source files <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/simple_use_case/source>`_ are
+It is important to note that the `source files <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/exemplary_workflow/source>`_ are
 regarded as static inputs, i.e. changing them may break the workflow and thus
 only the variable domain size should be exposed as an actual input parameter.
 The number of degrees of freedom is written to stdout
@@ -74,5 +74,5 @@ by the FEniCS script `source/poisson.py`
 and used here to showcase how one might deal with output of integer type (i.e. non-file output).
 If the tool does not support this the number of degrees of freedom is written to a file.
 
-Details on the specific versions used for each software package can be found in the `conda environment specification file <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/simple_use_case/source/envs/default_env.yaml>`_.
-Exemplary implementations with various tools can be found `here <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/tree/main/simple_use_case>`_.
+Details on the specific versions used for each software package can be found in the `conda environment specification file <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/exemplary_workflow/source/envs/default_env.yaml>`_.
+Exemplary implementations with various tools can be found `here <https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/tree/main/exemplary_workflow>`_.

@@ -6,8 +6,8 @@ If you have [`miniconda`](https://docs.conda.io/projects/conda/en/latest/user-gu
 installed, you can simply create a respective environment by typing
 
 ```sh
-conda env create --file default_env.yml --prefix ./simpleusecase
-conda activate ./simpleusecase
+conda env create --file default_env.yml --prefix ./exemplarywf
+conda activate ./exemplarywf
 ```
 
 Note that by specifying the `--prefix` option you can simply remove all downloaded packages afterwards
@@ -15,7 +15,7 @@ by removing the folder given to `prefix`. To execute the workflow after activati
 simply type
 
 ```sh
-cwltool wf_run_use_case.cwl
+cwltool wf_run_exemplary_wf.cwl
 ```
 
 into your terminal.
@@ -24,7 +24,7 @@ Or you can use the conda dependency feature of the CWL reference runner to obtai
 the dependencies dynamically:
 
 ```sh
-cwltool --beta-conda-dependencies wf_run_use_case.cwl
+cwltool --beta-conda-dependencies wf_run_exemplary_wf.cwl
 ```
 
 Note that there exist tools to visualize, edit or create cwl workflows. For instance, you can
@@ -33,4 +33,4 @@ or you can use the [Rabix Composer](https://github.com/rabix/composer) to compos
 on your machine.
 
 Example: ![Workflow Diagram](workflow.svg)
-[source](https://view.commonwl.org/workflows/github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/simple_use_case/cwl/wf_run_use_case.cwl)
+[source](https://view.commonwl.org/workflows/github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/blob/main/exemplary_workflow/cwl/wf_run_exemplary_wf.cwl)

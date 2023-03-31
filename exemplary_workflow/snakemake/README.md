@@ -1,5 +1,5 @@
 # Snakemake
-This directory contains an implementation of the simple use case with [Snakemake](https://snakemake.github.io/).
+This directory contains an implementation of the exemplary workflow with [Snakemake](https://snakemake.github.io/).
 
 ## Installation
 For more detailed information we refer to the official [documentation](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
@@ -19,7 +19,7 @@ If you don't want to use Mamba, install snakemake with the usual command
 conda env create -c conda-forge -c bioconda -n snakemake snakemake
 ```
 
-## Running the simple use case
+## Running the exemplary workflow
 The workflow can be run with
 ```sh
 snakemake --cores 1 --use-conda ./paper.pdf

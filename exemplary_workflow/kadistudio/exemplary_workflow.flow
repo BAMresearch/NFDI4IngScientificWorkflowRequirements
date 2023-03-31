@@ -311,7 +311,7 @@
             "id": "{f4c3e069-b74e-489b-a0eb-cde5969b780e}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/plotoverline.csv"
+                "value": "${base}/exemplary_workflow/source/plotoverline.csv"
             },
             "position": {
                 "x": 1772.7247058823523,
@@ -488,7 +488,7 @@
             "id": "{4c007f80-696e-4dfd-a4ab-7c33a40e8136}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/prepare_paper_macros.py"
+                "value": "${base}/exemplary_workflow/source/prepare_paper_macros.py"
             },
             "position": {
                 "x": 2290.6502591114613,
@@ -499,7 +499,7 @@
             "id": "{44928488-49e4-4f55-816e-308501509049}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/postprocessing.py"
+                "value": "${base}/exemplary_workflow/source/postprocessing.py"
             },
             "position": {
                 "x": 1772.7247058823527,
@@ -510,7 +510,7 @@
             "id": "{3e70152d-a817-48b4-9349-2b8f8922ceb5}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/kadistudio"
+                "value": "${base}/exemplary_workflow/kadistudio"
             },
             "position": {
                 "x": 3211.1821175206046,
@@ -521,7 +521,7 @@
             "id": "{1c0f1152-497a-4c02-8a35-148030fa6576}",
             "model": {
                 "name": "String",
-                "value": "--macro-template-file ${base}/simple_use_case/source/macros.tex.template --plot-data-path ${base}/simple_use_case/source/plotoverline.csv --domain-size 4 --num-dofs ${numdofs} --output-macro-file ${base}/simple_use_case/source/macros.tex"
+                "value": "--macro-template-file ${base}/exemplary_workflow/source/macros.tex.template --plot-data-path ${base}/exemplary_workflow/source/plotoverline.csv --domain-size 4 --num-dofs ${numdofs} --output-macro-file ${base}/exemplary_workflow/source/macros.tex"
             },
             "position": {
                 "x": 2290.4287348872485,
@@ -907,7 +907,7 @@
             "id": "{aef407ea-c4be-4e6c-bcad-e823fb8f0ae1}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/square_mesh.msh"
+                "value": "${base}/exemplary_workflow/source/square_mesh.msh"
             },
             "position": {
                 "x": 100,
@@ -918,7 +918,7 @@
             "id": "{ec224666-e7a0-44d9-b059-b62e445c9e0a}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/unit_square.geo"
+                "value": "${base}/exemplary_workflow/source/unit_square.geo"
             },
             "position": {
                 "x": 99.99999999999999,
@@ -940,7 +940,7 @@
             "id": "{8eaca792-cd22-4f78-9cc9-ee97828f7299}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/paper.tex"
+                "value": "${base}/exemplary_workflow/source/paper.tex"
             },
             "position": {
                 "x": 2818.012098600341,
@@ -951,7 +951,7 @@
             "id": "{96d05c5d-1558-402d-9cc9-91bc117d6a23}",
             "model": {
                 "name": "String",
-                "value": "Please select the driectory in which the simple_use_case folder is located."
+                "value": "Please select the driectory in which the exemplary_workflow folder is located."
             },
             "position": {
                 "x": -825.3540004619584,
@@ -962,7 +962,7 @@
             "id": "{4036635d-a7a4-43ba-a042-692e135df611}",
             "model": {
                 "name": "String",
-                "value": "-m ${base}/simple_use_case/source/square.xdmf -d 2 -o ${base}/simple_use_case/source/poisson.pvd -n ${base}/simple_use_case/source/numdofs.txt"
+                "value": "-m ${base}/exemplary_workflow/source/square.xdmf -d 2 -o ${base}/exemplary_workflow/source/poisson.pvd -n ${base}/exemplary_workflow/source/numdofs.txt"
             },
             "position": {
                 "x": 1117.176470588235,
@@ -1092,7 +1092,7 @@
             "id": "{08ae43e4-fdfb-4828-bd59-55b542314f59}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/square.xdmf"
+                "value": "${base}/exemplary_workflow/source/square.xdmf"
             },
             "position": {
                 "x": 573.7411764705881,
@@ -1103,7 +1103,7 @@
             "id": "{b2080c1d-6d75-4fa6-a97e-52939d623514}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/poisson.py"
+                "value": "${base}/exemplary_workflow/source/poisson.py"
             },
             "position": {
                 "x": 1115.2941176470588,
@@ -1215,7 +1215,7 @@
             "id": "{220f41ef-264b-43e5-b5e7-15d954f30563}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/numdofs.txt"
+                "value": "${base}/exemplary_workflow/source/numdofs.txt"
             },
             "position": {
                 "x": 1743.4068086012194,
@@ -1226,7 +1226,7 @@
             "id": "{36ff6142-7f0c-413f-93d3-46d677fda3b6}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/poisson.pvd"
+                "value": "${base}/exemplary_workflow/source/poisson.pvd"
             },
             "position": {
                 "x": 1772.7247058823523,
@@ -1540,7 +1540,7 @@
             "id": "{fb63b7e6-5275-4432-aefa-1a718bc7792a}",
             "model": {
                 "name": "String",
-                "value": "${base}/simple_use_case/source/paper.pdf"
+                "value": "${base}/exemplary_workflow/source/paper.pdf"
             },
             "position": {
                 "x": 3209.0996388451704,

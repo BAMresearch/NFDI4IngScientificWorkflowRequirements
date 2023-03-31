@@ -1,5 +1,5 @@
 # AiiDA
-This directory contains an implementation of the simple use case with [AiiDA](https://www.aiida.net/).
+This directory contains an implementation of the exemplary workflow with [AiiDA](https://www.aiida.net/).
 
 ## Implementation
 Since the implementation of workflows in AiiDA is quite different from the other file
@@ -11,7 +11,7 @@ According to the [documentation](https://aiida.readthedocs.io/projects/aiida-cor
 > The calcfunction in AiiDA is a function decorator that transforms a regular python function in a calculation process, which automatically stores the provenance of its output in the provenance graph when executed.
 
 Typically `calcfunction`s are used for short running processes to be run on the local machine, like preprocessing and postprocessing steps.
-One could think of a workaround, using `os.subprocess` inside a `calcfunction` to run the processes of the simple use case.
+One could think of a workaround, using `os.subprocess` inside a `calcfunction` to run the processes of the exemplary workflow.
 However, `calcfunction`s are not intended to be used to run external codes and the use of `os.subprocess` is discouraged since in this case the provenance cannot be properly captured by AiiDA.    
 
 ### Calculation jobs
@@ -38,10 +38,10 @@ sudo apt install \
     git python3-dev python3-pip \
     postgresql postgresql-server-dev-all postgresql-client rabbitmq-server
 ```
-Next, we prepare a conda environment with all the software required to run the simple use case.
+Next, we prepare a conda environment with all the software required to run the exemplary workflow.
 ```sh
-conda env create --name aiida_simplecase --file ../source/envs/default_env.yaml
-conda activate aiida_simplecase
+conda env create --name aiida_env --file ../source/envs/default_env.yaml
+conda activate aiida_env
 ```
 Make sure that the python version is greater than 3.8, since this is required by the `aiida-shell` plugin.
 Next we install the `aiida-shell` plugin, which will automatically install AiiDA as a dependency.
@@ -58,14 +58,14 @@ to setup a profile and see if everything was installed correctly by running
 verdi status
 ```
 
-## Running the simple use case
+## Running the exemplary workflow
 If you are using `conda`, activate your environment.
 ```
-conda activate aiida_simplecase
+conda activate aiida_env
 ```
-Make the workflow script executable (`chmod +x ./simple_use_case.py`) and run it with
+Make the workflow script executable (`chmod +x ./exemplary_workflow.py`) and run it with
 ```
-./simple_use_case.py
+./exemplary_workflow.py
 ```
 By default all `ShellJob`s are run on the `localhost`.
 Some useful commands to inspect the status of the processes run and their results stored in the database are listed below.
