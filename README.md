@@ -1,3 +1,6 @@
+[![DOI](https://zenodo.org/badge/357505574.svg)](https://zenodo.org/badge/latestdoi/357505574)
+
+
 # Introduction - tools for scientific workflows
 
 Software-driven scientific workflows are often characterized by a complex interplay
