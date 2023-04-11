@@ -12,7 +12,7 @@ license: MIT License
 message: >-
   Please cite this work using the metadata from this
   file.
-type: software
+type: generic
 authors:
   - given-names: "Philipp"
     family-names: "Diercks"
