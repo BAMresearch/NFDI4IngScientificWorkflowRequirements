@@ -6,7 +6,6 @@ on:
       - CITATION.cff
   workflow_dispatch:
 
-name: CITATION.cff
 jobs:
   Validate-CITATION-cff:
     runs-on: ubuntu-latest
