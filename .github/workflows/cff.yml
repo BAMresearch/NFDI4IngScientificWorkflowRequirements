@@ -2,14 +2,15 @@ name: validate-citation-file
 
 on:
   push:
-    paths:
-      - CITATION.cff
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+      
   workflow_dispatch:
 
 jobs:
-  Validate-CITATION-cff:
+  validate-citation-cff:
     runs-on: ubuntu-latest
-    name: Validate CITATION.cff
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
