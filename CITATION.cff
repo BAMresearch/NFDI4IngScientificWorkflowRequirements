@@ -8,11 +8,11 @@ date-released: 2023-04-01
 doi: 10.5281/zenodo.7790634
 url: "https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements"
 version: 1.0.0
-license: MIT License
+license: MIT
 message: >-
   Please cite this work using the metadata from this
   file.
-type: generic
+type: dataset
 authors:
   - given-names: "Philipp"
     family-names: "Diercks"
