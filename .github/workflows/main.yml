@@ -90,6 +90,7 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install --no-install-recommends --yes python3-pip
           python3 -m pip install cwltool[deps]
+          python3 -m cwltool --version
           cd $GITHUB_WORKSPACE/exemplary_workflow/cwl
           python3 -m cwltool --debug --beta-conda-dependencies wf_run_exemplary_wf.cwl
 
