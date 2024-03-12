@@ -15,7 +15,6 @@ for k, v in {
 
 
 # Preprocessing
-
 ## generate mesh
 def write_input(input_dict, working_directory):
     script_name = os.path.join(working_directory, "gmsh.sh")
@@ -32,7 +31,6 @@ gmsh = pr.wrap_executable(
     input_file_lst=["source/unit_square.geo"],
     execute_job=True,
 )
-
 
 ## convert mesh to xdmf
 meshio = pr.wrap_executable(
