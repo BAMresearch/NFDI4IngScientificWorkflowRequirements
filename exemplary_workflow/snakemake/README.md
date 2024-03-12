@@ -12,11 +12,11 @@ conda install -n base -c conda-forge mamba
 ```
 You can then install snakemake with
 ```sh
-mamba env create -c conda-forge -c bioconda -n snakemake snakemake
+mamba create -c conda-forge -c bioconda -n snakemake snakemake
 ```
 If you don't want to use Mamba, install snakemake with the usual command
 ```sh
-conda env create -c conda-forge -c bioconda -n snakemake snakemake
+conda create -c conda-forge -c bioconda -n snakemake snakemake
 ```
 
 ## Running the exemplary workflow
