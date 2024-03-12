@@ -15,7 +15,8 @@ The workflow can be run with
 ```sh
 python workflow.py
 ```
-The final output `paper.pdf` created using the `tectonic` package is then stored in:
+The final output `paper.pdf` created using the `tectonic` package is then stored in the working direcrtory of last workflow step:
 ```sh
 ./workflow/tectonic_hdf5/tectonic/paper.pdf
 ```
+This is a general feature of the `pyiron_base` workflow manager, each step of the workflow - called job - is executed in a separate working directory. 
