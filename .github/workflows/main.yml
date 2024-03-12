@@ -301,3 +301,35 @@ jobs:
       with:
         name: paper
         path: exemplary_workflow/gwl/paper.pdf
+
+  run-pyiron:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout-repository
+        uses: actions/checkout@v2
+
+      - name: install-basic-deps
+        uses: ./.github/actions/install-basic-deps
+
+      - name: setup-conda-environment
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-version: latest
+          activate-environment: exemplary_workflow
+          channels: conda-forge
+          channel-priority: strict
+
+      - name: run-workflow
+        shell: bash -l {0}
+        run: |
+          conda install pyiron_base=0.7.11
+          cd $GITHUB_WORKSPACE/exemplary_workflow/pyiron
+          python workflow.py
+      - name: upload-paper-artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: paper
+          path: ./exemplary_workflow/pyiron/workflow/tectonic_hdf5/tectonic/paper.pdf
+          retention-days: 1
+          if-no-files-found: error
