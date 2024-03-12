@@ -28,7 +28,7 @@ gmsh = pr.wrap_executable(
     write_input_funct=write_input,
     input_dict={"domain_size": 2.0},
     conda_environment_path=pr.conda_environment.preprocessing,
-    input_file_lst=["source/unit_square.geo"],
+    input_file_lst=["../source/unit_square.geo"],
     execute_job=True,
 )
 
@@ -53,7 +53,7 @@ poisson = pr.wrap_executable(
     executable_str="python poisson.py --mesh square.xdmf --degree 2 --outputfile poisson.pvd --num-dofs numdofs.txt",
     collect_output_funct=collect_output,
     conda_environment_path=pr.conda_environment.processing,
-    input_file_lst=["source/poisson.py", meshio.files.square_xdmf, meshio.files.square_h5],
+    input_file_lst=["../source/poisson.py", meshio.files.square_xdmf, meshio.files.square_h5],
     execute_job=True,
 )
 
@@ -64,7 +64,7 @@ pvbatch = pr.wrap_executable(
     job_name="pvbatch",
     executable_str="pvbatch postprocessing.py poisson.pvd plotoverline.csv",
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["source/postprocessing.py", poisson.files.poisson_pvd, poisson.files.poisson000000_vtu],
+    input_file_lst=["../source/postprocessing.py", poisson.files.poisson_pvd, poisson.files.poisson000000_vtu],
     execute_job=True,
 )
 
@@ -81,7 +81,7 @@ macros = pr.wrap_executable(
     write_input_funct=write_input,
     input_dict={"domain_size": 2.0, "numdofs": 100},
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["source/macros.tex.template", "source/prepare_paper_macros.py", pvbatch.files.plotoverline_csv],
+    input_file_lst=["../source/macros.tex.template", "../source/prepare_paper_macros.py", pvbatch.files.plotoverline_csv],
     execute_job=True,
 )
 
@@ -90,8 +90,6 @@ tectonic = pr.wrap_executable(
     job_name="tectonic",
     executable_str="tectonic paper.tex",
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["source/paper.tex", macros.files.macros_tex, pvbatch.files.plotoverline_csv],
+    input_file_lst=["../source/paper.tex", macros.files.macros_tex, pvbatch.files.plotoverline_csv],
     execute_job=True,
 )
-
-
