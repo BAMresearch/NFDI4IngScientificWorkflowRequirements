@@ -38,14 +38,9 @@ meshio = pr.wrap_executable(
 
 # Processing
 ## poisson
-def collect_output_poisson(working_directory):
-    with open(os.path.join(working_directory, "numdofs.txt"), "r") as f:
-        return {"numdofs": int(f.read())}
-
 poisson = pr.wrap_executable(
     job_name="poisson",
     executable_str="python poisson.py --mesh square.xdmf --degree 2 --outputfile poisson.pvd --num-dofs numdofs.txt",
-    collect_output_funct=collect_output_poisson,
     conda_environment_path=pr.conda_environment.processing,
     input_file_lst=["../source/poisson.py", meshio.files.square_xdmf, meshio.files.square_h5],
     execute_job=True,
@@ -65,7 +60,7 @@ pvbatch = pr.wrap_executable(
 ## substitute macros
 macros = pr.wrap_executable(
     job_name="macros",
-    executable_str=f"python prepare_paper_macros.py --macro-template-file macros.tex.template --plot-data-path plotoverline.csv --domain-size {domain_size} --num-dofs {poisson.output['numdofs']} --output-macro-file macros.tex",
+    executable_str=f"python prepare_paper_macros.py --macro-template-file macros.tex.template --plot-data-path plotoverline.csv --domain-size {domain_size} --num-dofs {int(poisson.output['stdout'].split()[-1])} --output-macro-file macros.tex",
     conda_environment_path=pr.conda_environment.postprocessing,
     input_file_lst=["../source/macros.tex.template", "../source/prepare_paper_macros.py", pvbatch.files.plotoverline_csv],
     execute_job=True,
