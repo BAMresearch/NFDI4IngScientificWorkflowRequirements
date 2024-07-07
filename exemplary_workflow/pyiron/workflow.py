@@ -13,7 +13,7 @@ for k, v in {
     "processing": "../source/envs/processing.yaml",
     "postprocessing": "../source/envs/postprocessing.yaml"
 }.items():
-    pr.conda_environment.create(env_name=k, env_file=v, use_mamba=True, global_installation=False)
+    pr.conda_environment.create(env_name=k, env_file=v, global_installation=False)
 
 
 # Preprocessing
