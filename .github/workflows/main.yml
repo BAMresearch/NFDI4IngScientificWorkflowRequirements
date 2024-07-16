@@ -294,13 +294,13 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install conda_subprocess=0.0.1 pyiron_base=0.8.0
+          conda install conda_subprocess=0.0.4 pyiron_base=0.9.7
           cd $GITHUB_WORKSPACE/exemplary_workflow/pyiron
           python workflow.py
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./exemplary_workflow/pyiron/workflow/tectonic_hdf5/tectonic/paper.pdf
+          path: ./exemplary_workflow/pyiron/paper.pdf
           retention-days: 1
           if-no-files-found: error
