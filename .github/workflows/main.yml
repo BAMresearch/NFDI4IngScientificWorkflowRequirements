@@ -294,7 +294,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install conda_subprocess=0.0.4 pyiron_base=0.9.6
+          conda install conda_subprocess=0.0.4 pyiron_base=0.9.7
           cd $GITHUB_WORKSPACE/exemplary_workflow/pyiron
           python workflow.py
       - name: upload-paper-artifact
