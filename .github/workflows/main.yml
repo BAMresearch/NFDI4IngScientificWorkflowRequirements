@@ -301,6 +301,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: paper
-          path: ./exemplary_workflow/pyiron/workflow/tectonic_hdf5/tectonic/paper.pdf
+          path: ./exemplary_workflow/pyiron/paper.pdf
           retention-days: 1
           if-no-files-found: error
