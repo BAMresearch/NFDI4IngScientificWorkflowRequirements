@@ -7,7 +7,7 @@ The recommended way of installing `pyiron_base` is via conda, because it also en
 
 You can then install `pyiron_base` with
 ```sh
-mamba create -c conda-forge -n pyiron_base pyiron_base=0.9.6 conda_subprocess=0.0.4
+mamba create -c conda-forge -n pyiron_base pyiron_base=0.9.7 conda_subprocess=0.0.4
 ```
 
 ## Running the exemplary workflow
