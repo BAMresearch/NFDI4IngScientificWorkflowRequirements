@@ -1,4 +1,5 @@
 import os
+import shutil
 from pyiron_base import Project
 
 # input parameter 
@@ -86,7 +87,9 @@ tectonic = pr.wrap_executable(
     conda_environment_path=pr.conda_environment.postprocessing,
     input_file_lst=["../source/paper.tex", macros.files.macros_tex, pvbatch.files.plotoverline_csv],
     delayed=True,
+    output_file_lst=["paper.pdf"],
 )
 
-# Execute Workflow Graph
+# Execute Workflow Graph and copy output
 tectonic.pull()
+shutil.copyfile(str(tectonic.files.paper_pdf), "paper.pdf")
