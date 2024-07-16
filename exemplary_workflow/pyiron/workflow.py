@@ -91,5 +91,5 @@ tectonic = pr.wrap_executable(
 )
 
 # Execute Workflow Graph and copy output
-tectonic.pull()
-shutil.copyfile(str(tectonic.files.paper_pdf), "paper.pdf")
+result = tectonic.pull()
+shutil.copyfile(str(result.files.paper_pdf), "paper.pdf")
