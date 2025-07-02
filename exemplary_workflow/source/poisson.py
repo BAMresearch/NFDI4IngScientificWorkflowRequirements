@@ -3,16 +3,24 @@ solution of the poisson equation on the unit square
 """
 
 from argparse import ArgumentParser
-import dolfin as df
+import numpy as np
+import dolfinx
+import dolfinx.io
+import dolfinx.fem as fem
+from dolfinx.fem.petsc import LinearProblem as LinearProblem
+import dolfinx.mesh as mesh
+import ufl
+from mpi4py import MPI
+from petsc4py import PETSc
 
 
 def boundary_expression():
     """Defines the function to be used for the boundary conditions"""
-    return "1.0 + x[0] * x[0] + 2.0 * x[1] * x[1]"
+    return lambda x: 1.0 + x[0] ** 2 + 2.0 * x[1] ** 2
 
 
 def solve_poisson(
-    meshfile: str, degree: int, bc_expression: str = boundary_expression()
+    meshfile: str, degree: int, bc_expression=boundary_expression()
 ):
     """solves the poisson equation
 
@@ -25,31 +33,38 @@ def solve_poisson(
 
     Returns
     -------
-    solution : df.Function
+    solution : dolfinx.fem.Function
     """
-    mesh = df.Mesh()
-    with df.XDMFFile(meshfile) as instream:
-        instream.read(mesh)
-    func_space = df.FunctionSpace(mesh, "CG", degree)
-    boundary_data = df.Expression(bc_expression, degree=2)
+    with dolfinx.io.XDMFFile(MPI.COMM_WORLD, meshfile, "r") as xdmf:
+        mesh = xdmf.read_mesh(name="Grid")
+    V = fem.functionspace(mesh, ("CG", degree))
 
-    def boundary(_, on_boundary):
-        return on_boundary
+    # Boundary condition
+    u_bc = fem.Function(V)
+    u_bc.interpolate(bc_expression)
 
-    boundary_conditions = df.DirichletBC(func_space, boundary_data, boundary)
-    trial_function = df.TrialFunction(func_space)
-    test_function = df.TestFunction(func_space)
-    source = df.Constant(-6.0)
-    lhs = df.dot(df.grad(trial_function), df.grad(test_function)) * df.dx
-    rhs = source * test_function * df.dx
+    def boundary(x):
+        return np.full(x.shape[1], True, dtype=bool)
 
-    solution = df.Function(func_space)
-    df.solve(lhs == rhs, solution, boundary_conditions)
-    return solution
+    facets = dolfinx.mesh.locate_entities_boundary(mesh, mesh.topology.dim - 1, boundary)
+    bc = fem.dirichletbc(u_bc, fem.locate_dofs_topological(V, mesh.topology.dim - 1, facets))
+
+    # Variational problem
+    u = ufl.TrialFunction(V)
+    v = ufl.TestFunction(V)
+    f = fem.Constant(mesh, PETSc.ScalarType(-6.0))
+    a = ufl.dot(ufl.grad(u), ufl.grad(v)) * ufl.dx
+    L = f * v * ufl.dx
+
+    # Solve
+    uh = fem.Function(V)
+    problem = LinearProblem(a, L, bcs=[bc], u=uh, petsc_options={"ksp_type": "cg", "pc_type": "hypre"})
+    uh = problem.solve()
+    return uh
 
 
 def solve_and_write_output(
-    mesh: str, degree: int, outputfile: str, numdofs=None, return_dofs=False
+    meshfile: str, degree: int, outputfile: str, numdofs=None, return_dofs=False
 ):
     """solves the poisson equation and writes the solution
     and the number of degrees of freedom to the given file
@@ -67,15 +82,53 @@ def solve_and_write_output(
     return_dofs : optional, bool
         If True, return number of degrees of freedom.
     """
-    discrete_solution = solve_poisson(mesh, degree)
-    discrete_solution.rename("u", discrete_solution.name())
-    resultFile = df.File(outputfile)
-    resultFile << discrete_solution
-
-    dofs = discrete_solution.function_space().dim()
+    uh = solve_poisson(meshfile, degree)
+    V = uh.function_space
+    dofs = V.dofmap.index_map.size_global * V.dofmap.index_map_bs
     print(f"Number of dofs used: {dofs}")
 
-    if numdofs is not None:
+    # Set the solution field name to "u"
+    uh.name = "u"
+
+    # write XDMF using dolfinx native writer for compatibility
+    xdmf_filename = outputfile.replace('.vtu', '.xdmf').replace('.vtk', '.xdmf')
+    if not xdmf_filename.endswith('.xdmf'):
+        xdmf_filename = outputfile + '.xdmf'
+    
+    # write VTK for visualization and postprocessing
+    vtk_filename = outputfile.replace('.xdmf', '.vtu').replace('.vtk', '.vtu')
+    if not vtk_filename.endswith('.vtu'):
+        vtk_filename = outputfile + '.vtu'
+    
+    # Get mesh geometry degree (fallback to 1 if not found)
+    mesh_degree = getattr(V.mesh.geometry, "degree", 1)
+    
+    with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
+        xdmf.write_mesh(V.mesh)
+        
+        if mesh_degree != degree:
+            # Interpolate uh to a function space matching the mesh degree
+            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
+            uh1 = fem.Function(V1)
+            uh1.interpolate(uh)
+            uh1.name = "u"
+            xdmf.write_function(uh1)
+        else:
+            xdmf.write_function(uh)
+
+    # Write VTK output
+    with dolfinx.io.VTKFile(MPI.COMM_WORLD, vtk_filename, "w") as vtk:
+        if mesh_degree != degree:
+            # Interpolate uh to a function space matching the mesh degree
+            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
+            uh1 = fem.Function(V1)
+            uh1.interpolate(uh)
+            uh1.name = "u"
+            vtk.write_function(uh1)
+        else:
+            vtk.write_function(uh)
+
+    if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
             handle.write("{}\n".format(dofs))
     if return_dofs:

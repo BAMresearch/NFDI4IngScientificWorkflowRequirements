@@ -1,81 +1,138 @@
 #!/usr/bin/env nextflow
 
-params.domainSize = 1.0
+nextflow.enable.dsl=2
 
-// for now simply add dependent files as Channels
-geofile = Channel.fromPath("$PWD/../source/unit_square.geo")
-fenics_code = Channel.fromPath("$PWD/../source/poisson.py")
-paraview_script = Channel.fromPath("$PWD/../source/postprocessing.py")
-macro_template = Channel.fromPath("$PWD/../source/macros.tex.template")
-prepare_macros = Channel.fromPath("$PWD/../source/prepare_paper_macros.py")
-paper_source = Channel.fromPath("$PWD/../source/paper.tex")
+workflow {
+    params.domainSize = 1.0
 
+    Channel
+        .fromPath("$PWD/../source/unit_square.geo")
+        .set { geofile }
+
+    Channel
+        .fromPath("$PWD/../source/poisson.py")
+        .set { fenics_code }
+
+    Channel
+        .fromPath("$PWD/../source/postprocessing.py")
+        .set { postprocessing_script }
+
+    Channel
+        .fromPath("$PWD/../source/macros.tex.template")
+        .set { macro_template }
+
+    Channel
+        .fromPath("$PWD/../source/prepare_paper_macros.py")
+        .set { prepare_macros }
+
+    Channel
+        .fromPath("$PWD/../source/paper.tex")
+        .set { paper_source }
+
+    // Generate mesh and convert
+    generateMesh(geofile)
+
+    convertToXDMF(generateMesh.out.mesh)
+
+    solvePoisson(
+        fenics_code, 
+        convertToXDMF.out.mesh_xdmf,
+        convertToXDMF.out.mesh_h5        )
+
+
+    // Extract number of dofs from stdout
+    readNumberOfDofs(
+        solvePoisson.out.poisson_stdout)
+
+    // Plot over line
+    makePlotOverLine(
+        postprocessing_script, 
+        solvePoisson.out.poisson_xdmf,
+        solvePoisson.out.poisson_h5,
+        solvePoisson.out.poisson_vtu,
+        solvePoisson.out.poisson_vtu0)
+
+    // Substitute macros
+    substituteMacros(
+        makePlotOverLine.out.plot_over_line,
+        readNumberOfDofs.out.number_of_dofs,
+        macro_template,
+        prepare_macros)
+
+    // Compile paper
+    compilePaper(
+        substituteMacros.out.macros,
+        makePlotOverLine.out.plot_over_line,
+        paper_source)
+}
 
 process generateMesh {
-    // generate mesh using Gmsh
-
-    // use conda directive to specify environment file
-    conda "../source/envs/preprocessing.yaml"
+    conda '../source/envs/full_default_env.yaml'
 
     input:
-    file geofile
+    path geofile
 
     output:
-    file "unit_square.msh" into mesh_msh
+    path "unit_square.msh", emit: mesh
 
+    script:
     """
     gmsh -2 -setnumber domain_size ${params.domainSize} $geofile -o unit_square.msh
     """
 }
 
-
 process convertToXDMF {
-    // convert .msh file to .xdmf
-
-    conda "../source/envs/preprocessing.yaml"
+    conda '../source/envs/full_default_env.yaml'
 
     input:
-    file mesh from mesh_msh
+    path mesh
 
     output:
-    file "unit_square.h5" into mesh_h5
-    file "unit_square.xdmf" into mesh_xdmf
+    path "unit_square.h5", emit: mesh_h5
+    path "unit_square.xdmf", emit: mesh_xdmf
 
+    script:
     """
     meshio convert $mesh unit_square.xdmf
     """
 }
 
-
 process solvePoisson {
-    // solve poisson equation using fenics
+
+    publishDir "./results", mode: "copy"
 
     conda "../source/envs/processing.yaml"
 
-    // multiple inputs from different channels
     input:
-    file fenics_code
-    file meshdata from mesh_h5
-    file mesh from mesh_xdmf
+    path fenics_code
+    path mesh_xdmf
+    path mesh_h5
 
     output:
-    file "poisson.pvd" into poisson_pvd
-    file "poisson*.vtu" into poisson_vtu
-    stdout poisson_stdout
+    path "poisson.xdmf", emit: poisson_xdmf
+    path "poisson.h5", emit: poisson_h5
+    path "poisson.vtu", emit: poisson_vtu
+    path "poisson_p0_000000.vtu", emit: poisson_vtu0
 
+    stdout emit: poisson_stdout
+
+    script:
     """
-    python $fenics_code --mesh $mesh --degree 2 --outputfile poisson.pvd
+    python $fenics_code --mesh $mesh_xdmf --degree 2 --outputfile poisson.xdmf
     """
 }
 
 
 process readNumberOfDofs {
+    conda '../source/envs/full_default_env.yaml'
+
     input:
-    val x from poisson_stdout
+    val x
 
     output:
-    stdout number_of_dofs
+    stdout emit: number_of_dofs
 
+    script:
     """
     #!/usr/bin/python3
     s = '''${x.replaceAll("\\n", "&")}'''
@@ -85,39 +142,42 @@ process readNumberOfDofs {
     """
 }
 
-
 process makePlotOverLine {
+
+    publishDir "./results", mode: "copy"
 
     conda "../source/envs/postprocessing.yaml"
 
     input:
-    file paraview_script
-    file vtu from poisson_vtu
-    file pvd from poisson_pvd
+    path postprocessing_script
+    path xdmf
+    path h5
+    path vtu
+    path vtu0
 
-    output: 
-    file "plotoverline.csv" into (plot_over_line, plotOverLine)
+    output:
+    path "plotoverline.csv", emit: plot_over_line
 
+    script:
     """
-    pvbatch $paraview_script $pvd plotoverline.csv
+    echo "Python executable: \$(which python)"
+    echo "Conda env: \$CONDA_PREFIX"
+    python $postprocessing_script $vtu0 plotoverline.csv
     """
 }
 
-
 process substituteMacros {
-    // place the correct value into the paper macros
-
-    conda "../source/envs/postprocessing.yaml"
 
     input:
-    file prepare_macros
-    file macro_template
-    file plotOverLine
+    path plotOverLine
     val number_of_dofs
+    path macro_template
+    path prepare_macros
 
     output:
-    file "macros.tex" into macros
+    path "macros.tex", emit: macros
 
+    script:
     """
     python $prepare_macros --macro-template-file $macro_template \
         --plot-data-path $plotOverLine \
@@ -127,20 +187,19 @@ process substituteMacros {
     """
 }
 
-
 process compilePaper {
 
-    conda "../source/envs/postprocessing.yaml"
-    publishDir "$PWD"
+    publishDir "./results", mode: "copy"
 
     input:
-    file paper_source
-    file plot_over_line
-    file macros
+    path macros
+    path plot_over_line
+    path paper_source
 
     output:
-    file "paper.pdf" 
+    path "paper.pdf"
 
+    script:
     """
     tectonic $paper_source
     """
