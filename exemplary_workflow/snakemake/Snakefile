@@ -38,7 +38,10 @@ rule poisson:
         py="../source/poisson.py",
         xdmf=rules.convert_to_xdmf.output,
     output:
-        pvd="processing/poisson.pvd",
+        poisson_xdmf="processing/poisson.xdmf",
+        poisson_h5="processing/poisson.h5",
+        poisson_vtu="processing/poisson.vtu",
+        poisson_vtu0="processing/poisson.xdmf",
         txt="processing/numdofs.txt",
     conda:
         "../source/envs/processing.yaml"
@@ -51,7 +54,10 @@ rule poisson:
 rule plot_over_line:
     input:
         py="../source/postprocessing.py",
-        pvd=rules.poisson.output.pvd,
+        xdmf=rules.poisson.output.xdmf,
+        h5=rules.poisson.output.h5,
+        vtu=rules.poisson.output.vtu,
+        vtu0=rules.poisson.output.vtu0,
     output:
         "postprocessing/plotoverline.csv",
     conda:
@@ -59,7 +65,7 @@ rule plot_over_line:
     log:
         "logs/paraview.log",
     shell:
-        "pvbatch {input.py} {input.pvd} {output} > {log} 2>&1"
+        "python {input.py} {input.vtu0} {output} > {log} 2>&1"
 
 
 rule substitute_macros:

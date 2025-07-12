@@ -41,7 +41,7 @@ jobs:
         with:
           name: paper_pydoit
           path: ./exemplary_workflow/pydoit/paper.pdf
-          retention-days: 1
+          retention-days: 7
           if-no-files-found: error
 
   run-cwl:
@@ -73,7 +73,7 @@ jobs:
         with:
           name: paper_cwl
           path: ./exemplary_workflow/cwl/paper.pdf
-          retention-days: 90
+          retention-days: 7
           if-no-files-found: error
 
   run-nextflow:
@@ -103,7 +103,7 @@ jobs:
         with:
           name: paper_nextflow
           path: ./exemplary_workflow/nextflow/results/paper.pdf
-          retention-days: 90
+          retention-days: 7
           if-no-files-found: error
 
 
@@ -112,31 +112,30 @@ jobs:
 
     steps:
       - name: checkout-repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: install-basic-deps
         uses: ./.github/actions/install-basic-deps
 
       - name: setup-conda-environment
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-version: latest
-          activate-environment: default_env
-          channels: conda-forge,bioconda
-          channel-priority: strict
+          python-version: "3.12"          
+          auto-update-conda: true
+          conda-remove-defaults: true
 
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install snakemake
+          conda install --override-channels -c conda-forge snakemake
           cd $GITHUB_WORKSPACE/exemplary_workflow/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper
+          name: paper_snakemake
           path: ./exemplary_workflow/snakemake/paper.pdf
-          retention-days: 1
+          retention-days: 7
           if-no-files-found: error
 
   run-kadistudio:
