@@ -27,9 +27,8 @@ jobs:
         with:
           auto-update-conda: true
           conda-remove-defaults: true
-          use-mamba: true
-          environment-file: exemplary_workflow/source/envs/env2.yaml
-          activate-environment: env2
+          environment-file: exemplary_workflow/source/envs/env_all_tasks.yaml
+          activate-environment: env_all_tasks
 
       - name: run-workflow
         shell: bash -l {0}
@@ -102,7 +101,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: paper
-          path: ./exemplary_workflow/nextflow/paper.pdf
+          path: ./exemplary_workflow/nextflow/results/paper.pdf
           retention-days: 1
           if-no-files-found: error
 

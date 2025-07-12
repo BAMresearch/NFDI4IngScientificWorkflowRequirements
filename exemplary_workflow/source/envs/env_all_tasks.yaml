@@ -1,4 +1,4 @@
-name: env2
+name: env_all_tasks
 channels:
   - conda-forge
   - bioconda
