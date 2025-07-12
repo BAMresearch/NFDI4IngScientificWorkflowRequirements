@@ -39,7 +39,7 @@ jobs:
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper
+          name: paper_pydoit
           path: ./exemplary_workflow/pydoit/paper.pdf
           retention-days: 1
           if-no-files-found: error
@@ -100,9 +100,9 @@ jobs:
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper
+          name: paper_nextflow
           path: ./exemplary_workflow/nextflow/results/paper.pdf
-          retention-days: 365
+          retention-days: 90
           if-no-files-found: error
 
 
