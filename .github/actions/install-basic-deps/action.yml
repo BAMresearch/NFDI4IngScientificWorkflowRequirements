@@ -2,5 +2,5 @@ name: install-basic-deps
 runs:
   using: "composite"
   steps:
-    - run: sudo apt-get update && sudo apt-get install --no-install-recommends --yes libgomp1 libgl1-mesa-glx libglu1-mesa libegl1-mesa
+    - run: sudo apt-get update && sudo apt-get install --no-install-recommends --yes libgomp1 libgl1 libglu1-mesa libegl1
       shell: bash
