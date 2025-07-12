@@ -127,7 +127,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --override-channels -c conda-forge snakemake
+          conda install --override-channels -c bioconda -c conda-forge snakemake
           cd $GITHUB_WORKSPACE/exemplary_workflow/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
       - name: upload-paper-artifact
