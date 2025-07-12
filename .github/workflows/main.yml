@@ -25,7 +25,7 @@ jobs:
         with:
           environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
 
       - name: run-workflow
         shell: bash -l {0}
@@ -56,7 +56,7 @@ jobs:
         with:
           environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
 
       - name: run-workflow
         shell: bash -l {0}
@@ -86,7 +86,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
 
       - name: run-workflow
         shell: bash -l {0}
@@ -117,7 +117,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
           channels: conda-forge,bioconda
           channel-priority: strict
 
@@ -150,7 +150,7 @@ jobs:
         with:
           environment-file: exemplary_workflow/source/envs/default_env.yaml
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
 
       - name: run-workflow
         shell: bash -l -i {0}
@@ -210,7 +210,7 @@ jobs:
       with:
         environment-file: exemplary_workflow/source/envs/default_env.yaml
         miniforge-version: latest
-        activate-environment: exemplary_workflow
+        activate-environment: default_env
 
     - name: install-aiida-shell
       # the shell directive is necessary to properly activate the shell
@@ -287,7 +287,7 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           miniforge-version: latest
-          activate-environment: exemplary_workflow
+          activate-environment: default_env
           channels: conda-forge
           channel-priority: strict
 
