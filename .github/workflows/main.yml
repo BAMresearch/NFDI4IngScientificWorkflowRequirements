@@ -80,21 +80,21 @@ jobs:
 
     steps:
       - name: checkout-repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: install-basic-deps
         uses: ./.github/actions/install-basic-deps
 
       - name: setup-conda-environment
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          miniforge-version: latest
-          activate-environment: default_env
-
+          python-version: 3.10          
+          auto-update-conda: true
+          conda-remove-defaults: true
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --channel bioconda nextflow=21.04.0
+          conda install --channel bioconda nextflow=25.04.6
           cd $GITHUB_WORKSPACE/exemplary_workflow/nextflow
           nextflow run exemplarywf.nf
       - name: upload-paper-artifact
