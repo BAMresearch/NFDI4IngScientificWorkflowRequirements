@@ -25,7 +25,9 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v3
         with:
-          auto-update: true
+          auto-update-conda: true
+          conda-remove-defaults: true
+          use-mamba: true
           environment-file: exemplary_workflow/source/envs/env2.yaml
           activate-environment: env2
 
