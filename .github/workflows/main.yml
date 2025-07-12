@@ -65,7 +65,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --override-channels -c conda-forge cwltool
+          conda install --override-channels -c conda-forge cwltool nodejs
           cd $GITHUB_WORKSPACE/exemplary_workflow/cwl
           cwltool wf_run_exemplary_wf.cwl
       - name: upload-paper-artifact

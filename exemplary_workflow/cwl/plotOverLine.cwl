@@ -4,25 +4,27 @@ class: CommandLineTool
 
 doc: Create plot-over-line data with paraview`s pvbatch
 
-baseCommand: [pvbatch]
+baseCommand: [python]
 
-arguments: [ $(inputs.script), $(inputs.pvdfile.path), plotoverline.csv ]
+arguments: [ $(inputs.script), $(inputs.vtu0_file.path), plotoverline.csv ]
 
 hints:
   SoftwareRequirement:
    packages:
-     paraview:
-       version: [ 5.9.1=hfc1cbd4_3_egl, 5.9.1 ]
+     vtk:
+       version: [ "9.3" ]
        specs:
-         - https://anaconda.org/conda-forge/paraview
-         - https://identifiers.org/rrid/RRID:SCR_002516
-         - https://bio.tools/paraview
+         - https://anaconda.org/conda-forge/vtk
+         - https://bio.tools/vtk
 
 requirements:
+  InlineJavascriptRequirement: {}
   InitialWorkDirRequirement:
       listing:
-        - $(inputs.vtkfile)
-        - $(inputs.pvdfile)
+        - $(inputs.xdmf_file)
+        - $(inputs.h5_file)
+        - $(inputs.vtu_file)
+        - $(inputs.vtu0_file)
 
 inputs:
   script:
@@ -30,9 +32,13 @@ inputs:
     default:
       class: File
       location: ../source/postprocessing.py
-  vtkfile:
+  xdmf_file:
     type: File
-  pvdfile:
+  h5_file:
+    type: File
+  vtu_file:
+    type: File
+  vtu0_file:
     type: File
 
 outputs:

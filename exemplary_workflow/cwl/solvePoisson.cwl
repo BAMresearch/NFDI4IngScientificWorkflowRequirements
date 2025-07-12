@@ -13,18 +13,18 @@ arguments:
  - --degree
  - "2"
  - --output
- - result.pvd
+ - poisson.xdmf
 
 stdout: output.txt
 
 hints:
   SoftwareRequirement:
    packages:
-     fenics:
-       version: [ 2019.1.0=py39hf3d152e_26, 2019.1.0 ]
+     fenics-dolfinx:
+       version: [ 0.9.* ]
        specs:
-         - https://anaconda.org/conda-forge/fenics
-         - https://bio.tools/fenics
+         - https://anaconda.org/conda-forge/fenics-dolfinx
+         - https://bio.tools/fenics-dolfinx
 
 requirements:
   InlineJavascriptRequirement: {}
@@ -45,14 +45,22 @@ inputs:
     type: File
 
 outputs:
-  resultvtu:
+  poisson_xdmf:
     type: File
     outputBinding:
-      glob: result000000.vtu
-  resultpvd:
+      glob: poisson.xdmf  
+  poisson_h5:
     type: File
     outputBinding:
-      glob: result.pvd
+      glob: poisson.h5  
+  poisson_vtu:
+    type: File
+    outputBinding:
+      glob: poisson.vtu  
+  poisson_vtu0:
+    type: File
+    outputBinding:
+      glob: poisson_p0_000000.vtu
   num_dofs:
     type: float
     outputBinding:

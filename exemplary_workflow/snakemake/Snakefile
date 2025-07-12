@@ -41,7 +41,7 @@ rule poisson:
         poisson_xdmf="processing/poisson.xdmf",
         poisson_h5="processing/poisson.h5",
         poisson_vtu="processing/poisson.vtu",
-        poisson_vtu0="processing/poisson.xdmf",
+        poisson_vtu0="processing/poisson_p0_000000.vtu",
         txt="processing/numdofs.txt",
     conda:
         "../source/envs/processing.yaml"

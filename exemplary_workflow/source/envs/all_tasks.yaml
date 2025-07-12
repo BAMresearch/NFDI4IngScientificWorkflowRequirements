@@ -15,3 +15,4 @@ dependencies:
   - doit
   - snakemake
   - cwltool
+  - nodejs

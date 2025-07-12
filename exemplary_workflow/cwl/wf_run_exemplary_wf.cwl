@@ -15,9 +15,9 @@ outputs:
   macros:
     type: File
     outputSource: prepare_paper_macros/macros_file
-  resultvtu:
+  resultvtu0:
     type: File
-    outputSource: run_simulation/resultvtu
+    outputSource: solvePoisson/poisson_vtu0
 
 inputs:
   domain_size:
@@ -37,24 +37,26 @@ steps:
       inputmesh: make_mesh/mesh
     out: [outputmesh, outputmeshdata]
 
-  run_simulation:
-    run: run_dolfin.cwl
+  solvePoisson:
+    run: solvePoisson.cwl
     in:
       xdmfmeshfile: convert_mesh/outputmesh
       h5meshfile: convert_mesh/outputmeshdata
-    out: [resultvtu, resultpvd, num_dofs]
+    out: [poisson_xdmf, poisson_h5, poisson_vtu, poisson_vtu0, num_dofs]
 
   plot_over_line:
-    run: make_paraview_plot.cwl
+    run: plotOverLine.cwl
     in:
-      vtkfile: run_simulation/resultvtu
-      pvdfile: run_simulation/resultpvd
+      xdmf_file: solvePoisson/poisson_xdmf
+      h5_file: solvePoisson/poisson_h5
+      vtu_file: solvePoisson/poisson_vtu
+      vtu0_file: solvePoisson/poisson_vtu0
     out: [resultcsv]
 
   prepare_paper_macros:
     run: prepare_paper_macros.cwl
     in:
-      num_dofs: run_simulation/num_dofs
+      num_dofs: solvePoisson/num_dofs
       domain_size: domain_size
       plot_data_file: plot_over_line/resultcsv
     out: [macros_file]
