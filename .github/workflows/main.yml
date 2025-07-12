@@ -17,16 +17,16 @@ jobs:
 
     steps:
       - name: checkout-repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: install-basic-deps
         uses: ./.github/actions/install-basic-deps
 
       - name: setup-conda-environment
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
+          auto-update: true
           environment-file: exemplary_workflow/source/envs/default_env2.yaml
-          miniforge-version: latest
           activate-environment: default_env2
 
       - name: run-workflow
