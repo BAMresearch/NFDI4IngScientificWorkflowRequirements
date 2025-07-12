@@ -25,9 +25,9 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v2
         with:
-          environment-file: exemplary_workflow/source/envs/default_env.yaml
+          environment-file: exemplary_workflow/source/envs/default_env2.yaml
           miniforge-version: latest
-          activate-environment: default_env
+          activate-environment: default_env2
 
       - name: run-workflow
         shell: bash -l {0}
