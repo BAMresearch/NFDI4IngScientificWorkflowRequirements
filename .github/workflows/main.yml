@@ -94,7 +94,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --channel bioconda nextflow=25.04.6
+          conda install -c bioconda -c conda-forge nextflow=25.04.6
           cd $GITHUB_WORKSPACE/exemplary_workflow/nextflow
           nextflow run exemplarywf.nf
       - name: upload-paper-artifact
