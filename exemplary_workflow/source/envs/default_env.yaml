@@ -3,10 +3,13 @@ channels:
   - bioconda
 dependencies:
   - python=3.12
-  - fenics-dolfinx
+  - fenics-dolfinx=0.9.*
   - gmsh
   - meshio
   - tectonic
+  - vtk=9.3
   - nextflow
-  - pyvista
-
+  - doit
+  - snakemake
+  - cwltool
+ 
