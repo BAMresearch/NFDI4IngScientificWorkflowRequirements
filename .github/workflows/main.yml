@@ -2,7 +2,9 @@ name: run-exemplary-workflow
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
+      - 86-update-nextflow-to-dsl2-update-legacy-fenics 
   pull_request:
     branches: [ main ]
 

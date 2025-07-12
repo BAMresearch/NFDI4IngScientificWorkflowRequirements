@@ -188,6 +188,7 @@ process substituteMacros {
 }
 
 process compilePaper {
+    conda "../source/envs/postprocessing.yaml"
 
     publishDir "./results", mode: "copy"
 
