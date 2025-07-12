@@ -26,8 +26,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update: true
-          environment-file: exemplary_workflow/source/envs/default_env2.yaml
-          activate-environment: default_env2
+          environment-file: exemplary_workflow/source/envs/env2.yaml
+          activate-environment: env2
 
       - name: run-workflow
         shell: bash -l {0}
