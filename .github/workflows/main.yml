@@ -33,7 +33,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --channel conda-forge doit=0.36.0
+          conda install --override-channels -c conda-forge doit=0.36.0
           cd $GITHUB_WORKSPACE/exemplary_workflow/pydoit
           doit
       - name: upload-paper-artifact
@@ -94,7 +94,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install -c bioconda -c conda-forge nextflow=25.04.6
+          conda install --override-channels -c bioconda -c conda-forge nextflow=25.04.6
           cd $GITHUB_WORKSPACE/exemplary_workflow/nextflow
           nextflow run exemplarywf.nf
       - name: upload-paper-artifact
@@ -102,7 +102,7 @@ jobs:
         with:
           name: paper
           path: ./exemplary_workflow/nextflow/results/paper.pdf
-          retention-days: 1
+          retention-days: 365
           if-no-files-found: error
 
 
