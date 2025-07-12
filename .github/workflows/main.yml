@@ -27,8 +27,8 @@ jobs:
         with:
           auto-update-conda: true
           conda-remove-defaults: true
-          environment-file: exemplary_workflow/source/envs/env_all_tasks.yaml
-          activate-environment: env_all_tasks
+          environment-file: exemplary_workflow/source/envs/all_tasks.yaml
+          activate-environment: all_tasks
 
       - name: run-workflow
         shell: bash -l {0}
