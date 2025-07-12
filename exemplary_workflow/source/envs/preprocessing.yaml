@@ -1,7 +1,7 @@
-name: preprocessing_env
+name: preprocessing
 channels:
   - conda-forge
-  - defaults
+channel_priority: strict
 dependencies:
   - python=3.12
   - gmsh

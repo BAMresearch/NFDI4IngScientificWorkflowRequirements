@@ -1,6 +1,11 @@
-name: postprocessing_env
+name: postprocessing
+
 channels:
   - conda-forge
+  - bioconda
+
+channel_priority: strict
+
 dependencies:
  - python=3.12
  - vtk=9.3
