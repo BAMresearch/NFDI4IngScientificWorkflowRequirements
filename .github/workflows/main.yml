@@ -30,11 +30,11 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --channel conda-forge doit=0.33.1
+          conda install --channel conda-forge doit=0.36.0
           cd $GITHUB_WORKSPACE/exemplary_workflow/pydoit
           doit
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/pydoit/paper.pdf
@@ -65,7 +65,7 @@ jobs:
           cd $GITHUB_WORKSPACE/exemplary_workflow/cwl
           cwltool wf_run_exemplary_wf.cwl
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/cwl/paper.pdf
@@ -95,7 +95,7 @@ jobs:
           cd $GITHUB_WORKSPACE/exemplary_workflow/nextflow
           nextflow run exemplarywf.nf
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/nextflow/paper.pdf
@@ -128,7 +128,7 @@ jobs:
           cd $GITHUB_WORKSPACE/exemplary_workflow/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/snakemake/paper.pdf
@@ -160,7 +160,7 @@ jobs:
           process_engine run $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/exemplary_workflow.flow -p $GITHUB_WORKSPACE/run
 
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/kadistudio/paper.pdf
@@ -231,7 +231,7 @@ jobs:
         ./exemplary_workflow.py
 
     - name: upload-paper-artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: paper
         path: ./exemplary_workflow/aiida/paper.pdf
@@ -268,7 +268,7 @@ jobs:
         guix workflow run workflow.w
 
     - name: upload-paper-artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: paper
         path: exemplary_workflow/gwl/paper.pdf
@@ -298,7 +298,7 @@ jobs:
           cd $GITHUB_WORKSPACE/exemplary_workflow/pyiron
           python workflow.py
       - name: upload-paper-artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: paper
           path: ./exemplary_workflow/pyiron/paper.pdf
