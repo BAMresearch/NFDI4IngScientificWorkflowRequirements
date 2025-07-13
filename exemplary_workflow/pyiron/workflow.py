@@ -44,7 +44,7 @@ def collect_output(working_directory):
         return {"numdofs": int(f.read())}
 
 poisson = pr.wrap_executable(
-    executable_str="python poisson.py --mesh square.xdmf --degree 2 --outputfile poisson.pvd --num-dofs numdofs.txt",
+    executable_str="python poisson.py --mesh square.xdmf --degree 2 --outputfile poisson.xdmf --num-dofs numdofs.txt",
     conda_environment_path=pr.conda_environment.processing,
     input_file_lst=["../source/poisson.py", meshio.files.square_xdmf, meshio.files.square_h5],
     delayed=True,
