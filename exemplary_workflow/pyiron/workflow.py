@@ -89,7 +89,7 @@ macros = pr.wrap_executable(
 tectonic = pr.wrap_executable(
     executable_str="tectonic paper.tex",
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["../source/paper.tex", macros.files.macros_tex, pvbatch.files.plotoverline_csv],
+    input_file_lst=["../source/paper.tex", macros.files.macros_tex, postprocessing.files.plotoverline_csv],
     delayed=True,
     output_file_lst=["paper.pdf"],
 )

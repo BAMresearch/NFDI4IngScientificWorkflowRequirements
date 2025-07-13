@@ -49,16 +49,22 @@ fenics_results, fenics_node = launch_shell_job(
     outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
+# Check fenics outputs before postprocessing
+required_keys = ["poisson_xdmf", "poisson_h5", "poisson_vtu", "poisson_p0_000000_vtu"]
+missing = [k for k in required_keys if fenics_results.get(k) is None]
+if missing:
+    raise RuntimeError(f"Missing fenics output(s): {', '.join(missing)}")
+
 # ### postprocessing of the fenics job
 postprocessing_results, postprocessing_node = launch_shell_job(
     "python",
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
     nodes={
         "script": "../source/postprocessing.py",
-        "xdmf_file": fenics_results.get("poisson_xdmf"),
-        "pvd_file": fenics_results.get("poisson_h5"),
-        "vtu_file": fenics_results.get("poisson_vtu"),
-        "vtu0_file": fenics_results.get("poisson_p0_000000_vtu")
+        "xdmf_file": fenics_results["poisson_xdmf"],
+        "pvd_file": fenics_results["poisson_h5"],
+        "vtu_file": fenics_results["poisson_vtu"],
+        "vtu0_file": fenics_results["poisson_p0_000000_vtu"]
     },
     filenames={"xdmf_file": "poisson.xdmf", 
                 "h5_file": "poisson.h5",

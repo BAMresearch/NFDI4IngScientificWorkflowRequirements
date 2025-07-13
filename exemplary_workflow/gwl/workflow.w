@@ -23,22 +23,22 @@ process convert-msh-to-xdmf (with inputmesh)
 
 process run-dolfin (with xdmfmeshfile h5meshfile)
   synopsis "Run the poisson solver in dolfin"
-  packages "python" "fenics" "pkg-config" "python-pkgconfig" "openmpi"
+  packages "python" "fenics-dolfinx" "pkg-config" "python-pkgconfig" "openmpi"
     . "openssh" "gcc-toolchain"
   inputs script: "source/poisson.py" xdmf: xdmfmeshfile h5: h5meshfile
-  outputs pvd: "result.pvd" vtu: "result000000.vtu" num-dof: "num-dof"
+  outputs xdmf: "poisson.xdmf" h5: "poisson.h5" vtu: "poisson.vtu" vtu0 : "poisson_p0_000000.vtu" num-dof: "num-dof"
   # {
     python3 {{inputs:script}} --mesh {{inputs:xdmf}} --degree 2 \
-            --output {{outputs:pvd}} --num-dofs {{outputs:num-dof}}
+            --output {{outputs:xdmf}} --num-dofs {{outputs:num-dof}}
   }
 
 
-process make-paraview-plot (with pvd vtu)
-  synopsis "Create plot-over-line data with paraview's pvbatch"
-  packages "paraview"
-  inputs script: "source/postprocessing.py" pvd: pvd vtu: vtu
+process postprocessing-plot (with vtu0)
+  synopsis "Create plot-over-line data with vtk"
+  packages "vtk"
+  inputs script: "source/postprocessing.py" vtu0 : vtu0
   outputs csv: "plotoverline.csv"
-  # { pvbatch {{inputs:script}} {{inputs:pvd}} {{outputs:csv}} }
+  # { python3 {{inputs:script}} {{inputs:vtu0}} {{outputs:csv}} }
 
 
 process prepare-paper-macros (with domain-size num_dofs plot_data_file)
