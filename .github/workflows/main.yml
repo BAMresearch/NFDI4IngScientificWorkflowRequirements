@@ -198,7 +198,7 @@ jobs:
 
     steps:
     - name: checkout-repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: install-basic-deps
       uses: ./.github/actions/install-basic-deps
@@ -209,7 +209,7 @@ jobs:
         sudo apt install postgresql graphviz
 
     - name: setup-conda-environment
-      uses: conda-incubator/setup-miniconda@v2
+      uses: conda-incubator/setup-miniconda@v3
       with:
         environment-file: exemplary_workflow/source/envs/default_env.yaml
         miniforge-version: latest
@@ -220,7 +220,7 @@ jobs:
       # see https://github.com/marketplace/actions/setup-miniconda
       shell: bash -l {0}
       run: |
-        pip install "aiida-core>=2.0,<2.1" "aiida-shell==0.2.0"
+        conda install --override-channels -c conda-forge aiida-core=2.7.0 aiida-shell=0.8.1
 
     - name: setup-aiida-profile
       shell: bash -l {0}

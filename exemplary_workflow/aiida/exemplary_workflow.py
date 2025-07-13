@@ -42,11 +42,11 @@ fenics_results, fenics_node = launch_shell_job(
     ],
     nodes={
         "script": "../source/poisson.py",
-        "mesh": meshio_results["mesh_xdmf"],
+        "mesh_xdmf": meshio_results["mesh_xdmf"],
         "mesh_h5": meshio_results["mesh_h5"],
     },
     filenames={"mesh": "mesh.xdmf", "mesh_h5": "mesh.h5"},
-    outputs=["poisson.pvd", "poisson000000.vtu"],
+    outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
 # ### postprocessing of the fenics job
@@ -55,10 +55,15 @@ paraview_results, paraview_node = launch_shell_job(
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
     nodes={
         "script": "../source/postprocessing.py",
-        "pvdfile": fenics_results["poisson_pvd"],
-        "vtufile": fenics_results["poisson000000_vtu"],
+        "xdmf_file": fenics_results["poisson_xdmf"],
+        "pvd_file": fenics_results["poisson_h5"],
+        "vtu_file": fenics_results["poisson_vtu"],
+        "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
     },
-    filenames={"pvdfile": "poisson.pvd", "vtufile": "poisson000000.vtu"},
+    filenames={"xdmf_file": "poisson.xdmf", 
+                "h5_file": "poisson.h5",
+                "vtufile": "poisson.vtu",
+                "vtu0_file": "poisson_p0_000000.vtu"},
     outputs=["plotoverline.csv"],
 )
 
