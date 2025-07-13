@@ -38,7 +38,7 @@ fenics_results, fenics_node = launch_shell_job(
         "--degree",
         "2",
         "--outputfile",
-        "poisson.pvd",
+        "poisson.xdmf",
     ],
     nodes={
         "script": "../source/poisson.py",
