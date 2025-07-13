@@ -34,7 +34,7 @@ fenics_results, fenics_node = launch_shell_job(
     arguments=[
         "{script}",
         "--mesh",
-        "{mesh}",
+        "{mesh_xdmf}",  # <-- change placeholder here
         "--degree",
         "2",
         "--outputfile",
@@ -42,10 +42,10 @@ fenics_results, fenics_node = launch_shell_job(
     ],
     nodes={
         "script": "../source/poisson.py",
-        "mesh_xdmf": meshio_results["mesh_xdmf"],
+        "mesh_xdmf": meshio_results["mesh_xdmf"],  # <-- ensure this key exists
         "mesh_h5": meshio_results["mesh_h5"],
     },
-    filenames={"mesh": "mesh.xdmf", "mesh_h5": "mesh.h5"},
+    filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  # <-- update key here
     outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
@@ -128,4 +128,5 @@ paper, paper_node = launch_shell_job(
 
 # ### extract final PDF from database
 with open("paper.pdf", "wb") as handle:
+    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
     handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
