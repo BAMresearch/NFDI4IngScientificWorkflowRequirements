@@ -50,15 +50,15 @@ fenics_results, fenics_node = launch_shell_job(
 )
 
 # ### postprocessing of the fenics job
-paraview_results, paraview_node = launch_shell_job(
-    "pvbatch",
+postprocessing_results, postprocessing_node = launch_shell_job(
+    "python",
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
     nodes={
         "script": "../source/postprocessing.py",
         "xdmf_file": fenics_results["poisson_xdmf"],
         "pvd_file": fenics_results["poisson_h5"],
         "vtu_file": fenics_results["poisson_vtu"],
-        "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
+        "vtu0_file": fenics_results["poisson_p0_000000_vtu"]
     },
     filenames={"xdmf_file": "poisson.xdmf", 
                 "h5_file": "poisson.h5",
@@ -116,7 +116,7 @@ paper, paper_node = launch_shell_job(
     nodes={
         "texfile": "../source/paper.tex",
         "macros": macros["macros_tex"],
-        "csvfile": paraview_results["plotoverline_csv"],
+        "csvfile": postprocessing_results["plotoverline_csv"],
     },
     filenames={
         "texfile": "paper.tex",
