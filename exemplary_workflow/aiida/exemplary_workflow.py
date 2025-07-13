@@ -34,7 +34,7 @@ fenics_results, fenics_node = launch_shell_job(
     arguments=[
         "{script}",
         "--mesh",
-        "{mesh_xdmf}",  # <-- change placeholder here
+        "{mesh_xdmf}",  
         "--degree",
         "2",
         "--outputfile",
@@ -42,10 +42,10 @@ fenics_results, fenics_node = launch_shell_job(
     ],
     nodes={
         "script": "../source/poisson.py",
-        "mesh_xdmf": meshio_results["mesh_xdmf"],  # <-- ensure this key exists
+        "mesh_xdmf": meshio_results["mesh_xdmf"],  
         "mesh_h5": meshio_results["mesh_h5"],
     },
-    filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  # <-- update key here
+    filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
     outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
@@ -55,10 +55,10 @@ postprocessing_results, postprocessing_node = launch_shell_job(
     arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
     nodes={
         "script": "../source/postprocessing.py",
-        "xdmf_file": fenics_results["poisson_xdmf"],
-        "pvd_file": fenics_results["poisson_h5"],
-        "vtu_file": fenics_results["poisson_vtu"],
-        "vtu0_file": fenics_results["poisson_p0_000000_vtu"]
+        "xdmf_file": fenics_results.get("poisson_xdmf"),
+        "pvd_file": fenics_results.get("poisson_h5"),
+        "vtu_file": fenics_results.get("poisson_vtu"),
+        "vtu0_file": fenics_results.get("poisson_p0_000000_vtu")
     },
     filenames={"xdmf_file": "poisson.xdmf", 
                 "h5_file": "poisson.h5",
@@ -101,7 +101,7 @@ macros, macros_node = launch_shell_job(
     nodes={
         "script": "../source/prepare_paper_macros.py",
         "template": "../source/macros.tex.template",
-        "csvfile": paraview_results["plotoverline_csv"],
+        "csvfile": postprocessing_results["plotoverline_csv"],  # <-- fix here
         "domain_size": get_domain_size(gmsh_results["stdout"]),
         "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },

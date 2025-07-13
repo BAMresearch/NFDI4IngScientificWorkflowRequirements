@@ -50,16 +50,20 @@ poisson = pr.wrap_executable(
     delayed=True,
     collect_output_funct=collect_output,
     output_key_lst=["numdofs"],
-    output_file_lst=["poisson.pvd", "poisson000000.vtu"],
+    output_file_lst=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
 
 # Postprocessing
 ## plot over line
-pvbatch = pr.wrap_executable(
-    executable_str="pvbatch postprocessing.py poisson.pvd plotoverline.csv",
+postprocessing = pr.wrap_executable(
+    executable_str="python postprocessing.py poisson_p0_000000.vtu plotoverline.csv",
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["../source/postprocessing.py", poisson.files.poisson_pvd, poisson.files.poisson000000_vtu],
+    input_file_lst=["../source/postprocessing.py", 
+                    poisson.files.poisson_xdmf, 
+                    poisson.files.poisson_h5,
+                    poisson.files.poisson_vtu, 
+                    poisson.files.poisson_p0_000000_vtu],
     delayed=True,
     output_file_lst=["plotoverline.csv"],
 )
@@ -76,7 +80,7 @@ macros = pr.wrap_executable(
     write_input_funct=write_input,
     executable_str="./macros.sh",
     conda_environment_path=pr.conda_environment.postprocessing,
-    input_file_lst=["../source/macros.tex.template", "../source/prepare_paper_macros.py", pvbatch.files.plotoverline_csv],
+    input_file_lst=["../source/macros.tex.template", "../source/prepare_paper_macros.py", postprocessing.files.plotoverline_csv],
     delayed=True,
     output_file_lst=["macros.tex"],
 )
