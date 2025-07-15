@@ -242,40 +242,40 @@ jobs:
         retention-days: 1
         if-no-files-found: error
 
-  run-gwl:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Install Guix
-      id: install-guix
-      uses: PromyLOPh/guix-install-action@v1
-      with:
-        channels: |-
-          (list (channel
-                  (name 'guix)
-                  (url "https://git.savannah.gnu.org/git/guix.git")
-                  (branch "master")
-                  (commit
-                    "8e54584d4448d37ddf8ae995bb545a181ba2493c")))
-
-    - name: Install Guix Workflow Language
-      run: |
-        guix install gwl
-        echo "GUIX_EXTENSIONS_PATH=$HOME/.guix-profile/share/guix/extensions" >> $GITHUB_ENV
-
-    - name: checkout-repository
-      uses: actions/checkout@v2
-
-    - name: run-workflow
-      run: |
-        cd exemplary_workflow/gwl
-        guix workflow run workflow.w
-
-    - name: upload-paper-artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: paper
-        path: exemplary_workflow/gwl/paper.pdf
+  #  run-gwl:
+  #    runs-on: ubuntu-latest
+  #
+  #    steps:
+  #    - name: Install Guix
+  #      id: install-guix
+  #      uses: PromyLOPh/guix-install-action@v1
+  #      with:
+  #        channels: |-
+  #          (list (channel
+  #                  (name 'guix)
+  #                  (url "https://git.savannah.gnu.org/git/guix.git")
+  #                  (branch "master")
+  #                  (commit
+  #                    "8e54584d4448d37ddf8ae995bb545a181ba2493c")))
+  #
+  #    - name: Install Guix Workflow Language
+  #      run: |
+  #        guix install gwl
+  #        echo "GUIX_EXTENSIONS_PATH=$HOME/.guix-profile/share/guix/extensions" >> $GITHUB_ENV
+  #
+  #    - name: checkout-repository
+  #      uses: actions/checkout@v2
+  #
+  #    - name: run-workflow
+  #      run: |
+  #        cd exemplary_workflow/gwl
+  #        guix workflow run workflow.w
+  #
+  #    - name: upload-paper-artifact
+  #      uses: actions/upload-artifact@v4
+  #      with:
+  #        name: paper
+  #        path: exemplary_workflow/gwl/paper.pdf
 
   run-pyiron:
     runs-on: ubuntu-latest
