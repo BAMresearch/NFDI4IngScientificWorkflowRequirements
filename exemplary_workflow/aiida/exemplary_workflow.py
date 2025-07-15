@@ -46,8 +46,7 @@ fenics_results, fenics_node = launch_shell_job(
         "mesh_h5": meshio_results["mesh_h5"]
     },
     filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
-    outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
-    verbose=True 
+    outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
 )
 
 # Check fenics outputs before postprocessing
