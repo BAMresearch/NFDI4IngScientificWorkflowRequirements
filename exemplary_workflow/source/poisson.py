@@ -106,29 +106,37 @@ def solve_and_write_output(
     mesh_degree = getattr(V.mesh.geometry, "degree", 1)
 
     # Write VTK output
-    with dolfinx.io.VTKFile(MPI.COMM_WORLD, vtk_filename, "w") as vtk:
-        if mesh_degree != degree:
-            # Interpolate uh to a function space matching the mesh degree
-            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
-            uh1 = fem.Function(V1)
-            uh1.interpolate(uh)
-            uh1.name = "u"
-            vtk.write_function(uh1)
-        else:
-            vtk.write_function(uh)
-    
-    with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
-        xdmf.write_mesh(V.mesh)
-        
-        if mesh_degree != degree:
-            # Interpolate uh to a function space matching the mesh degree
-            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
-            uh1 = fem.Function(V1)
-            uh1.interpolate(uh)
-            uh1.name = "u"
-            xdmf.write_function(uh1)
-        else:
-            xdmf.write_function(uh)
+    try:
+        with dolfinx.io.VTKFile(MPI.COMM_WORLD, vtk_filename, "w") as vtk:
+            if mesh_degree != degree:
+                # Interpolate uh to a function space matching the mesh degree
+                V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
+                uh1 = fem.Function(V1)
+                uh1.interpolate(uh)
+                uh1.name = "u"
+                vtk.write_function(uh1)
+            else:
+                vtk.write_function(uh)
+    except Exception as e:
+        print(f"Error writing vtk files: {e}", file=sys.stderr)
+        sys.stderr.flush()
+
+    try        
+        with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
+            xdmf.write_mesh(V.mesh)
+            
+            if mesh_degree != degree:
+                # Interpolate uh to a function space matching the mesh degree
+                V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
+                uh1 = fem.Function(V1)
+                uh1.interpolate(uh)
+                uh1.name = "u"
+                xdmf.write_function(uh1)
+            else:
+                xdmf.write_function(uh)
+    except Exception as e:
+        print(f"Error writing xdmf/h5 files: {e}", file=sys.stderr)
+        sys.stderr.flush()
        
     # sleep for 10 seconds to ensure all files are written
     import time
