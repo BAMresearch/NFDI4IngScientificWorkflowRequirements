@@ -232,7 +232,7 @@ jobs:
       working-directory: exemplary_workflow/aiida
       shell: bash -l {0}
       run:
-        ./exemplary_workflow.py
+        verdi run exemplary_workflow.py -vv
 
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v4
