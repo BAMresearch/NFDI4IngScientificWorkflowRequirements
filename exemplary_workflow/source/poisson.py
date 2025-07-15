@@ -129,15 +129,15 @@ def solve_and_write_output(
             vtk.write_function(uh1)
         else:
             vtk.write_function(uh)
-            
-    # sleep for 5 seconds to ensure all files are written
+
+    # sleep for 10 seconds to ensure all files are written
+    import time
+    time.sleep(10)  # Wait for 5 seconds to ensure all files are written 
     import os
     for subdir, dirs, files in os.walk('./'):
         for file in files:
             print(os.path.join(subdir, file))
             sys.stdout.flush()  
-    import time
-    time.sleep(5)  # Wait for 5 seconds to ensure all files are written 
 
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
