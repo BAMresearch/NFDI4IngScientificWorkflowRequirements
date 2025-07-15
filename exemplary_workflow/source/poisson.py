@@ -12,6 +12,7 @@ import dolfinx.mesh as mesh
 import ufl
 from mpi4py import MPI
 from petsc4py import PETSc
+import sys
 
 
 def boundary_expression():
@@ -86,6 +87,7 @@ def solve_and_write_output(
     V = uh.function_space
     dofs = V.dofmap.index_map.size_global * V.dofmap.index_map_bs
     print(f"Number of dofs used: {dofs}")
+    sys.stdout.flush()
 
     # Set the solution field name to "u"
     uh.name = "u"
@@ -132,6 +134,7 @@ def solve_and_write_output(
     for subdir, dirs, files in os.walk('./'):
         for file in files:
             print(os.path.join(subdir, file))
+            sys.stdout.flush()
 
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
