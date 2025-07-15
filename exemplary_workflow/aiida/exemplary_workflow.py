@@ -57,8 +57,12 @@ if missing:
 
 # ### postprocessing of the fenics job
 postprocessing_results, postprocessing_node = launch_shell_job(
-    "python",
-    arguments=["{script}", "{vtu0file}", "plotoverline.csv"],
+    "bash",
+    arguments=[
+        "-c",  # Execute command
+        "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf && sync"
+        # ^^^ The sync command flushes all filesystem buffers
+    ],
     nodes={
         "script": "../source/postprocessing.py",
         "xdmf_file": fenics_results["poisson_xdmf"],
@@ -72,7 +76,6 @@ postprocessing_results, postprocessing_node = launch_shell_job(
                 "vtu0_file": "poisson_p0_000000.vtu"},
     outputs=["plotoverline.csv"],
 )
-
 
 @calcfunction
 def get_domain_size(gmsh_stdout):
