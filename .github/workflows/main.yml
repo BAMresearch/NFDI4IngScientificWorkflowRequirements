@@ -138,37 +138,37 @@ jobs:
           retention-days: 7
           if-no-files-found: error
 
-  run-kadistudio:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: checkout-repository
-        uses: actions/checkout@v2
-
-      - name: install-basic-deps
-        uses: ./.github/actions/install-basic-deps
-
-      - name: setup-conda-environment
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          environment-file: exemplary_workflow/source/envs/default_env.yaml
-          miniforge-version: latest
-          activate-environment: default_env
-
-      - name: run-workflow
-        shell: bash -l -i {0}
-        run: |
-          bash $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/install_components.sh
-          mkdir $GITHUB_WORKSPACE/run
-          process_engine run $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/exemplary_workflow.flow -p $GITHUB_WORKSPACE/run
-
-      - name: upload-paper-artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: paper
-          path: ./exemplary_workflow/kadistudio/paper.pdf
-          retention-days: 1
-          if-no-files-found: error
+#  run-kadistudio:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: checkout-repository
+#        uses: actions/checkout@v2
+#
+#      - name: install-basic-deps
+#        uses: ./.github/actions/install-basic-deps
+#
+#      - name: setup-conda-environment
+#        uses: conda-incubator/setup-miniconda@v2
+#        with:
+#          environment-file: exemplary_workflow/source/envs/default_env.yaml
+#          miniforge-version: latest
+#          activate-environment: default_env
+#
+#      - name: run-workflow
+#        shell: bash -l -i {0}
+#        run: |
+#          bash $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/install_components.sh
+#          mkdir $GITHUB_WORKSPACE/run
+#          process_engine run $GITHUB_WORKSPACE/exemplary_workflow/kadistudio/exemplary_workflow.flow -p $GITHUB_WORKSPACE/run
+#
+#      - name: upload-paper-artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: paper
+#          path: ./exemplary_workflow/kadistudio/paper.pdf
+#          retention-days: 1
+#          if-no-files-found: error
 
   run-aiida:
     runs-on: ubuntu-latest
