@@ -60,7 +60,7 @@ postprocessing_results, postprocessing_node = launch_shell_job(
     "bash",
     arguments=[
         "-c",  # Execute command
-        "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf && sync"
+        "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf && sleep 5"
         # ^^^ The sync command flushes all filesystem buffers
     ],
     nodes={
