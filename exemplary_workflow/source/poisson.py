@@ -137,15 +137,9 @@ def solve_and_write_output(
     except Exception as e:
         print(f"Error writing xdmf/h5 files: {e}", file=sys.stderr)
         sys.stderr.flush()
-       
-    # sleep for 10 seconds to ensure all files are written
+    #sleep for 10 seconds to ensure all files are written
     import time
-    time.sleep(10)  # Wait for 10 seconds to ensure all files are written 
-    import os
-    for subdir, dirs, files in os.walk('./'):
-        for file in files:
-            print(os.path.join(subdir, file))
-            sys.stdout.flush()  
+    time.sleep(10)    
 
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
