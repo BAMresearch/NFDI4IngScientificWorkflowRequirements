@@ -129,8 +129,10 @@ def solve_and_write_output(
             vtk.write_function(uh1)
         else:
             vtk.write_function(uh)
-    import time
-    time.sleep(5)
+    
+    # Ensure all data is written to disk before exiting such that when collecting output in the worfklow, the files are available
+    import os
+    os.sync()
 
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:

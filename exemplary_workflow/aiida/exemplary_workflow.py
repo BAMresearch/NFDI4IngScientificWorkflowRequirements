@@ -46,11 +46,11 @@ fenics_results, fenics_node = launch_shell_job(
         "mesh_h5": meshio_results["mesh_h5"]
     },
     filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
-    outputs=["poisson.xdmf", "poisson.h5"],  # <-- only list files actually produced
+    outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"],
 )
 
 # Check fenics outputs before postprocessing
-required_keys = ["poisson_xdmf", "poisson_h5"]  # <-- only check for files that exist
+required_keys = ["poisson_xdmf", "poisson_h5", "poisson_vtu", "poisson_p0_000000_vtu"]
 missing = [k for k in required_keys if fenics_results.get(k) is None]
 if missing:
     raise RuntimeError(f"Missing fenics output(s): {', '.join(missing)}")
@@ -58,16 +58,18 @@ if missing:
 # ### postprocessing of the fenics job
 postprocessing_results, postprocessing_node = launch_shell_job(
     "python",
-    arguments=["{script}", "{pvdfile}", "plotoverline.csv"],
+    arguments=["{script}", "{vtu0file}", "plotoverline.csv"],
     nodes={
         "script": "../source/postprocessing.py",
         "xdmf_file": fenics_results["poisson_xdmf"],
         "pvd_file": fenics_results["poisson_h5"],
-        # "vtu_file": fenics_results["poisson_vtu"],  # <-- remove if not produced
-        # "vtu0_file": fenics_results["poisson_p0_000000_vtu"]  # <-- remove if not produced
+        "vtu_file": fenics_results["poisson_vtu"],
+        "vtu0_file": fenics_results["poisson_p0_000000_vtu"]
     },
     filenames={"xdmf_file": "poisson.xdmf", 
-                "h5_file": "poisson.h5"},
+                "h5_file": "poisson.h5",
+                "vtufile": "poisson.vtu",
+                "vtu0_file": "poisson_p0_000000.vtu"},
     outputs=["plotoverline.csv"],
 )
 
@@ -132,7 +134,5 @@ paper, paper_node = launch_shell_job(
 
 # ### extract final PDF from database
 with open("paper.pdf", "wb") as handle:
-    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
-    handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
     handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
     handle.write(paper["paper_pdf"].get_object_content(path="./paper.pdf", mode="rb"))
