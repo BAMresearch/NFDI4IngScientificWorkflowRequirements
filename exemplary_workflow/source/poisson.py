@@ -121,7 +121,7 @@ def solve_and_write_output(
         print(f"Error writing vtk files: {e}", file=sys.stderr)
         sys.stderr.flush()
 
-    try        
+    try:        
         with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
             xdmf.write_mesh(V.mesh)
             
