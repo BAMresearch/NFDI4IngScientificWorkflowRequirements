@@ -304,7 +304,7 @@ jobs:
       - name: upload-paper-artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper
+          name: paper_pyiron
           path: ./exemplary_workflow/pyiron/paper.pdf
           retention-days: 1
           if-no-files-found: error

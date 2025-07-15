@@ -128,6 +128,11 @@ def solve_and_write_output(
         else:
             vtk.write_function(uh)
 
+    import os
+    for subdir, dirs, files in os.walk('./'):
+        for file in files:
+            print(os.path.join(subdir, file))
+
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
             handle.write("{}\n".format(dofs))
