@@ -104,6 +104,18 @@ def solve_and_write_output(
     
     # Get mesh geometry degree (fallback to 1 if not found)
     mesh_degree = getattr(V.mesh.geometry, "degree", 1)
+
+    # Write VTK output
+    with dolfinx.io.VTKFile(MPI.COMM_WORLD, vtk_filename, "w") as vtk:
+        if mesh_degree != degree:
+            # Interpolate uh to a function space matching the mesh degree
+            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
+            uh1 = fem.Function(V1)
+            uh1.interpolate(uh)
+            uh1.name = "u"
+            vtk.write_function(uh1)
+        else:
+            vtk.write_function(uh)
     
     with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
         xdmf.write_mesh(V.mesh)
@@ -117,22 +129,10 @@ def solve_and_write_output(
             xdmf.write_function(uh1)
         else:
             xdmf.write_function(uh)
-
-    # Write VTK output
-    with dolfinx.io.VTKFile(MPI.COMM_WORLD, vtk_filename, "w") as vtk:
-        if mesh_degree != degree:
-            # Interpolate uh to a function space matching the mesh degree
-            V1 = fem.functionspace(V.mesh, ("CG", mesh_degree))
-            uh1 = fem.Function(V1)
-            uh1.interpolate(uh)
-            uh1.name = "u"
-            vtk.write_function(uh1)
-        else:
-            vtk.write_function(uh)
-
+       
     # sleep for 10 seconds to ensure all files are written
     import time
-    time.sleep(10)  # Wait for 5 seconds to ensure all files are written 
+    time.sleep(10)  # Wait for 10 seconds to ensure all files are written 
     import os
     for subdir, dirs, files in os.walk('./'):
         for file in files:
