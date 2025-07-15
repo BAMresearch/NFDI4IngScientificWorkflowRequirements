@@ -139,7 +139,26 @@ def solve_and_write_output(
         sys.stderr.flush()
     #sleep for 10 seconds to ensure all files are written
     import time
-    time.sleep(10)    
+    time.sleep(10)
+
+    # Check that output files actually exist and are readable
+    import os
+    # Generate expected output filenames
+    required_files = [xdmf_filename, xdmf_filename.replace('.xdmf', '.h5'), vtk_filename]
+    missing_files = [f for f in required_files if not os.path.exists(f)]
+    
+    if missing_files:
+        raise RuntimeError(f"Missing output file(s): {', '.join(missing_files)}")
+    
+    # Try to open each file to verify they're readable
+    for file_path in required_files:
+        try:
+            with open(file_path, 'rb') as f:
+                # Just attempt to read a small part to verify file is accessible
+                f.read(10)
+        except Exception as e:
+            print(f"Warning: File {file_path} exists but cannot be read: {e}", file=sys.stderr)
+            sys.stderr.flush()
 
     if numdofs is not None and MPI.COMM_WORLD.rank == 0:
         with open(numdofs, "w") as handle:
