@@ -232,7 +232,7 @@ jobs:
       working-directory: exemplary_workflow/aiida
       shell: bash -l {0}
       run:
-        verdi run exemplary_workflow.py --verbosity debug
+        verdi run exemplary_workflow.py -v debug
 
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v4
