@@ -40,7 +40,7 @@ try:
                 # requiring to downgrade packages (such as numpy) which makes the fenics job fail
                 "mamba env update -n processing -f ../source/envs/processing.yaml && "
                 "source activate processing && "
-                "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
+                "python ../source/poisson.py --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
             )
         ],
         nodes={
