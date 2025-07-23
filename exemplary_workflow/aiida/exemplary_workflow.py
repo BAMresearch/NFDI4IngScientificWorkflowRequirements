@@ -38,9 +38,9 @@ try:
                 # Build the environment if it doesn't exist, then activate and run
                 # this is due to an incompatibility between dolfinx and aiida2.7, the latter
                 # requiring to downgrade packages (such as numpy) which makes the fenics job fail
-                "mamba env create -n processing -f ../source/envs/processing.yaml && "
+                "mamba env create -n processing -f processing.yaml && "
                 "source activate processing && "
-                "python ../source/poisson.py --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
+                "python poisson.py --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
             )
         ],
         nodes={
