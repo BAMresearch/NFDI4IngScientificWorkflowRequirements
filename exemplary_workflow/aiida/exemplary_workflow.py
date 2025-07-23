@@ -29,28 +29,39 @@ meshio_results, meshio_node = launch_shell_job(
 )
 
 # ### solution of the poisson problem with fenics
-fenics_results, fenics_node = launch_shell_job(
-    "python",
-    arguments=[
-        "{script}",
-        "--mesh",
-        "{mesh_xdmf}",  
-        "--degree",
-        "2",
-        "--outputfile",
-        "poisson.xdmf",
-    ],
-    nodes={
-        "script": "../source/poisson.py",
-        "mesh_xdmf": meshio_results["mesh_xdmf"],  
-        "mesh_h5": meshio_results["mesh_h5"]
-    },
-    filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
-    outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
-)
-
-print("=== FEniCS stdout ===")
-print(fenics_results["stdout"].get_content())
+try:
+    fenics_results, fenics_node = launch_shell_job(
+        "python",
+        arguments=[
+            "{script}",
+            "--mesh",
+            "{mesh_xdmf}",  
+            "--degree",
+            "2",
+            "--outputfile",
+            "poisson.xdmf",
+        ],
+        nodes={
+            "script": "../source/poisson.py",
+            "mesh_xdmf": meshio_results["mesh_xdmf"],  
+            "mesh_h5": meshio_results["mesh_h5"]
+        },
+        filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
+        outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
+    )
+    print("=== FEniCS stdout ===")
+    print(fenics_results["stdout"].get_content())
+    print("=== FEniCS stderr ===")
+    print(fenics_results["stderr"].get_content())
+except Exception as e:
+    # Try to print stdout/stderr if available in the exception
+    if 'fenics_results' in locals():
+        print("=== FEniCS stdout (on error) ===")
+        print(fenics_results.get("stdout", "No stdout").get_content() if fenics_results.get("stdout") else "No stdout")
+        print("=== FEniCS stderr (on error) ===")
+        print(fenics_results.get("stderr", "No stderr").get_content() if fenics_results.get("stderr") else "No stderr")
+    print(f"FEniCS job failed: {e}")
+    raise
 
 
 # Check fenics outputs before postprocessing
