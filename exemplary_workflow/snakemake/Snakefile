@@ -38,11 +38,11 @@ rule solvePoisson:
         py="../source/poisson.py",
         xdmf=rules.convert_to_xdmf.output,
     output:
-        xdmf="processing/poisson.xdmf",
-        h5="processing/poisson.h5",
-        vtu="processing/poisson.vtu",
-        vtu0="processing/poisson_p0_000000.vtu",
-        txt="processing/numdofs.txt",
+        xdmf="solvePoisson/poisson.xdmf",
+        h5="solvePoisson/poisson.h5",
+        vtu="solvePoisson/poisson.vtu",
+        vtu0="solvePoisson/poisson_p0_000000.vtu",
+        txt="solvePoisson/numdofs.txt",
     conda:
         "../source/envs/processing.yaml"
     log:

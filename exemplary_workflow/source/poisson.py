@@ -123,6 +123,9 @@ def solve_and_write_output(
 
     try:        
         with dolfinx.io.XDMFFile(MPI.COMM_WORLD, xdmf_filename, "w") as xdmf:
+            import os
+            print("xdmf_filename", xdmf_filename)
+            print(f"Opened XDMF file for writing at: {os.path.abspath(xdmf_filename)}")
             xdmf.write_mesh(V.mesh)
             
             if mesh_degree != degree:
@@ -144,7 +147,13 @@ def solve_and_write_output(
    # Check that output files actually exist and are readable
     import os
     # Generate expected output filenames
-    required_files = ["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
+    outdir = os.path.dirname(outputfile)
+    required_files = [
+        os.path.join(outdir, "poisson.xdmf"),
+        os.path.join(outdir, "poisson.h5"),
+        os.path.join(outdir, "poisson.vtu"),
+        os.path.join(outdir, "poisson_p0_000000.vtu")]
+    
     missing_files = [f for f in required_files if not os.path.exists(f)]
     
     if missing_files:
