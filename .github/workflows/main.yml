@@ -123,7 +123,7 @@ jobs:
       - name: setup-conda-environment
         uses: conda-incubator/setup-miniconda@v3
         with:
-          python-version: "3.12"          
+          python-version: "3.11"          
           auto-update-conda: true
           conda-remove-defaults: true
           channel-priority: strict
@@ -131,7 +131,7 @@ jobs:
       - name: run-workflow
         shell: bash -l {0}
         run: |
-          conda install --override-channels -c bioconda -c conda-forge snakemake
+          conda install --override-channels -c bioconda -c conda-forge snakemake snakemake-minimal
           cd $GITHUB_WORKSPACE/exemplary_workflow/snakemake
           snakemake --cores 1 --use-conda --conda-frontend conda ./paper.pdf
       - name: upload-paper-artifact
