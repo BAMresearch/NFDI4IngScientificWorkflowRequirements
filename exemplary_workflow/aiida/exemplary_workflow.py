@@ -31,15 +31,15 @@ meshio_results, meshio_node = launch_shell_job(
 # ### solution of the poisson problem with fenics
 try:
     fenics_results, fenics_node = launch_shell_job(
-        "python",
+        "bash",
         arguments=[
-            "{script}",
-            "--mesh",
-            "{mesh_xdmf}",  
-            "--degree",
-            "2",
-            "--outputfile",
-            "poisson.xdmf",
+            "-c",
+            (
+                # Build the environment if it doesn't exist, then activate and run
+                "mamba env update -n processing -f ../source/envs/processing.yaml && "
+                "source activate processing && "
+                "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
+            )
         ],
         nodes={
             "script": "../source/poisson.py",
