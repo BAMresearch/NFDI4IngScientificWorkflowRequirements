@@ -234,6 +234,11 @@ jobs:
       run:
         verdi run -v debug exemplary_workflow.py
 
+    - name: List AiiDA working directories
+      run: |
+        find $HOME/.aiida -type d -name 'raw_input' -exec ls -l {} \;
+        find $HOME/.aiida -type d -name 'raw_output' -exec ls -l {} \;
+
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v4
       with:

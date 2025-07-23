@@ -49,6 +49,10 @@ fenics_results, fenics_node = launch_shell_job(
     outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
 )
 
+print("=== FEniCS stdout ===")
+print(fenics_results["stdout"].get_content())
+
+
 # Check fenics outputs before postprocessing
 required_keys = ["poisson_xdmf", "poisson_h5", "poisson_vtu", "poisson_p0_000000_vtu"]
 missing = [k for k in required_keys if fenics_results.get(k) is None]

@@ -137,14 +137,14 @@ def solve_and_write_output(
     except Exception as e:
         print(f"Error writing xdmf/h5 files: {e}", file=sys.stderr)
         sys.stderr.flush()
-    #sleep for 10 seconds to ensure all files are written
-    import time
-    time.sleep(10)
 
-    # Check that output files actually exist and are readable
+    import os
+    print("Current working directory:", os.getcwd())
+
+   # Check that output files actually exist and are readable
     import os
     # Generate expected output filenames
-    required_files = [xdmf_filename, xdmf_filename.replace('.xdmf', '.h5'), vtk_filename]
+    required_files = ["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
     missing_files = [f for f in required_files if not os.path.exists(f)]
     
     if missing_files:
