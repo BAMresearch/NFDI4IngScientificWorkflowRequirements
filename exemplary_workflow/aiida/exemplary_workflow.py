@@ -49,7 +49,7 @@ try:
             "mesh_xdmf": meshio_results["mesh_xdmf"],  
             "mesh_h5": meshio_results["mesh_h5"]
         },
-        filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5"},  
+        filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5", "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
     )
     print("=== FEniCS stdout ===")
