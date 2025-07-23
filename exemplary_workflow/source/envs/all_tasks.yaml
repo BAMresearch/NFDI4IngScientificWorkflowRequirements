@@ -16,3 +16,5 @@ dependencies:
   - snakemake
   - cwltool
   - nodejs
+  - aiida-core=2.7.0
+  - aiida-shell=0.8.1
