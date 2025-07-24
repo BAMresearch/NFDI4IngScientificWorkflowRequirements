@@ -75,7 +75,7 @@ postprocessing_results, postprocessing_node = launch_shell_job(
     arguments=[
         "{script} ",  # Execute command
         "{vtu0_file} ",  # Input VTU file
-        "{plotoverline_csv} " # Output CSV file
+        "plotoverline.csv" # Output CSV file
     ],
     nodes={
         "script": "../source/postprocessing.py",
@@ -83,14 +83,12 @@ postprocessing_results, postprocessing_node = launch_shell_job(
         "pvd_file": fenics_results["poisson_h5"],
         "vtu_file": fenics_results["poisson_vtu"],
         "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
-        "csvfile": "plotoverline.csv"  # Output CSV file
     },
     filenames={"script": "../source/postprocessing.py",
         "xdmf_file": "poisson.xdmf",
         "h5_file": "poisson.h5",
         "vtufile": "poisson.vtu",
         "vtu0_file": "poisson_p0_000000.vtu",
-        "csvfile": "plotoverline.csv"  # Output CSV file
     },
     outputs=["plotoverline.csv"],
 )
