@@ -35,6 +35,7 @@ meshio_results, meshio_node = launch_shell_job(
 
 # ### solution of the poisson problem with fenics
 try:
+    fenics_results, fenics_node = launch_shell_job(
         # Build the environment if it doesn't exist, then activate and run
         # this is due to an incompatibility between dolfinx and aiida2.7, the latter
         # requiring to downgrade packages (such as numpy) which makes the fenics job fail
@@ -62,6 +63,7 @@ try:
                    "mesh_h5": "mesh.h5", 
                    "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
+    )
 except Exception as e:
     # Try to print stdout/stderr if available in the exception
     if 'fenics_results' in locals():
