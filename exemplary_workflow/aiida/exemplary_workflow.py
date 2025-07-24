@@ -85,7 +85,7 @@ try:
             "vtu_file": fenics_results["poisson_vtu"],
             "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
         },
-        filenames={"script": "../source/postprocessing.py",
+        filenames={"script": "postprocessing.py",
             "xdmf_file": "poisson.xdmf",
             "h5_file": "poisson.h5",
             "vtu_file": "poisson.vtu",
