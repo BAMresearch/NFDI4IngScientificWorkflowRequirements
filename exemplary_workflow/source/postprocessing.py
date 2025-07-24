@@ -91,6 +91,7 @@ def main(args):
     data_array = np.column_stack([arc_length, field_data])
     
     np.savetxt(args.csv, data_array, delimiter=',', header=','.join(header), comments='')
+    print(f"Data successfully written to {args.csv}")
 
 
 if __name__ == "__main__":
