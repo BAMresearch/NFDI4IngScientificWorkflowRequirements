@@ -247,7 +247,7 @@ jobs:
     - name: upload-paper-artifact
       uses: actions/upload-artifact@v4
       with:
-        name: paper
+        name: paper_aiida
         path: ./exemplary_workflow/aiida/paper.pdf
         retention-days: 1
         if-no-files-found: error
