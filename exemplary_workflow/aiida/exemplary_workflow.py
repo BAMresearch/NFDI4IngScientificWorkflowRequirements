@@ -35,25 +35,21 @@ meshio_results, meshio_node = launch_shell_job(
 
 # ### solution of the poisson problem with fenics
 try:
-    fenics_results, fenics_node = launch_shell_job(
+        # Build the environment if it doesn't exist, then activate and run
+        # this is due to an incompatibility between dolfinx and aiida2.7, the latter
+        # requiring to downgrade packages (such as numpy) which makes the fenics job fail
+        # and aiida runs the shell job in the global environment    fenics_results, fenics_node = launch_shell_job(
         "bash",
         arguments=[
             "-c",
-            (
-                # Build the environment if it doesn't exist, then activate and run
-                # this is due to an incompatibility between dolfinx and aiida2.7, the latter
-                # requiring to downgrade packages (such as numpy) which makes the fenics job fail
-                # and aiida runs the shell job in the global environment
-                "mamba env create -n processing -f "
-                "{conda} && "
-                "source activate processing && "
-                "python "
-                "{script} "
-                "--mesh "
-                "{mesh_xdmf} "
-                "--degree 2 "
-                "--outputfile poisson.xdmf"
-            )    
+            "mamba env create -n processing -f {conda} &&",
+            "source activate processing &&",
+            "python",
+            "{script}",
+            "--mesh ",
+            "{mesh_xdmf}",
+            "--degree 2",
+            "--outputfile poisson.xdmf",
         ],
         nodes={
             "script": "../source/poisson.py",
