@@ -70,28 +70,37 @@ if missing:
     raise RuntimeError(f"Missing fenics output(s): {', '.join(missing)}")
 
 # ### postprocessing of the fenics job
-postprocessing_results, postprocessing_node = launch_shell_job(
-    "python",
-    arguments=[
-        "{script} ",  # Execute command
-        "{vtu0_file} ",  # Input VTU file
-        "plotoverline.csv" # Output CSV file
-    ],
-    nodes={
-        "script": "../source/postprocessing.py",
-        "xdmf_file": fenics_results["poisson_xdmf"],
-        "pvd_file": fenics_results["poisson_h5"],
-        "vtu_file": fenics_results["poisson_vtu"],
-        "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
-    },
-    filenames={"script": "../source/postprocessing.py",
-        "xdmf_file": "poisson.xdmf",
-        "h5_file": "poisson.h5",
-        "vtufile": "poisson.vtu",
-        "vtu0_file": "poisson_p0_000000.vtu",
-    },
-    outputs=["plotoverline.csv"],
-)
+try:
+    postprocessing_results, postprocessing_node = launch_shell_job(
+        "python",
+        arguments=[
+            "{script} ",  # Execute command
+            "{vtu0_file} ",  # Input VTU file
+            "plotoverline.csv" # Output CSV file
+        ],
+        nodes={
+            "script": "../source/postprocessing.py",
+            "xdmf_file": fenics_results["poisson_xdmf"],
+            "pvd_file": fenics_results["poisson_h5"],
+            "vtu_file": fenics_results["poisson_vtu"],
+            "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
+        },
+        filenames={"script": "../source/postprocessing.py",
+            "xdmf_file": "poisson.xdmf",
+            "h5_file": "poisson.h5",
+            "vtufile": "poisson.vtu",
+            "vtu0_file": "poisson_p0_000000.vtu",
+        },
+        outputs=["plotoverline.csv"],
+    )
+except Exception as e:
+    if 'postprocessing_results' in locals():
+        print("=== Postprocessing stdout (on error) ===")
+        print(postprocessing_results.get("stdout", "No stdout").get_content() if postprocessing_results.get("stdout") else "No stdout")
+        print("=== Postprocessing stderr (on error) ===")
+        print(postprocessing_results.get("stderr", "No stderr").get_content() if postprocessing_results.get("stderr") else "No stderr")
+    print(f"Postprocessing job failed: {e}")
+    raise
 
 @calcfunction
 def get_domain_size(gmsh_stdout):
