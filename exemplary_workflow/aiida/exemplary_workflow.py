@@ -88,7 +88,7 @@ try:
         filenames={"script": "../source/postprocessing.py",
             "xdmf_file": "poisson.xdmf",
             "h5_file": "poisson.h5",
-            "vtufile": "poisson.vtu",
+            "vtu_file": "poisson.vtu",
             "vtu0_file": "poisson_p0_000000.vtu",
         },
         outputs=["plotoverline.csv"],
