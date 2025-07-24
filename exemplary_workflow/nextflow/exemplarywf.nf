@@ -3,7 +3,7 @@
 nextflow.enable.dsl=2
 
 workflow {
-    params.domainSize = 1.0
+    params.domainSize = 2.0
 
     Channel
         .fromPath("$PWD/../source/unit_square.geo")
