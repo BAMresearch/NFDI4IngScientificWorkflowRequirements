@@ -2,6 +2,8 @@
 from aiida.engine import calcfunction
 from aiida.orm import Float, Int
 from aiida_shell import launch_shell_job
+import re
+
 
 # ### generate mesh with gmsh
 gmsh_results, gmsh_node = launch_shell_job(
