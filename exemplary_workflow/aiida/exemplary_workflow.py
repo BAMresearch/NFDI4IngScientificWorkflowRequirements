@@ -120,8 +120,11 @@ def get_domain_size(gmsh_stdout):
 @calcfunction
 def get_num_dofs(fenics_stdout):
     stdout = fenics_stdout.get_content()
-    ndofs = stdout.split("Number of dofs used:")[1]
-    return Int("".join(ndofs.split()))
+    match = re.search(r"Number of dofs used:\s*(\d+)", stdout)
+    if not match:
+        raise ValueError("Could not find 'Number of dofs used:' in FEniCS output.")
+    ndofs = int(match.group(1))
+    return Int(ndofs)
 
 
 # ### prepare latex macros
