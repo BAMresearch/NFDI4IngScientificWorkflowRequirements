@@ -52,10 +52,6 @@ try:
         filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5", "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
     )
-    print("=== FEniCS stdout ===")
-    print(fenics_results["stdout"].get_content())
-    print("=== FEniCS stderr ===")
-    print(fenics_results["stderr"].get_content())
 except Exception as e:
     # Try to print stdout/stderr if available in the exception
     if 'fenics_results' in locals():
@@ -75,11 +71,11 @@ if missing:
 
 # ### postprocessing of the fenics job
 postprocessing_results, postprocessing_node = launch_shell_job(
-    "bash",
+    "python",
     arguments=[
-        "-c",  # Execute command
-        "python {script} --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf && sleep 10"
-        # The sleep command is somehow required to ensure that the files are written before the next step
+        "{script} ",  # Execute command
+        "{vtu0_file} ",  # Input VTU file
+        "{plotoverline_csv} " # Output CSV file
     ],
     nodes={
         "script": "../source/postprocessing.py",
@@ -88,10 +84,12 @@ postprocessing_results, postprocessing_node = launch_shell_job(
         "vtu_file": fenics_results["poisson_vtu"],
         "vtu0_file": fenics_results["poisson_p0_000000_vtu"]
     },
-    filenames={"xdmf_file": "poisson.xdmf", 
-                "h5_file": "poisson.h5",
-                "vtufile": "poisson.vtu",
-                "vtu0_file": "poisson_p0_000000.vtu"},
+    filenames={"script": "../source/postprocessing.py",
+        "xdmf_file": "poisson.xdmf",
+        "h5_file": "poisson.h5",
+        "vtufile": "poisson.vtu",
+        "vtu0_file": "poisson_p0_000000.vtu"
+    },
     outputs=["plotoverline.csv"],
 )
 
@@ -132,7 +130,11 @@ macros, macros_node = launch_shell_job(
         "domain_size": get_domain_size(gmsh_results["stdout"]),
         "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },
-    filenames={"csvfile": "plotoverline.csv"},
+    filenames={
+        "script": "../source/prepare_paper_macros.py",
+        "template": "../source/macros.tex.template",
+        "csvfile": "plotoverline.csv"
+    },
     outputs=["macros.tex"],
 )
 
