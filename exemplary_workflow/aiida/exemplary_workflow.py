@@ -135,7 +135,7 @@ macros, macros_node = launch_shell_job(
     nodes={
         "script": "../source/prepare_paper_macros.py",
         "template": "../source/macros.tex.template",
-        "csvfile": postprocessing_results["csvfile"],
+        "csvfile": postprocessing_results["plotoverline_csv"],
         "domain_size": get_domain_size(gmsh_results["stdout"]),
         "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },
@@ -154,7 +154,7 @@ paper, paper_node = launch_shell_job(
     nodes={
         "texfile": "../source/paper.tex",
         "macros": macros["macros_tex"],
-        "csvfile": postprocessing_results["csvfile"],  
+        "csvfile": postprocessing_results["plotoverline_csv"],  
     },
     filenames={
         "texfile": "paper.tex",
