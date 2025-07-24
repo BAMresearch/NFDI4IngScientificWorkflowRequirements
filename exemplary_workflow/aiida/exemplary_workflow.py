@@ -93,6 +93,14 @@ try:
         },
         outputs=["plotoverline.csv"],
     )
+    # Check for output file immediately after job
+    if "plotoverline_csv" not in postprocessing_results:
+        print("=== Postprocessing stdout ===")
+        print(postprocessing_results.get("stdout", "No stdout").get_content() if postprocessing_results.get("stdout") else "No stdout")
+        print("=== Postprocessing stderr ===")
+        print(postprocessing_results.get("stderr", "No stderr").get_content() if postprocessing_results.get("stderr") else "No stderr")
+        raise RuntimeError("plotoverline.csv was not produced by postprocessing.py")
+
 except Exception as e:
     if 'postprocessing_results' in locals():
         print("=== Postprocessing stdout (on error) ===")
