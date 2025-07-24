@@ -153,8 +153,8 @@ macros, macros_node = launch_shell_job(
         "num_dofs": get_num_dofs(fenics_results["stdout"]),
     },
     filenames={
-        "script": "../source/prepare_paper_macros.py",
-        "template": "../source/macros.tex.template",
+        "script": "prepare_paper_macros.py",
+        "template": "macros.tex.template",
         "csvfile": "plotoverline.csv"
     },
     outputs=["macros.tex"],
