@@ -18,13 +18,16 @@ gmsh_results, gmsh_node = launch_shell_job(
         "mesh.msh",
     ],
     nodes={"geometry": "../source/unit_square.geo"},
+    filenames={"geometry": "unit_square.geo"},
     outputs=["mesh.msh"],
 )
 
 # ### convert mesh from msh to xdmf format
 meshio_results, meshio_node = launch_shell_job(
     "meshio",
-    arguments=["convert", "{mesh}", "mesh.xdmf"],
+    arguments=["convert", 
+               "{mesh}", 
+               "mesh.xdmf"],
     nodes={"mesh": gmsh_results["mesh_msh"]},
     filenames={"mesh": "mesh.msh"},
     outputs=["*.xdmf", "*.h5"],
@@ -40,6 +43,7 @@ try:
                 # Build the environment if it doesn't exist, then activate and run
                 # this is due to an incompatibility between dolfinx and aiida2.7, the latter
                 # requiring to downgrade packages (such as numpy) which makes the fenics job fail
+                # and aiida runs the shell job in the global environment
                 "mamba env create -n processing -f processing.yaml && "
                 "source activate processing && "
                 "python poisson.py --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
@@ -51,7 +55,10 @@ try:
             "mesh_xdmf": meshio_results["mesh_xdmf"],  
             "mesh_h5": meshio_results["mesh_h5"]
         },
-        filenames={"mesh_xdmf": "mesh.xdmf", "mesh_h5": "mesh.h5", "conda": "processing.yaml"},  
+        filenames={"script": "poisson.py",
+                   "mesh_xdmf": "mesh.xdmf", 
+                   "mesh_h5": "mesh.h5", 
+                   "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
     )
 except Exception as e:
@@ -87,7 +94,8 @@ try:
             "vtu_file": fenics_results["poisson_vtu"],
             "vtu0_file": fenics_results["poisson_p0_000000_vtu"],
         },
-        filenames={"script": "postprocessing.py",
+        filenames={
+            "script": "postprocessing.py",
             "xdmf_file": "poisson.xdmf",
             "h5_file": "poisson.h5",
             "vtu_file": "poisson.vtu",
