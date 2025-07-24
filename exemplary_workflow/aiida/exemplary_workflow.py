@@ -74,9 +74,9 @@ try:
     postprocessing_results, postprocessing_node = launch_shell_job(
         "python",
         arguments=[
-            "postprocessing.py ",  # Execute command
-            "{vtu0_file} ",  # Input VTU file
-            "plotoverline.csv" # Output CSV file
+            "{script}",      
+            "{vtu0_file}", 
+            "plotoverline.csv"
         ],
         nodes={
             "script": "../source/postprocessing.py",
