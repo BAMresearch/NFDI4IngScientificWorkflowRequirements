@@ -44,10 +44,16 @@ try:
                 # this is due to an incompatibility between dolfinx and aiida2.7, the latter
                 # requiring to downgrade packages (such as numpy) which makes the fenics job fail
                 # and aiida runs the shell job in the global environment
-                "mamba env create -n processing -f processing.yaml && "
+                "mamba env create -n processing -f "
+                "{conda} && "
                 "source activate processing && "
-                "python poisson.py --mesh {mesh_xdmf} --degree 2 --outputfile poisson.xdmf"
-            )
+                "python "
+                "{script} "
+                "--mesh "
+                "{mesh_xdmf} "
+                "--degree 2 "
+                "--outputfile poisson.xdmf"
+            )    
         ],
         nodes={
             "script": "../source/poisson.py",
