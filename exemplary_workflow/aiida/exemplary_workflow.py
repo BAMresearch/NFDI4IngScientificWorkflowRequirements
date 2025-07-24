@@ -62,7 +62,6 @@ try:
                    "mesh_h5": "mesh.h5", 
                    "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
-    )
 except Exception as e:
     # Try to print stdout/stderr if available in the exception
     if 'fenics_results' in locals():
