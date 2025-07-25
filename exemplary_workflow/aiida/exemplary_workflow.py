@@ -43,14 +43,11 @@ try:
         "bash",
         arguments=[
             "-c",
-            "mamba env create -n processing -f processing.yaml &&",
-            "source activate processing &&",
-            "python",
-            "poisson.py",
-            "--mesh ",
-            "{mesh_xdmf}",
-            "--degree 2",
-            "--outputfile poisson.xdmf",
+            (
+                "mamba env create -n processing -f processing.yaml &&"
+                "source activate processing &&"
+                "python poisson.py --mesh {mesh_xdmf}--degree 2 --outputfile poisson.xdmf"
+            )
         ],
         nodes={
             "script": "../source/poisson.py",
@@ -79,8 +76,6 @@ except Exception as e:
         print(fenics_results.get("stderr", "No stderr").get_content() if fenics_results.get("stderr") else "No stderr")
     print(f"FEniCS job failed: {e}")
     raise
-
-
 
 
 # ### postprocessing of the fenics job
