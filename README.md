@@ -57,6 +57,9 @@ existing implementations, please raise an issue and/or submit a pull request.
 We also encourage to start a new [discussion](https://github.com/BAMresearch/NFDI4IngScientificWorkflowRequirements/discussions)
 for general comments, questions and ideas you would like to share.
 
+## Links
+The project is used in other examples to define workflow examples, e.g. using a [General workflow definition](https://github.com/pythonworkflow/python-workflow-definition/tree/main?tab=readme-ov-file)
+
 ## Acknowledgements
 
 The authors would like to thank the Federal Government and the Heads of Government of the Länder, as well as the Joint Science Conference (GWK), for their funding and support within the framework of the NFDI4Ing consortium. Funded by the German Research Foundation (DFG) - project number 442146713.
