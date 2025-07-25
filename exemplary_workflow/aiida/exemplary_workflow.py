@@ -43,10 +43,10 @@ try:
         "bash",
         arguments=[
             "-c",
-            "mamba env create -n processing -f {conda} &&",
+            "mamba env create -n processing -f processing.yaml &&",
             "source activate processing &&",
             "python",
-            "{script}",
+            "poisson.py",
             "--mesh ",
             "{mesh_xdmf}",
             "--degree 2",
