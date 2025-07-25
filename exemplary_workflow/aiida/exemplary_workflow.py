@@ -64,7 +64,13 @@ try:
                    "conda": "processing.yaml"},  
         outputs=["poisson.xdmf", "poisson.h5", "poisson.vtu", "poisson_p0_000000.vtu"]
     )
-except Exception as e:
+    # Check fenics outputs before postprocessing
+    required_keys = ["poisson_xdmf", "poisson_h5", "poisson_vtu", "poisson_p0_000000_vtu"]
+    missing = [k for k in required_keys if fenics_results.get(k) is None]
+    if missing:
+        raise RuntimeError(f"Missing fenics output(s): {', '.join(missing)}")
+    
+except Exception as e: 
     # Try to print stdout/stderr if available in the exception
     if 'fenics_results' in locals():
         print("=== FEniCS stdout (on error) ===")
@@ -75,11 +81,7 @@ except Exception as e:
     raise
 
 
-# Check fenics outputs before postprocessing
-required_keys = ["poisson_xdmf", "poisson_h5", "poisson_vtu", "poisson_p0_000000_vtu"]
-missing = [k for k in required_keys if fenics_results.get(k) is None]
-if missing:
-    raise RuntimeError(f"Missing fenics output(s): {', '.join(missing)}")
+
 
 # ### postprocessing of the fenics job
 try:
